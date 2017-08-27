@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/item_revendedoras"
+        android:enabled="true"
+        android:icon="@drawable/ic_actionrevendedores"
+        android:title="Revendedoras"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/item_estatisticas"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_estatisticas"
+        android:title="Estatísticas"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/item_produtos"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_produtos"
+        android:title="Produtos"
+        app:showAsAction="ifRoom"
+
+        />
+    <item
+        android:id="@+id/item_perfil"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_perfil"
+        android:title="Perfil"
+        app:showAsAction="ifRoom" />
+</menu>

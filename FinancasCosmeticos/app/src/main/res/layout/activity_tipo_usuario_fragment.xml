@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.tecnoia.matheus.financascosmeticos.supervisor.fragments.TipoUsuarioFragment"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <ImageView
+        android:layout_marginTop="85dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/logo" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textSize="20dp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+        android:gravity="center_horizontal"/>
+
+
+    <LinearLayout
+        android:layout_marginTop="85dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonSupervisor"
+
+            android:textColor="@color/colorAccent"
+            android:layout_margin="8dp"
+            android:background="@drawable/button_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="1"
+            android:text="Supervisor/a"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/buttonRevendedor"
+            android:textColor="@color/colorAccent"
+            android:layout_margin="8dp"
+            android:background="@drawable/button_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Revendedor/a"
+            android:textAllCaps="false" />
+
+    </LinearLayout>
+
+</LinearLayout>

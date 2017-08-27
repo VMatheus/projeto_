@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">FinancasCosmeticos</string>
+    <string name="acessar">Acessar</string>
+    <string name="registrar">Registrar</string>
+    <string name="nome">Nome</string>
+    <string name="email">Email</string>
+    <string name="senha">Senha</string>
+    <string name="senha_invalida">Senha invalida!</string>
+    <string name="campo_vazio">Campo obrigatorio!</string>
+    <string name="email_invalido">Email invalido</string>
+    <string name="nome_invalido">Nome invalido</string>
+    <string name="criando_supervisor">Criando Supervisor</string>
+    <string name="aguarde">Aguarde...</string>
+    <string name="registrando">Registrando</string>
+    <string name="autenticando">Autenticando</string>
+    <string name="dados_invalidos">Dados Invalidos!</string>
+    <string name="novo_revendedor">     Novo Revendedor/a</string>
+    <string name="adicionar">Adicionar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="criando_conta">Criando conta</string>
+    <string name="usuario_senha_invalidos">Usuário ou senha inválidos.</string>
+    <string name="produto">Nome</string>
+    <string name="preco">Preço</string>
+
+    <string name="cat_0">-------------</string>
+    <string name="cat_1">Fragrâncias</string>
+    <string name="cat_2">Maquiagem</string>
+    <string name="cat_3">Pele</string>
+    <string name="cat_4">Corpo &amp; Sol</string>
+    <string name="cat_5">Outros</string>
+    <string name="gerenciar">Gerenciar</string>
+    <string name="vendas">Vendas</string>
+
+</resources>

@@ -22,13 +22,28 @@
     <string name="produto">Nome</string>
     <string name="preco">Preço</string>
 
-    <string name="cat_0">-------------</string>
+<!--    <string name="cat_0">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</string>
     <string name="cat_1">Fragrâncias</string>
     <string name="cat_2">Maquiagem</string>
     <string name="cat_3">Pele</string>
     <string name="cat_4">Corpo &amp; Sol</string>
-    <string name="cat_5">Outros</string>
+    <string name="cat_5">Outros</string>-->
     <string name="gerenciar">Gerenciar</string>
     <string name="vendas">Vendas</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="quantidade_estoque">Quantidade</string>
+
+
+    <string name="bs_header">Select image source</string>
+    <string name="bs_gallery">Select from gallery</string>
+    <string name="bs_camera">Select from camera</string>
+    <string name="bs_cancel">Cancel</string>
+    <string name="estoque">Estoque</string>
+    <string name="estat_sticas">Estatísticas</string>
+    <string name="revendedoras">Revendedoras</string>
+    <string name="quantidade_disponivel"> Disponível:</string>
+
 
 </resources>

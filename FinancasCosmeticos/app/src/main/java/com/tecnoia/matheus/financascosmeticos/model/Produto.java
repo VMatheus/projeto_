@@ -1,7 +1,6 @@
 package com.tecnoia.matheus.financascosmeticos.model;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
@@ -19,14 +18,16 @@ public class Produto {
     private String id;
     private String nome;
     private String preco;
+    private String quantidade;
 
     public Produto() {
     }
 
-    public Produto(String id, String nome, String preco) {
+    public Produto(String id, String nome, String preco, String quantidade) {
         this.id = id;
         this.nome = nome;
         this.preco = preco;
+        this.quantidade = quantidade;
     }
 
     public String getId() {
@@ -59,21 +60,31 @@ public class Produto {
 
             DatabaseReference reference = ConfiguracoesFirebase.getFirebase();
             reference.child(idSupervisor + "/" + ConstantsUtils.BANCO_PRODUTOS_ESTOQUE).child(String.valueOf(getId())).setValue(this);
-        }catch (Exception e){
-            Log.e(e +"", "Erro!");
+        } catch (Exception e) {
+            Log.e(e + "", "Erro!");
         }
     }
+
     @Exclude
-    public Map<String, Object> map(){
+    public Map<String, Object> map() {
         HashMap<String, Object> hashMapProduto = new HashMap<>();
         hashMapProduto.put("id", getId());
         hashMapProduto.put("nome", getNome());
         hashMapProduto.put("preco", getPreco());
+        hashMapProduto.put("quantidade", getQuantidade());
 
-        return  hashMapProduto;
+
+        return hashMapProduto;
 
 
     }
 
 
+    public String getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(String quantidade) {
+        this.quantidade = quantidade;
+    }
 }

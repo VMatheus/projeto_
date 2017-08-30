@@ -87,7 +87,9 @@ public class CadastrarRevendedor extends Fragment {
 
         initViews(rootview);
 
-
+        if (container != null) {
+            container.removeAllViews();
+        }
         return rootview;
 
     }

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomsheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="#F3F3F3"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/inbetween_space"
+    android:paddingLeft="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/inbetween_space"
+   >
+
+    <RelativeLayout
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bs_item_height"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:text="Opções"
+            android:textColor="#0A0909"
+            android:textSize="@dimen/bs_header_text" />
+
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_atualizar"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bs_item_height"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/bs_icon_size"
+            android:layout_height="@dimen/bs_icon_size"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:src="@drawable/ic_action_update" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:text="Atualizar"
+            android:textColor="@color/bs_text_color"
+            android:textSize="@dimen/bs_item_text" />
+
+    </LinearLayout>
+
+
+
+
+
+    <LinearLayout
+        android:id="@+id/linear_remover"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bs_item_height"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/bs_icon_size"
+            android:layout_height="@dimen/bs_icon_size"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:src="@drawable/ic_action_remover" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:text="Remover"
+            android:textColor="@color/bs_text_color"
+            android:textSize="@dimen/bs_item_text" />
+
+    </LinearLayout>
+</LinearLayout>

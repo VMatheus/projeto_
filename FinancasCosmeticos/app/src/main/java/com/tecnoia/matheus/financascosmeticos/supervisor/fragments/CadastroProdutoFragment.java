@@ -25,11 +25,12 @@ import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class CadastroProdutoFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class CadastroProdutoFragment extends Fragment  {
     private EditText editTextNome, editTextPreco;
     private Button buttonAdicionar;
     private String nome;
     private String preco;
+    private String quantidade;
     private View focusView = null;
     private boolean cancel = false;
     private SharedPreferences sharedPrefSupervisor;
@@ -37,6 +38,7 @@ public class CadastroProdutoFragment extends Fragment implements AdapterView.OnI
     private List<String> listCategoria;
     private Spinner spinnerCategoria;
     private String categoria;
+    private EditText editTextQuantidade;
 
 
     public static CadastroProdutoFragment newInstance() {
@@ -49,25 +51,14 @@ public class CadastroProdutoFragment extends Fragment implements AdapterView.OnI
         View rootView = inflater.inflate(R.layout.activity_cadastro_produto_fragment, container, false);
         recuperaDados();
         initViews(rootView);
-        criaArrayListCategorias();
+        if (container != null) {
+            container.removeAllViews();
+        }
+
+
 
         return rootView;
 
-
-    }
-
-    private void criaArrayListCategorias() {
-        listCategoria = new ArrayList<String>();
-
-        listCategoria.add(getString(R.string.cat_1));
-
-        listCategoria.add(getString(R.string.cat_2));
-        listCategoria.add(getString(R.string.cat_3));
-        listCategoria.add(getString(R.string.cat_4));
-        listCategoria.add(getString(R.string.cat_5));
-
-        ArrayAdapter<String> adapterCategoriAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCategoria);
-        spinnerCategoria.setAdapter(adapterCategoriAdapter);
 
     }
 
@@ -76,8 +67,10 @@ public class CadastroProdutoFragment extends Fragment implements AdapterView.OnI
         editTextPreco = rootView.findViewById(R.id.edit_preco_produto);
         buttonAdicionar = rootView.findViewById(R.id.btn_adicionar_produto);
         spinnerCategoria = rootView.findViewById(R.id.spinner_categoria_produto);
+        editTextQuantidade = rootView.findViewById(R.id.edit_quantidade_produto);
         editTextNome.setError(null);
         editTextPreco.setError(null);
+        editTextQuantidade.setError(null);
         buttonAdicionar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,25 +81,13 @@ public class CadastroProdutoFragment extends Fragment implements AdapterView.OnI
 
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if (parent == getActivity().findViewById(R.id.spinner_categoria_produto)) {
-            categoria = parent.getItemAtPosition(position).toString();
-
-        }
-
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 
 
     private void validacao() {
         nome = editTextNome.getText().toString();
         preco = editTextPreco.getText().toString();
+        quantidade = editTextQuantidade.getText().toString();
+
 
 
         if (TextUtils.isEmpty(nome)) {
@@ -121,6 +102,11 @@ public class CadastroProdutoFragment extends Fragment implements AdapterView.OnI
             cancel = true;
 
         }
+        if(TextUtils.isEmpty(quantidade)){
+            editTextQuantidade.setError(getString(R.string.campo_vazio));
+            focusView = editTextQuantidade ;
+            cancel = true;
+        }
 
         if (cancel) {
             focusView.requestFocus();
@@ -134,9 +120,9 @@ public class CadastroProdutoFragment extends Fragment implements AdapterView.OnI
     private void cadastraProduto() {
         String idProduto = ConfiguracoesFirebase.getFirebase().push().getKey();
         Toast.makeText(getActivity(), idSupervisor, Toast.LENGTH_SHORT).show();
-        Produto produto = new Produto(idProduto, nome, preco);
+        Produto produto = new Produto(idProduto, nome, preco, quantidade);
         produto.salvarProduto(idSupervisor);
-        FragmentUtils.replace(getActivity(), ProdutosFragment.newInstance());
+        FragmentUtils.replace(getActivity(), ListaProdutos.newInstance());
 
     }
 

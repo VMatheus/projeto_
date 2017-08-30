@@ -3,6 +3,7 @@
     package="com.tecnoia.matheus.financascosmeticos">
 
     <application
+
         android:name=".utils.DadosOffline"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_01"

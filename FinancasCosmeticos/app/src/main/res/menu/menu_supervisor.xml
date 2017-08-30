@@ -5,19 +5,19 @@
         android:id="@+id/item_revendedoras"
         android:enabled="true"
         android:icon="@drawable/ic_actionrevendedores"
-        android:title="Revendedoras"
+        android:title="@string/revendedoras"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/item_estatisticas"
         android:enabled="true"
         android:icon="@drawable/ic_action_estatisticas"
-        android:title="Estatísticas"
+        android:title="@string/estat_sticas"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/item_produtos"
+        android:id="@+id/item_estoque"
         android:enabled="true"
         android:icon="@drawable/ic_action_produtos"
-        android:title="Produtos"
+        android:title="@string/estoque"
         app:showAsAction="ifRoom"
 
         />

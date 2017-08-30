@@ -61,7 +61,9 @@ public class ListaRevendedores extends Fragment {
         preencherLista();
         adapterRevendedores = new AdapterRevendedores(getActivity(), revendedoresList, databaseRevendedores);
         recyclerViewRevendedores.setAdapter(adapterRevendedores);
-
+        if (container != null) {
+            container.removeAllViews();
+        }
         return rootview;
 
     }
@@ -122,7 +124,7 @@ public class ListaRevendedores extends Fragment {
                 } else {
 
 
-                    FragmentUtils.replace(getActivity(), CadastrarRevendedor.newInstance());
+                    FragmentUtils.replaceRetorno(getActivity(), CadastrarRevendedor.newInstance());
 
 
                 }

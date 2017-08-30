@@ -36,10 +36,10 @@ public class LoginRegisterFragment extends Fragment {
 
         mSectionsPagerAdaper = new SectionsPagerAdaper(mContext.getSupportFragmentManager());
 
-        viewPager = (ViewPager) rootView.findViewById(R.id.container);
+        viewPager = rootView.findViewById(R.id.container);
         viewPager.setAdapter(mSectionsPagerAdaper);
 
-        TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.tabs);
+        TabLayout tabLayout = rootView.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         return rootView;
 

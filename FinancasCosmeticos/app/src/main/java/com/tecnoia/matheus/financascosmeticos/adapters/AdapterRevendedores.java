@@ -1,6 +1,5 @@
 package com.tecnoia.matheus.financascosmeticos.adapters;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.PopupMenu;
@@ -17,6 +16,8 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseReference;
 import com.tecnoia.matheus.financascosmeticos.R;
 import com.tecnoia.matheus.financascosmeticos.model.Revendedor;
+import com.tecnoia.matheus.financascosmeticos.supervisor.fragments.VendasFragment;
+import com.tecnoia.matheus.financascosmeticos.utils.FragmentUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class AdapterRevendedores extends RecyclerView.Adapter<AdapterRevendedore
 
     private List<Revendedor> revendedorList;
     private DatabaseReference databaseRevendedores;
-    private Activity activity;
+    private FragmentActivity activity;
     private Bitmap circleBitmap;
 
     public AdapterRevendedores(FragmentActivity activity, ArrayList<Revendedor> revendedoresList, DatabaseReference databaserevendedores) {
@@ -51,8 +52,9 @@ public class AdapterRevendedores extends RecyclerView.Adapter<AdapterRevendedore
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        Revendedor revendedor = revendedorList.get(position);
+        final Revendedor revendedor = revendedorList.get(position);
         try {
+
             holder.textViewNome.setText(revendedor.getNome());
             holder.textViewEmail.setText(revendedor.getEmail());
             holder.imageMenu.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +91,7 @@ public class AdapterRevendedores extends RecyclerView.Adapter<AdapterRevendedore
         private TextView textViewNome, textViewEmail;
         private ImageView imageViewPerfil, imageMenu;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(final View itemView) {
             super(itemView);
             textViewNome = itemView.findViewById(R.id.text_nome_revendedor);
             textViewEmail = itemView.findViewById(R.id.text_email_revendedor);
@@ -99,14 +101,21 @@ public class AdapterRevendedores extends RecyclerView.Adapter<AdapterRevendedore
 
         }
     }
-    private void  menuRevendedor(View view){
+
+    private void menuRevendedor(View view) {
         PopupMenu popupMenu = new PopupMenu(activity, view);
-        MenuInflater menuInflater = popupMenu.getMenuInflater();
+        final MenuInflater menuInflater = popupMenu.getMenuInflater();
         menuInflater.inflate(R.menu.menu_revendedoras, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                return false;
+                switch (item.getItemId()) {
+                    case R.id.action_vendas:
+                        FragmentUtils.replaceRetorno(activity, VendasFragment.newInstance());
+                        break;
+                }
+
+                return true;
             }
         });
         popupMenu.show();

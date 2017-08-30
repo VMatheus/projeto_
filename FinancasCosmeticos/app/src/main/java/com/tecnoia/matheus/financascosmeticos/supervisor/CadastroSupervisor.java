@@ -55,10 +55,10 @@ public class CadastroSupervisor extends Fragment {
     private void initViews(View rootView) {
 
 
-        editTextNome = (EditText) rootView.findViewById(R.id.edit_nome_sup_register_sup);
-        editTextEmail = (EditText) rootView.findViewById(R.id.edit_email_register_sup);
-        editTextSenha = (EditText) rootView.findViewById(R.id.edit_senha_register_sup);
-        buttonRegistrar = (Button) rootView.findViewById(R.id.btn_register_sup);
+        editTextNome = rootView.findViewById(R.id.edit_nome_sup_register_sup);
+        editTextEmail = rootView.findViewById(R.id.edit_email_register_sup);
+        editTextSenha = rootView.findViewById(R.id.edit_senha_register_sup);
+        buttonRegistrar = rootView.findViewById(R.id.btn_register_sup);
 
 
         editTextNome.setError(null);

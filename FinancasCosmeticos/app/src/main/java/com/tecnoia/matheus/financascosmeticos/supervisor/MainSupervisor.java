@@ -15,7 +15,7 @@ import com.tecnoia.matheus.financascosmeticos.R;
 import com.tecnoia.matheus.financascosmeticos.supervisor.fragments.EstatisticasFragment;
 import com.tecnoia.matheus.financascosmeticos.supervisor.fragments.ListaRevendedores;
 import com.tecnoia.matheus.financascosmeticos.supervisor.fragments.PerfilSupervisor;
-import com.tecnoia.matheus.financascosmeticos.supervisor.fragments.ProdutosFragment;
+import com.tecnoia.matheus.financascosmeticos.supervisor.fragments.ListaProdutos;
 import com.tecnoia.matheus.financascosmeticos.supervisor.fragments.RevendedoresContainer;
 import com.tecnoia.matheus.financascosmeticos.utils.FragmentUtils;
 
@@ -34,7 +34,9 @@ public class MainSupervisor extends Fragment {
 
 
         initViews(rootView);
-
+        if (container != null) {
+            container.removeAllViews();
+        }
 
         return rootView;
 
@@ -59,8 +61,8 @@ public class MainSupervisor extends Fragment {
                         fragment = EstatisticasFragment.newInstance();
                         break;
 
-                    case R.id.item_produtos:
-                        fragment = ProdutosFragment.newInstance();
+                    case R.id.item_estoque:
+                        fragment = ListaProdutos.newInstance();
                         break;
 
                     case R.id.item_perfil:

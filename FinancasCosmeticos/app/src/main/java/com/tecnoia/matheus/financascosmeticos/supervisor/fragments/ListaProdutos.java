@@ -2,18 +2,22 @@ package com.tecnoia.matheus.financascosmeticos.supervisor.fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialog;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -27,7 +31,8 @@ import java.util.ArrayList;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class ProdutosFragment extends Fragment {
+
+public class ListaProdutos extends Fragment {
     private FloatingActionButton floatingActionButton;
     private ListView listViewProdutos;
     private Query databaseProdutosEstoque;
@@ -36,22 +41,31 @@ public class ProdutosFragment extends Fragment {
     private ArrayList<Produto> produtosList;
     private AdapterProdutos adapterProdutos;
 
-    public static ProdutosFragment newInstance() {
+    //BottomSheetDialog
 
-        return new ProdutosFragment();
+
+    public static ListaProdutos newInstance() {
+
+        return new ListaProdutos();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootview = inflater.inflate(R.layout.activity_produtos_fragment, container, false);
+        View rootview = inflater.inflate(R.layout.activity_lista_produtos, container, false);
         initViews(rootview);
         recuperaDados();
+
         preencheLista();
-        adapterProdutos = new AdapterProdutos(getActivity(), produtosList);
+        adapterProdutos = new AdapterProdutos(getActivity(), produtosList, listViewProdutos);
         listViewProdutos.setAdapter(adapterProdutos);
+        if (container != null) {
+            container.removeAllViews();
+        }
         return rootview;
 
     }
+
+
 
     private void preencheLista() {
         produtosList = new ArrayList<>();
@@ -96,13 +110,16 @@ public class ProdutosFragment extends Fragment {
     }
 
     private void initViews(View rootview) {
+
+
         listViewProdutos = rootview.findViewById(R.id.list_view_produtos_estoque);
         floatingActionButton = rootview.findViewById(R.id.floating_button_adicionar_produtos);
+
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                FragmentUtils.replace(getActivity(), CadastroProdutoFragment.newInstance());
+                FragmentUtils.replaceRetorno(getActivity(), CadastroProdutoFragment.newInstance());
 
             }
         });

@@ -1,6 +1,8 @@
 package com.tecnoia.matheus.financascosmeticos.adapters;
 
 import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseReference;
 import com.tecnoia.matheus.financascosmeticos.R;
 import com.tecnoia.matheus.financascosmeticos.model.Revendedor;
+import com.tecnoia.matheus.financascosmeticos.supervisor.fragments.SelecionarProdutos;
 import com.tecnoia.matheus.financascosmeticos.supervisor.fragments.VendasFragment;
 import com.tecnoia.matheus.financascosmeticos.utils.FragmentUtils;
 
@@ -60,7 +63,10 @@ public class AdapterRevendedores extends RecyclerView.Adapter<AdapterRevendedore
             holder.imageMenu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    menuRevendedor(holder.imageMenu);
+                    menuRevendedor(holder.imageMenu, revendedor.getId(), revendedor.getNome());
+                    /*Revendedor revendedor1 = new Revendedor(revendedor.getId(),"pbzLSD60qcfjmjMDgmg2GOADE6E3", "JJJJJ", revendedor.getEmail(),revendedor.getSenha(),revendedor.getPhotoUrl());
+                    revendedor1.salvarRevendedor("pbzLSD60qcfjmjMDgmg2GOADE6E3");
+                   */
                 }
             });
 
@@ -102,7 +108,7 @@ public class AdapterRevendedores extends RecyclerView.Adapter<AdapterRevendedore
         }
     }
 
-    private void menuRevendedor(View view) {
+    private void menuRevendedor(View view, final String idRevendedor, final String nomeRevendedor) {
         PopupMenu popupMenu = new PopupMenu(activity, view);
         final MenuInflater menuInflater = popupMenu.getMenuInflater();
         menuInflater.inflate(R.menu.menu_revendedoras, popupMenu.getMenu());
@@ -111,7 +117,13 @@ public class AdapterRevendedores extends RecyclerView.Adapter<AdapterRevendedore
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_vendas:
-                        FragmentUtils.replaceRetorno(activity, VendasFragment.newInstance());
+
+                        Bundle bundle = new Bundle();
+                        bundle.putString("idRevendedor", idRevendedor);
+                        bundle.putString("nomeRevendedor", nomeRevendedor);
+                        Fragment fragment = VendasFragment.newInstance();
+                        fragment.setArguments(bundle);
+                        FragmentUtils.replaceRetorno(activity, fragment);
                         break;
                 }
 

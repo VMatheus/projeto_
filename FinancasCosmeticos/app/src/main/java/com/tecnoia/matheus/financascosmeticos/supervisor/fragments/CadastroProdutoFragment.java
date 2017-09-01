@@ -4,12 +4,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -18,14 +17,12 @@ import android.widget.Toast;
 import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
 import com.tecnoia.matheus.financascosmeticos.R;
 import com.tecnoia.matheus.financascosmeticos.model.Produto;
-import com.tecnoia.matheus.financascosmeticos.utils.FragmentUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class CadastroProdutoFragment extends Fragment  {
+public class CadastroProdutoFragment extends Fragment {
     private EditText editTextNome, editTextPreco;
     private Button buttonAdicionar;
     private String nome;
@@ -39,6 +36,8 @@ public class CadastroProdutoFragment extends Fragment  {
     private Spinner spinnerCategoria;
     private String categoria;
     private EditText editTextQuantidade;
+    private String idProdutoEdit, nomeProdutoEdit, precoProdutoEdit, quantidadeProdutoEdit;
+    private String idProduto;
 
 
     public static CadastroProdutoFragment newInstance() {
@@ -49,12 +48,12 @@ public class CadastroProdutoFragment extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_cadastro_produto_fragment, container, false);
-        recuperaDados();
         initViews(rootView);
+        recuperaDados();
+
         if (container != null) {
             container.removeAllViews();
         }
-
 
 
         return rootView;
@@ -82,12 +81,11 @@ public class CadastroProdutoFragment extends Fragment  {
     }
 
 
-
     private void validacao() {
+
         nome = editTextNome.getText().toString();
         preco = editTextPreco.getText().toString();
         quantidade = editTextQuantidade.getText().toString();
-
 
 
         if (TextUtils.isEmpty(nome)) {
@@ -102,9 +100,9 @@ public class CadastroProdutoFragment extends Fragment  {
             cancel = true;
 
         }
-        if(TextUtils.isEmpty(quantidade)){
+        if (TextUtils.isEmpty(quantidade)) {
             editTextQuantidade.setError(getString(R.string.campo_vazio));
-            focusView = editTextQuantidade ;
+            focusView = editTextQuantidade;
             cancel = true;
         }
 
@@ -118,11 +116,13 @@ public class CadastroProdutoFragment extends Fragment  {
     }
 
     private void cadastraProduto() {
-        String idProduto = ConfiguracoesFirebase.getFirebase().push().getKey();
-        Toast.makeText(getActivity(), idSupervisor, Toast.LENGTH_SHORT).show();
+
+
         Produto produto = new Produto(idProduto, nome, preco, quantidade);
         produto.salvarProduto(idSupervisor);
-        FragmentUtils.replace(getActivity(), ListaProdutos.newInstance());
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        fm.popBackStack();
+
 
     }
 
@@ -130,6 +130,21 @@ public class CadastroProdutoFragment extends Fragment  {
     private void recuperaDados() {
         sharedPrefSupervisor = getActivity().getPreferences(MODE_PRIVATE);
         idSupervisor = sharedPrefSupervisor.getString("idSupervisor", "");
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+
+
+            //preparadadosEditar
+            idProdutoEdit = bundle.getString("idProduto");
+            editTextNome.setText(nomeProdutoEdit = bundle.getString("nomeProduto"));
+            editTextPreco.setText(precoProdutoEdit = bundle.getString("precoProduto"));
+            editTextQuantidade.setText(quantidadeProdutoEdit = bundle.getString("quantidadeProduto"));
+
+            idProduto = idProdutoEdit;
+            buttonAdicionar.setText(R.string.atualizar);
+        } else {
+            idProduto = ConfiguracoesFirebase.getFirebase().push().getKey();
+        }
 
 
     }

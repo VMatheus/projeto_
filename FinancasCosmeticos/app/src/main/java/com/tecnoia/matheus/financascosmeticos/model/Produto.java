@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
+import com.google.firebase.database.FirebaseDatabase;
 import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
 import com.tecnoia.matheus.financascosmeticos.utils.ConstantsUtils;
 
@@ -54,6 +55,18 @@ public class Produto {
         this.preco = preco;
     }
 
+    public void removerProdutoEstoque(String idSupervisor, String idProduto) {
+        try {
+
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference(idSupervisor + "/" + ConstantsUtils.BANCO_PRODUTOS_ESTOQUE + "/" + idProduto);
+            reference.removeValue();
+
+        } catch (Exception e) {
+            Log.e(e + "", "Erro remover produto estoque!");
+        }
+
+    }
+
     public void salvarProduto(String idSupervisor) {
         try {
 
@@ -65,6 +78,12 @@ public class Produto {
         }
     }
 
+    public void atualizarProduto(String idSupervisor, String idProduto) {
+        DatabaseReference reference = ConfiguracoesFirebase.getFirebase();
+        reference.child(idSupervisor + "/" + ConstantsUtils.BANCO_PRODUTOS_ESTOQUE).child(String.valueOf(idProduto)).setValue(this);
+    }
+
+
     @Exclude
     public Map<String, Object> map() {
         HashMap<String, Object> hashMapProduto = new HashMap<>();
@@ -75,6 +94,20 @@ public class Produto {
 
 
         return hashMapProduto;
+
+
+    }
+
+    public void salvaProdutoVendas(String idSupervisor, String idRevendedor) {
+        try {
+            DatabaseReference reference = ConfiguracoesFirebase.getFirebase();
+            reference.child(idSupervisor + "/" + ConstantsUtils.BANCO_PRODUTOS_VENDAS + "/" + idRevendedor).child(String.valueOf(getId())).setValue(this);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e(e + "", "" + "Erro banco supervisora!");
+        }
 
 
     }

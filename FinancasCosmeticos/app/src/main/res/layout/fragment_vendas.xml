@@ -1,46 +1,64 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context="com.tecnoia.matheus.financascosmeticos.supervisor.fragments.VendasFragment">
-    <android.support.v7.widget.Toolbar
 
-        app:title="Vendas"
-        android:id="@+id/perfil_toolbar"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_vendas"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/transparent"
+        android:background="?attr/colorPrimary"
         android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        app:popupTheme="@style/AppTheme"
+        app:subtitleTextColor="@android:color/white"
+        app:theme="@style/ToolbarColoredBackArrow"
+        app:titleTextColor="@android:color/white" />
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <ListView
-        android:layout_margin="15dp"
-        android:id="@+id/list_view_produtos_venda"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
 
-    </ListView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floating_button_adicionar_produtos_venda"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="18dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:tint="@android:color/white"
-        app:fabSize="normal"
-        app:srcCompat="@android:drawable/ic_input_add" />
+
+            <ListView
+                android:id="@+id/list_view_produtos_venda"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="15dp"
+                android:layout_weight="1"
+
+                />
+
+            <TextView
+
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Saldo de vendas: "
+                android:textColor="@color/album_title"
+                android:textSize="@dimen/album_title" />
+
+
+        </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floating_button_adicionar_produtos_venda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="15dp"
+            android:tint="@android:color/white"
+            app:fabSize="normal"
+            app:srcCompat="@android:drawable/ic_input_add" />
     </RelativeLayout>
 </LinearLayout>

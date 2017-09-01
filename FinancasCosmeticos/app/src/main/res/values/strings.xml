@@ -20,9 +20,9 @@
     <string name="criando_conta">Criando conta</string>
     <string name="usuario_senha_invalidos">Usuário ou senha inválidos.</string>
     <string name="produto">Nome</string>
-    <string name="preco">Preço</string>
+    <string name="preco">Preço:</string>
 
-<!--    <string name="cat_0">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</string>
+    <!--    <string name="cat_0">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</string>
     <string name="cat_1">Fragrâncias</string>
     <string name="cat_2">Maquiagem</string>
     <string name="cat_3">Pele</string>
@@ -44,6 +44,10 @@
     <string name="estat_sticas">Estatísticas</string>
     <string name="revendedoras">Revendedoras</string>
     <string name="quantidade_disponivel"> Disponível:</string>
+    <string name="mensagem_produto_ja_adicionado">Este produto já foi adicionado para venda!</string>
+    <string name="quantidade">Quantidade:</string>
+    <string name="selecione_produtos">Selecione os produtos</string>
+    <string name="atualizar">Atualizar</string>
 
 
 </resources>

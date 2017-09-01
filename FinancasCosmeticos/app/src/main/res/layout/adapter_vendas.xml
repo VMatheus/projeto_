@@ -22,21 +22,25 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/text_nome_produto_estoque"
+                android:id="@+id/text_nome_produto_venda"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Base Líquida TimeWise® Acabamento Matte"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <TextView
-
-                android:id="@+id/text_quantidade_produto_estoque"
+                android:id="@+id/text_adquiridos_inicial"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:text="" />
 
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
-
+            <TextView
+                android:id="@+id/tex_total_vendidos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Vendidos: 0" />
 
         </LinearLayout>
 
@@ -50,13 +54,13 @@
         android:gravity="center_horizontal">
 
         <TextView
-            android:textSize="12sp"
-            android:gravity="end"
-            android:layout_gravity="center_vertical"
-            android:id="@+id/text_preco_produto_estoque"
+            android:id="@+id/text_preco_produto_venda"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="64,00 R$" />
+            android:layout_gravity="center_vertical"
+            android:gravity="end"
+            android:text="64,00 R$"
+            android:textSize="12sp" />
 
     </LinearLayout>
 

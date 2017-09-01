@@ -4,17 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/linear_selecionar_produto"
     tools:context="com.tecnoia.matheus.financascosmeticos.supervisor.fragments.SelecionarProdutos">
 
     <android.support.v7.widget.Toolbar
-        app:title="Selecione o Produto"
-        android:id="@+id/perfil_toolbar"
+
+        app:theme="@style/ToolbarColoredBackArrow"
+        app:popupTheme="@style/AppTheme"
+        app:subtitleTextColor="@android:color/white"
+        app:titleTextColor="@android:color/white"
+        android:id="@+id/toolbar_selecionar_produtos"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/transparent"
+        android:background="?attr/colorPrimary"
         android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        />
     <!-- TODO: Update blank fragment layout -->
     <ListView
         android:id="@+id/list_view_selecionar_produtos"

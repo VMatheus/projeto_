@@ -1,8 +1,7 @@
 package com.tecnoia.matheus.financascosmeticos.adapters;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -23,22 +22,22 @@ import com.tecnoia.matheus.financascosmeticos.utils.FragmentUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- * Created by matheus on 25/08/17.
+ * Created by matheus on 31/08/17.
  */
 
-public class AdapterProdutos extends ArrayAdapter {
+public class AdapterProdutosVendas extends ArrayAdapter {
+
     private String idSupervisor;
 
-    private FragmentActivity activity;
+    private Activity activity;
     private List<Produto> produtoList;
     private ListView listView;
-
     private BottomSheetDialog dialog;
 
-    public AdapterProdutos(FragmentActivity activity, List<Produto> produtoList, ListView listViewProdutos, String idSupervisor) {
-        super(activity, R.layout.adapter_produtos, produtoList);
+
+    public AdapterProdutosVendas(FragmentActivity activity, List<Produto> produtoList, ListView listViewProdutos, String idSupervisor) {
+        super(activity, R.layout.adapter_vendas, produtoList);
         this.activity = activity;
         this.produtoList = produtoList;
         this.listView = listViewProdutos;
@@ -47,29 +46,41 @@ public class AdapterProdutos extends ArrayAdapter {
 
     }
 
-    @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        LayoutInflater inflater = activity.getLayoutInflater();
-        View view = inflater.inflate(R.layout.adapter_produtos, null, true);
+    public int getCount() {
+        return produtoList.size();
+    }
 
+    @Override
+    public Object getItem(int i) {
+        return i;
+    }
+
+    @Override
+    public long getItemId(int i) {
+        return i;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup viewGroup) {
+        LayoutInflater inflater = activity.getLayoutInflater();
+        View view = inflater.inflate(R.layout.adapter_vendas, null, true);
         TextView nome, preco, quantidade;
-        nome = view.findViewById(R.id.text_nome_produto_estoque);
-        preco = view.findViewById(R.id.text_preco_produto_estoque);
-        quantidade = view.findViewById(R.id.text_quantidade_produto_estoque);
+        nome = view.findViewById(R.id.text_nome_produto_venda);
+        preco = view.findViewById(R.id.text_preco_produto_venda);
+        quantidade = view.findViewById(R.id.text_adquiridos_inicial);
 
         final Produto produto = produtoList.get(position);
         nome.setText(produto.getNome());
         preco.setText(String.format("%s R$", produto.getPreco()));
-        quantidade.setText(String.format(String.format("Estoque: %s", produto.getQuantidade())));
+        quantidade.setText(String.format("Forneciodos: %s", produto.getQuantidade()));
+
 
         try {
             listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Produto produto1 = produtoList.get(i);
-
-                    init_modal_bottomsheet(produto1);
+                    init_modal_bottomsheet(produto);
                     return true;
                 }
             });
@@ -77,10 +88,8 @@ public class AdapterProdutos extends ArrayAdapter {
             e.printStackTrace();
         }
 
-
         return view;
     }
-
 
     public void atualiza(ArrayList<Produto> produtosList) {
         this.produtoList = produtosList;
@@ -102,14 +111,7 @@ public class AdapterProdutos extends ArrayAdapter {
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
 
-                bundle.putString("idProduto", produto1.getId());
-                bundle.putString("nomeProduto", produto1.getNome());
-                bundle.putString("precoProduto", produto1.getPreco());
-                bundle.putString("quantidadeProduto", produto1.getQuantidade());
 
-                Fragment fragment = CadastroProdutoFragment.newInstance();
-                fragment.setArguments(bundle);
-                FragmentUtils.replaceRetorno(activity, fragment);
                 dialog.dismiss();
 
 
@@ -129,6 +131,4 @@ public class AdapterProdutos extends ArrayAdapter {
         });
 
     }
-
-
 }

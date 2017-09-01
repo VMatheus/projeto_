@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
 import com.tecnoia.matheus.financascosmeticos.R;
 import com.tecnoia.matheus.financascosmeticos.adapters.AdapterRevendedores;
 import com.tecnoia.matheus.financascosmeticos.model.Revendedor;
@@ -49,8 +50,7 @@ public class ListaRevendedores extends Fragment {
     private AdapterRevendedores adapterRevendedores;
 
     public static ListaRevendedores newInstance() {
-        ListaRevendedores listaRevendedores = new ListaRevendedores();
-        return listaRevendedores;
+        return new ListaRevendedores();
     }
 
     @Override
@@ -69,8 +69,10 @@ public class ListaRevendedores extends Fragment {
     }
 
     private void preencherLista() {
+
         revendedoresList = new ArrayList<>();
         databaseRevendedores = FirebaseDatabase.getInstance().getReference(idSupervisor + "/" + ConstantsUtils.BANCO_REVENDEDORES);
+
         databaseRevendedores.keepSynced(true);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerViewRevendedores.setLayoutManager(mLayoutManager);

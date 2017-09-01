@@ -56,7 +56,7 @@ public class ListaProdutos extends Fragment {
         recuperaDados();
 
         preencheLista();
-        adapterProdutos = new AdapterProdutos(getActivity(), produtosList, listViewProdutos);
+        adapterProdutos = new AdapterProdutos(getActivity(), produtosList, listViewProdutos, idSupervisor);
         listViewProdutos.setAdapter(adapterProdutos);
         if (container != null) {
             container.removeAllViews();

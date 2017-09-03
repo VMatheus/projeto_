@@ -20,13 +20,11 @@ import android.widget.Toast;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
 import com.tecnoia.matheus.financascosmeticos.R;
 import com.tecnoia.matheus.financascosmeticos.adapters.AdapterRevendedores;
 import com.tecnoia.matheus.financascosmeticos.model.Revendedor;
-import com.tecnoia.matheus.financascosmeticos.utils.ConstantsUtils;
 import com.tecnoia.matheus.financascosmeticos.utils.FragmentUtils;
 import com.tecnoia.matheus.financascosmeticos.utils.GetDataFromFirebase;
 import com.tecnoia.matheus.financascosmeticos.utils.GridSpacingItemDecoration;
@@ -71,8 +69,8 @@ public class ListaRevendedores extends Fragment {
     private void preencherLista() {
 
         revendedoresList = new ArrayList<>();
-        databaseRevendedores = FirebaseDatabase.getInstance().getReference(idSupervisor + "/" + ConstantsUtils.BANCO_REVENDEDORES);
 
+        databaseRevendedores = ConfiguracoesFirebase.getListaRevendedor(idSupervisor);
         databaseRevendedores.keepSynced(true);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerViewRevendedores.setLayoutManager(mLayoutManager);
@@ -144,6 +142,7 @@ public class ListaRevendedores extends Fragment {
         senhaSupervisor = sharedPrefSupervisor.getString("senhaSupervisor", "");
 
     }
+
     private int dpToPx(int dp) {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));

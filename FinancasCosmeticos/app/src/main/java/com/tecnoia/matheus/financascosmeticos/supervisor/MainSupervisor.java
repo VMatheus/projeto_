@@ -56,10 +56,10 @@ public class MainSupervisor extends Fragment {
 */
                         fragment = ListaRevendedores.newInstance();
                         break;
-                    case R.id.item_estatisticas:
+                    /*case R.id.item_estatisticas:
 
                         fragment = EstatisticasFragment.newInstance();
-                        break;
+                        break;*/
 
                     case R.id.item_estoque:
                         fragment = ListaProdutos.newInstance();

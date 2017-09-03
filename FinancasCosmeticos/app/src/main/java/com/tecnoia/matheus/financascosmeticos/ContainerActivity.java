@@ -156,8 +156,7 @@ public class ContainerActivity extends AppCompatActivity {
 
     private void carregarDadosSupervisor() {
 
-
-        databaseSupervisores = FirebaseDatabase.getInstance().getReference(ConstantsUtils.BANCO_SUPERVISORES + "/" + id);
+        databaseSupervisores = ConfiguracoesFirebase.getListaConsultaListaSupervisores(id);
         databaseSupervisores.keepSynced(true);
         new GetDataFromFirebase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         databaseSupervisores.addValueEventListener(new ValueEventListener() {

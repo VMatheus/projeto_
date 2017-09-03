@@ -3,6 +3,7 @@ package com.tecnoia.matheus.financascosmeticos.DAO;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.tecnoia.matheus.financascosmeticos.utils.ConstantsUtils;
 
 /**
@@ -32,11 +33,25 @@ public class ConfiguracoesFirebase {
         return autenticacao;
     }
 
-    public static  DatabaseReference getListaRevendedor(String idSupervisor){
+    public static DatabaseReference getListaRevendedor(String idSupervisor) {
 
-        referenceFirebase = FirebaseDatabase.getInstance().getReference(idSupervisor + "/" + ConstantsUtils.BANCO_REVENDEDORES);
+        return FirebaseDatabase.getInstance().getReference(idSupervisor + "/" + ConstantsUtils.BANCO_REVENDEDORES);
 
-    return referenceFirebase;
     }
+
+    public static Query getListaProdutosEstoque(String idSupervisor) {
+        return FirebaseDatabase.getInstance().getReference(idSupervisor + "/" + ConstantsUtils.BANCO_PRODUTOS_ESTOQUE).orderByChild("nome");
+
+    }
+
+    public static Query getListaProdutosVenda(String idSupervisor, String idRevendedor) {
+        return FirebaseDatabase.getInstance().getReference(idSupervisor + "/" + ConstantsUtils.BANCO_PRODUTOS_VENDAS + "/" + idRevendedor).orderByChild("nome");
+    }
+
+    public static DatabaseReference getListaConsultaListaSupervisores(String id) {
+        return FirebaseDatabase.getInstance().getReference(ConstantsUtils.BANCO_SUPERVISORES + "/" + id);
+
+    }
+
 
 }

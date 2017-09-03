@@ -87,11 +87,12 @@ public class AdapterSelecionarProdutos extends ArrayAdapter {
 
 
                 final Produto produto1 = produtoList.get(i);
-                final String idProduto, nome, preco, quantidade;
+                final String idProduto, nome, preco, quantidade,status;
                 idProduto = produto1.getId();
                 nome = produto1.getNome();
                 preco = produto1.getPreco();
                 quantidade = produto1.getQuantidade();
+                status = produto1.getStatus();
 
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference(idSupervisor+"/"+ConstantsUtils.BANCO_PRODUTOS_VENDAS+"/"+idRevendedor +"/"+ idProduto);
                 reference.addValueEventListener(new ValueEventListener() {
@@ -157,10 +158,10 @@ public class AdapterSelecionarProdutos extends ArrayAdapter {
                                 int valorAtualizado = valorInicial - valorCampo;
 
 
-                                Produto produtoUpdate = new Produto(idProduto, nome, preco, String.valueOf(valorAtualizado));
+                                Produto produtoUpdate = new Produto(idProduto, nome, preco, String.valueOf(valorAtualizado),status);
                                 produtoUpdate.atualizarProduto(idSupervisor, idProduto);
 
-                                Produto produtoRevendedor = new Produto(idProduto, nome, preco, String.valueOf(valorCampo));
+                                Produto produtoRevendedor = new Produto(idProduto, nome, preco, String.valueOf(valorCampo),status);
 
                                 produtoRevendedor.salvaProdutoVendas(idSupervisor, idRevendedor);
 

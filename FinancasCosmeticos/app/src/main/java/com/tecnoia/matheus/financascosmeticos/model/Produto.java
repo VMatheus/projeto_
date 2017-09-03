@@ -20,15 +20,18 @@ public class Produto {
     private String nome;
     private String preco;
     private String quantidade;
+    private String status;
+
 
     public Produto() {
     }
 
-    public Produto(String id, String nome, String preco, String quantidade) {
+    public Produto(String id, String nome, String preco, String quantidade, String status) {
         this.id = id;
         this.nome = nome;
         this.preco = preco;
         this.quantidade = quantidade;
+        this.status = status;
     }
 
     public String getId() {
@@ -119,5 +122,19 @@ public class Produto {
 
     public void setQuantidade(String quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public void removeProdutoVenda(String idSupervisor, String idProduto, String idRevendedor) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference(idSupervisor + "/" + ConstantsUtils.BANCO_PRODUTOS_VENDAS + "/" + idRevendedor+"/"+idProduto);
+        reference.removeValue();
+
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

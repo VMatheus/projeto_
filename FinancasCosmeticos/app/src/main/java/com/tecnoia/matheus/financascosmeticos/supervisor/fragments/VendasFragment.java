@@ -18,13 +18,12 @@ import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
 import com.tecnoia.matheus.financascosmeticos.R;
 import com.tecnoia.matheus.financascosmeticos.adapters.AdapterProdutosVendas;
 import com.tecnoia.matheus.financascosmeticos.model.Produto;
-import com.tecnoia.matheus.financascosmeticos.utils.ConstantsUtils;
 import com.tecnoia.matheus.financascosmeticos.utils.FragmentUtils;
 
 import java.util.ArrayList;
@@ -36,8 +35,8 @@ public class VendasFragment extends Fragment {
     private FloatingActionButton buttonAdicionarProdutos;
 
     private Button buttonSalvar;
-    private ArrayList<Produto> produtosList;
-    private Query databaseProdutosEstoque;
+    private ArrayList<Produto> produtosListVendas, produtosListEstoque;
+    private Query databaseProdutoVenda, databaseProdutoEstoque;
     private SharedPreferences sharedPrefSupervisor;
     private String idSupervisor;
     private String idRevendedor;
@@ -45,6 +44,7 @@ public class VendasFragment extends Fragment {
     private AdapterProdutosVendas adapterProdutos;
     private Toolbar toolbar;
     private String nomeRevendedor;
+    ;
 
 
     public static VendasFragment newInstance() {
@@ -57,23 +57,57 @@ public class VendasFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_vendas, container, false);
+        if (container != null) {
+            container.removeAllViews();
+        }
         recuperaDados();
         setHasOptionsMenu(true);
 
 
-        carrecarListaProdutosEstoque();
+        carrecarListaProdutosVenda();
+        carregarListeProdutosEstoque();
+
 
         initViews(rootView);
         toolbarVendas();
-        adapterProdutos = new AdapterProdutosVendas(getActivity(), produtosList, listViewProdutosVenda, idSupervisor);
+        adapterProdutos = new AdapterProdutosVendas(getActivity(), produtosListVendas, listViewProdutosVenda, idSupervisor, produtosListEstoque, idRevendedor);
         listViewProdutosVenda.setAdapter(adapterProdutos);
-        if (container != null) {
-            container.removeAllViews();
-        }
 
 
         return (rootView);
 
+    }
+
+    private void carregarListeProdutosEstoque() {
+        produtosListEstoque = new ArrayList<>();
+
+
+        databaseProdutoEstoque = ConfiguracoesFirebase.getListaProdutosEstoque(idSupervisor);
+
+        databaseProdutoEstoque.keepSynced(true);
+        databaseProdutoEstoque.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try {
+                    for (DataSnapshot snapshotEstoque : dataSnapshot.getChildren()) {
+                        Produto produto = snapshotEstoque.getValue(Produto.class);
+                        produtosListEstoque.add(produto);
+
+                    }
+                    adapterProdutos.atualizaEstoque(produtosListEstoque);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void toolbarVendas() {
@@ -86,30 +120,28 @@ public class VendasFragment extends Fragment {
 
     }
 
-    private void carrecarListaProdutosEstoque() {
-        produtosList = new ArrayList<>();
+    private void carrecarListaProdutosVenda() {
+        produtosListVendas = new ArrayList<>();
+
+        databaseProdutoVenda = ConfiguracoesFirebase.getListaProdutosVenda(idSupervisor, idRevendedor);
+
+        databaseProdutoVenda.keepSynced(true);
 
 
-        databaseProdutosEstoque = FirebaseDatabase.getInstance().getReference(idSupervisor + "/" + ConstantsUtils.BANCO_PRODUTOS_VENDAS + "/" + idRevendedor).orderByChild("nome");
-
-
-        databaseProdutosEstoque.keepSynced(true);
-
-
-        databaseProdutosEstoque.addValueEventListener(new ValueEventListener() {
+        databaseProdutoVenda.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
-                    produtosList.clear();
+                    produtosListVendas.clear();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Produto produto = snapshot.getValue(Produto.class);
 
-                        produtosList.add(produto);
+                        produtosListVendas.add(produto);
 
                     }
 
 
-                    adapterProdutos.atualiza(produtosList);
+                    adapterProdutos.atualiza(produtosListVendas);
 
 
                 } catch (Exception e) {
@@ -151,7 +183,7 @@ public class VendasFragment extends Fragment {
         listViewProdutosVenda = rootView.findViewById(R.id.list_view_produtos_venda);
         buttonAdicionarProdutos = rootView.findViewById(R.id.floating_button_adicionar_produtos_venda);
 
-      buttonAdicionarProdutos.setOnClickListener(new View.OnClickListener() {
+        buttonAdicionarProdutos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -164,9 +196,6 @@ public class VendasFragment extends Fragment {
 
             }
         });
-
-
-
 
 
     }

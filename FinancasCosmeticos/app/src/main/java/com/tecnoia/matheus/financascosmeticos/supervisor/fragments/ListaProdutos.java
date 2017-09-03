@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
 import com.tecnoia.matheus.financascosmeticos.R;
 import com.tecnoia.matheus.financascosmeticos.adapters.AdapterProdutos;
 import com.tecnoia.matheus.financascosmeticos.model.Produto;
@@ -70,8 +71,7 @@ public class ListaProdutos extends Fragment {
     private void preencheLista() {
         produtosList = new ArrayList<>();
 
-        databaseProdutosEstoque = FirebaseDatabase.getInstance().getReference(idSupervisor + "/" + ConstantsUtils.BANCO_PRODUTOS_ESTOQUE).orderByChild("nome");
-
+        databaseProdutosEstoque = ConfiguracoesFirebase.getListaProdutosEstoque(idSupervisor);
 
         databaseProdutosEstoque.keepSynced(true);
 

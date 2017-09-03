@@ -40,7 +40,7 @@
     <string name="bs_gallery">Select from gallery</string>
     <string name="bs_camera">Select from camera</string>
     <string name="bs_cancel">Cancel</string>
-    <string name="estoque">Estoque</string>
+    <string name="estoque">Estoque:</string>
     <string name="estat_sticas">Estatísticas</string>
     <string name="revendedoras">Revendedoras</string>
     <string name="quantidade_disponivel"> Disponível:</string>
@@ -48,6 +48,11 @@
     <string name="quantidade">Quantidade:</string>
     <string name="selecione_produtos">Selecione os produtos</string>
     <string name="atualizar">Atualizar</string>
+    <string name="supervisora">supervisora</string>
+    <string name="perfil">Perfil</string>
+    <string name="fornecidos">Itens à venda:</string>
+    <string name="estoque_menu">Estoque</string>
+    <string name="estoque_insuficiente">Estoque insuficiente!</string>
 
 
 </resources>

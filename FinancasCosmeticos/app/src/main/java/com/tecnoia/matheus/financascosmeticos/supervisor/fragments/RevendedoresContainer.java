@@ -22,7 +22,9 @@ public class RevendedoresContainer extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootview = inflater.inflate(R.layout.activity_revendores_container, container, false);
-
+        if (container != null) {
+            container.removeAllViews();
+        }
         initViews(rootview);
 
         return rootview;
@@ -35,7 +37,6 @@ public class RevendedoresContainer extends Fragment {
         FragmentUtils.replaceListaRevendedores(getActivity(), ListaRevendedores.newInstance());
 
     }
-
 
 
 }

@@ -17,13 +17,12 @@ import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
 import com.tecnoia.matheus.financascosmeticos.R;
 import com.tecnoia.matheus.financascosmeticos.adapters.AdapterSelecionarProdutos;
 import com.tecnoia.matheus.financascosmeticos.model.Produto;
-import com.tecnoia.matheus.financascosmeticos.utils.ConstantsUtils;
 
 import java.util.ArrayList;
 
@@ -51,6 +50,9 @@ public class SelecionarProdutos extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootview = inflater.inflate(R.layout.fragment_selecionar_produtos, container, false);
+        if (container != null) {
+            container.removeAllViews();
+        }
         setHasOptionsMenu(true);
         recuperaDados();
         initViews(rootview);
@@ -102,7 +104,7 @@ public class SelecionarProdutos extends Fragment {
     private void preencheLista() {
         produtosList = new ArrayList<>();
 
-        databaseProdutosEstoque = FirebaseDatabase.getInstance().getReference(idSupervisor + "/" + ConstantsUtils.BANCO_PRODUTOS_ESTOQUE).orderByChild("nome");
+        databaseProdutosEstoque = ConfiguracoesFirebase.getListaProdutosEstoque(idSupervisor);
 
 
         databaseProdutosEstoque.keepSynced(true);

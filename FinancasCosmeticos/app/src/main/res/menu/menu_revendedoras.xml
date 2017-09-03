@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_vendas"
-        android:orderInCategory="100"
-        android:title="@string/vendas" />
+        android:id="@+id/item_vendas"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_produtos"
+        android:title="@string/vendas"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/item_perfil_supervisor"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_perfil"
+        android:title="@string/supervisora"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/item_perfil_revendedor"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_perfil"
+        android:title="@string/perfil"
+        app:showAsAction="ifRoom"
 
-   <!-- <item
-        android:id="@+id/action_play_next"
-        android:orderInCategory="101"
-        android:title="@string/action_play_next" />-->
+        />
+
 </menu>

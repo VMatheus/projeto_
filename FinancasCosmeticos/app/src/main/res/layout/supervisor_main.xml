@@ -1,36 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:orientation="vertical"
     tools:context="com.tecnoia.matheus.financascosmeticos.supervisor.MainSupervisor">
 
 
-
-    <RelativeLayout
-        android:id="@+id/activity_main"
+    <FrameLayout
+        android:id="@+id/container_principal_supervisor"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <FrameLayout
-            android:id="@+id/container_principal_supervisor"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/bottom_navigation"
-            android:animateLayoutChanges="true" />
 
-        <android.support.design.widget.BottomNavigationView
-            app:theme="@style/Widget.Design.BottomNavigationView"
-            android:id="@+id/bottom_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
 
-            android:background="@color/colorPrimary"
-            app:itemIconTint="@android:color/white"
-            app:itemTextColor="@android:color/white"
-            app:menu="@menu/menu_supervisor" />
-    </RelativeLayout>
-</android.support.design.widget.CoordinatorLayout>
+    </FrameLayout>
+
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/menu_supervisor" />
+</LinearLayout>

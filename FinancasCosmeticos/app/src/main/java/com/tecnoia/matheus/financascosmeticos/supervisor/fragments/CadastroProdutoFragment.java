@@ -118,7 +118,7 @@ public class CadastroProdutoFragment extends Fragment {
     private void cadastraProduto() {
 
 
-        Produto produto = new Produto(idProduto, nome, preco, quantidade);
+        Produto produto = new Produto(idProduto, nome, preco, quantidade, "0");
         produto.salvarProduto(idSupervisor);
         FragmentManager fm = getActivity().getSupportFragmentManager();
         fm.popBackStack();

@@ -74,13 +74,13 @@ public class AdapterProdutosVendas extends ArrayAdapter {
         final TextView nome, preco, quantidade;
         nome = view.findViewById(R.id.text_nome_produto_venda);
         preco = view.findViewById(R.id.text_preco_produto_venda);
-        quantidade = view.findViewById(R.id.text_adquiridos_inicial);
+        quantidade = view.findViewById(R.id.text_disponiveis_avenda);
 
         final Produto produto = produtoListVendas.get(position);
 
         nome.setText(produto.getNome());
         preco.setText(String.format("%s R$", produto.getPreco()));
-        String s = activity.getResources().getString(R.string.fornecidos);
+        String s = activity.getResources().getString(R.string.disponiveis_a_venda);
         quantidade.setText(String.format("%s%s", s, produto.getQuantidade()));
 
 

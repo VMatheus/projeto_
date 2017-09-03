@@ -12,8 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
 import com.tecnoia.matheus.financascosmeticos.R;
-import com.tecnoia.matheus.financascosmeticos.utils.FragmentUtils;
 
 public class PerfilSupervisor extends Fragment {
 
@@ -57,7 +58,9 @@ public class PerfilSupervisor extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_editar:
-                FragmentUtils.replaceRetorno(getActivity(), PerfilEditSupervisor.newInstace());
+                FirebaseAuth autenticacao = ConfiguracoesFirebase.getFirebaseAutenticacao();
+                autenticacao.signOut();
+                /*FragmentUtils.replaceRetorno(getActivity(), PerfilEditSupervisor.newInstace());*/
                 break;
         }
         return super.onOptionsItemSelected(item);

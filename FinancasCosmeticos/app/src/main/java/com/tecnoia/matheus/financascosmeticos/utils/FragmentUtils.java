@@ -1,7 +1,5 @@
 package com.tecnoia.matheus.financascosmeticos.utils;
 
-import android.app.Activity;
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -19,16 +17,18 @@ public class FragmentUtils {
         replace(activity, fragment, R.id.container_principal_supervisor);
     }
 
-    public static void replace(FragmentActivity  activity, Fragment fragment, int id) {
+    public static void replace(FragmentActivity activity, Fragment fragment, int id) {
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.replace(id, fragment);
         transaction.commit();
-    }public static void replaceRetorno(FragmentActivity activity, Fragment fragment) {
+    }
+
+    public static void replaceRetorno(FragmentActivity activity, Fragment fragment) {
         replaceRetorno(activity, fragment, R.id.container_principal_supervisor);
     }
 
-    public static void replaceRetorno(FragmentActivity  activity, Fragment fragment, int id) {
-        String s= activity.getClass().getName();
+    public static void replaceRetorno(FragmentActivity activity, Fragment fragment, int id) {
+        String s = activity.getClass().getName();
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.replace(id, fragment).addToBackStack(s);
         transaction.commit();
@@ -38,13 +38,14 @@ public class FragmentUtils {
         replaceListaRevendedores(activity, fragment, R.id.container_rev_fragment);
     }
 
-    public static void replaceListaRevendedores(FragmentActivity  activity, Fragment fragment, int id) {
+    public static void replaceListaRevendedores(FragmentActivity activity, Fragment fragment, int id) {
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.replace(id, fragment);
 
         transaction.commit();
 
     }
+
     public static void replacePrincipal(AppCompatActivity activity, Fragment fragment) {
         replacePrincipal(activity, fragment, R.id.container_main);
     }
@@ -60,22 +61,39 @@ public class FragmentUtils {
         replaceOpcaoUsuario(activity, fragment, R.id.container_main);
     }
 
-    public static void replaceOpcaoUsuario(FragmentActivity  activity, Fragment fragment, int id) {
+    public static void replaceOpcaoUsuario(FragmentActivity activity, Fragment fragment, int id) {
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.replace(id, fragment).addToBackStack(null);
 
         transaction.commit();
 
-    } public static void replaceSemRetoro(FragmentActivity activity, Fragment fragment) {
+    }
+
+    public static void replaceSemRetoro(FragmentActivity activity, Fragment fragment) {
         replaceSemRetoro(activity, fragment, R.id.container_main);
     }
 
-    public static void replaceSemRetoro(FragmentActivity  activity, Fragment fragment, int id) {
+    public static void replaceSemRetoro(FragmentActivity activity, Fragment fragment, int id) {
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.replace(id, fragment);
 
         transaction.commit();
 
     }
+
+
+    //Fragments Utils Revendedores
+
+
+    public static void replaceRevendedor(FragmentActivity activity, Fragment fragment) {
+        replace(activity, fragment, R.id.container_principal_revendedor);
+    }
+
+    public static void replaceRevendedor(FragmentActivity activity, Fragment fragment, int id) {
+        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+        transaction.replace(id, fragment);
+        transaction.commit();
+    }
+
 
 }

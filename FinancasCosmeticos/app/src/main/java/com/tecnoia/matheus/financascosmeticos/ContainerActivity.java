@@ -2,13 +2,12 @@ package com.tecnoia.matheus.financascosmeticos;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
+import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -17,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
+import com.tecnoia.matheus.financascosmeticos.model.Revendedor;
 import com.tecnoia.matheus.financascosmeticos.model.Supervisor;
 import com.tecnoia.matheus.financascosmeticos.revendedor.MainRevendedor;
 import com.tecnoia.matheus.financascosmeticos.supervisor.MainSupervisor;
@@ -34,8 +34,9 @@ public class ContainerActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseAuth autenticacao;
     private String id;
-    private SharedPreferences sharedPrefSupervisor;
+    private SharedPreferences sharedPrefRevendedor, sharedPrefSupervisor;
     private Fragment fragment;
+    private DatabaseReference databaseRevendedor;
 
 
     @Override
@@ -115,7 +116,6 @@ public class ContainerActivity extends AppCompatActivity {
     }
 
 
-
     private void transitaTela() {
 
 
@@ -130,11 +130,12 @@ public class ContainerActivity extends AppCompatActivity {
                     if (dataSnapshot.exists()) {
                         carregarDadosSupervisor();
 
-                        FragmentUtils.replacePrincipal(ContainerActivity.this,MainSupervisor.newInstance());
+                        FragmentUtils.replacePrincipal(ContainerActivity.this, MainSupervisor.newInstance());
 
                     } else {
+                        carregarDadosRevendedor();
 
-                        FragmentUtils.replacePrincipal(ContainerActivity.this,MainRevendedor.newInstance());
+                        FragmentUtils.replacePrincipal(ContainerActivity.this, MainRevendedor.newInstance());
 
 
                     }
@@ -152,6 +153,35 @@ public class ContainerActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void carregarDadosRevendedor() {
+        databaseRevendedor = ConfiguracoesFirebase.getConsultaPerfilRevendor(id);
+        databaseRevendedor.keepSynced(true);
+        new GetDataFromFirebase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        databaseRevendedor.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try {
+                    Revendedor revendedor = dataSnapshot.getValue(Revendedor.class);
+
+                    sharedPrefRevendedor = getPreferences(Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPrefRevendedor.edit();
+                    editor.putString("idRevendedor", revendedor.getId());
+                    editor.putString("idSupervisor", revendedor.getIdSupervisor());
+                    editor.apply();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void carregarDadosSupervisor() {

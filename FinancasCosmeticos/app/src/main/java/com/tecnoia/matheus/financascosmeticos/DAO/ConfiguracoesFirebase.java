@@ -54,4 +54,9 @@ public class ConfiguracoesFirebase {
     }
 
 
+    public static DatabaseReference getConsultaPerfilRevendor(String id) {
+
+        return FirebaseDatabase.getInstance().getReference(id);
+
+    }
 }

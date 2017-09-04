@@ -50,9 +50,10 @@
     <string name="atualizar">Atualizar</string>
     <string name="supervisora">supervisora</string>
     <string name="perfil">Perfil</string>
-    <string name="disponiveis_a_venda">Disponível para venda:</string>
+    <string name="disponiveis_a_venda">Itens à venda: </string>
     <string name="estoque_menu">Estoque</string>
     <string name="estoque_insuficiente">Estoque insuficiente!</string>
+    <string name="vendidos">Vendidos:</string>
 
 
 </resources>

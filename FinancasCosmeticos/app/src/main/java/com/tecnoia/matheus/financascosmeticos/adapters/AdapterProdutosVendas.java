@@ -223,7 +223,6 @@ public class AdapterProdutosVendas extends ArrayAdapter {
             public void onClick(DialogInterface dialogInterface, int i) {
 
 
-
             }
         });
 
@@ -248,7 +247,7 @@ public class AdapterProdutosVendas extends ArrayAdapter {
                     focusView = editTextFornecidos;
                     cancel = true;
 
-                } else if (!validaCamposConexao.validaValorEstoque(quantidadeEstoque, Integer.parseInt(valorCampo))) {
+                } else if (!validaCamposConexao.validaValorEstoque(Integer.parseInt(produtoVenda.getQuantidade()), quantidadeEstoque, Integer.parseInt(valorCampo))) {
                     editTextFornecidos.setError(activity.getString(R.string.estoque_insuficiente));
                     focusView = editTextFornecidos;
                     cancel = true;

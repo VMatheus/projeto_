@@ -13,8 +13,8 @@ public class ValidaCamposConexao {
 
     //classe para validação de campos
 
-    public boolean validaValorEstoque(Integer atual, Integer novo) {
-        return novo <= atual;
+    public boolean validaValorEstoque(Integer itensVenda, Integer estoqueAtual, Integer novoValor) {
+        return novoValor <= itensVenda + estoqueAtual;
     }
 
     public boolean validaSenha(String s) {

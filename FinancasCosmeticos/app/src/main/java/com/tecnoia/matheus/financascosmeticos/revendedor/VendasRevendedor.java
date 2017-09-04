@@ -59,7 +59,7 @@ public class VendasRevendedor extends Fragment {
         recuperaDados();
         initViews(rootView);
         preencheListaVendas();
-        adapterVendas = new AdapterVendasRevendedor(getActivity(), produtoList, idRevendedor, idSupervisor);
+        adapterVendas = new AdapterVendasRevendedor(getActivity(), produtoList, idRevendedor, idSupervisor, listViewVendas);
         listViewVendas.setAdapter(adapterVendas);
         return rootView;
 

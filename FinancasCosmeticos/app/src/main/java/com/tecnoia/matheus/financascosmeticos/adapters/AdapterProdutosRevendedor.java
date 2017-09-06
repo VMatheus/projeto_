@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,14 +24,14 @@ import java.util.List;
  * Created by matheus on 03/09/17.
  */
 
-public class AdapterVendasRevendedor extends ArrayAdapter {
+public class AdapterProdutosRevendedor extends ArrayAdapter {
     private List<Produto> produtoList;
     private FragmentActivity activity;
     private String idSupervisor, idRevendedor;
     private ListView listViewVendas;
 
 
-    public AdapterVendasRevendedor(FragmentActivity activity, List<Produto> produtoList, String idRevendedor, String idSupervisor, ListView listViewVendas) {
+    public AdapterProdutosRevendedor(FragmentActivity activity, List<Produto> produtoList, String idRevendedor, String idSupervisor, ListView listViewVendas) {
         super(activity, R.layout.adapter_vendas);
         this.produtoList = produtoList;
         this.idRevendedor = idRevendedor;
@@ -68,23 +69,29 @@ public class AdapterVendasRevendedor extends ArrayAdapter {
         LayoutInflater inflater = activity.getLayoutInflater();
         View view = inflater.inflate(R.layout.adapter_vendas, null, true);
 
-        TextView nome, preco, quantidade;
-        nome = view.findViewById(R.id.text_nome_produto_venda);
-        preco = view.findViewById(R.id.text_preco_produto_venda);
+        LinearLayout linearLayout;
+        TextView textViewNome, textViewPreco, textViewQuantidade, textViewStatus;
+        textViewNome = view.findViewById(R.id.text_nome_produto_venda);
+        textViewPreco = view.findViewById(R.id.text_preco_produto_venda);
+        linearLayout = view.findViewById(R.id.linear_adapter_vendas);
 
-        quantidade = view.findViewById(R.id.text_disponiveis_avenda);
+        textViewQuantidade = view.findViewById(R.id.text_disponiveis_avenda);
+        textViewStatus = view.findViewById(R.id.tex_total_vendidos);
 
         final Produto produto = produtoList.get(position);
-        nome.setText(produto.getNome());
-        preco.setText(String.format("%s R$", produto.getPreco()));
-        quantidade.setText(activity.getResources().getString(R.string.disponiveis_a_venda) +" "+ produto.getQuantidade());
-
+        textViewNome.setText(produto.getNome());
+        textViewPreco.setText(String.format("%s R$", produto.getPreco()));
+        textViewQuantidade.setText(activity.getResources().getString(R.string.disponiveis_a_venda) +" "+ produto.getQuantidade());
+        textViewStatus.setText(String.format("Vendidos: %s", produto.getStatus()));
+        if (produto.getQuantidade().equals("0")){
+            linearLayout.setBackgroundColor(0xFFb5ffdc);
+        }
         listViewVendas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Produto produto1 = produtoList.get(i);
 
-                alertDialog(produto1);
+              /*  alertDialog(produto1);*/
 
 
             }

@@ -28,7 +28,7 @@ import java.util.List;
  * Created by matheus on 31/08/17.
  */
 
-public class AdapterProdutosVendas extends ArrayAdapter {
+public class AdapterConsultarVendas extends ArrayAdapter {
 
     private String idSupervisor;
 
@@ -40,7 +40,7 @@ public class AdapterProdutosVendas extends ArrayAdapter {
     private Integer quantidadeEstoque;
 
 
-    public AdapterProdutosVendas(FragmentActivity activity, List<Produto> produtoListVendas, ListView listViewProdutos, String idSupervisor, List<Produto> produtosListEstoque, String idRevendedor) {
+    public AdapterConsultarVendas(FragmentActivity activity, List<Produto> produtoListVendas, ListView listViewProdutos, String idSupervisor, List<Produto> produtosListEstoque, String idRevendedor) {
         super(activity, R.layout.adapter_vendas, produtoListVendas);
         this.activity = activity;
         this.produtoListVendas = produtoListVendas;

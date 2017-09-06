@@ -16,8 +16,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
 import com.tecnoia.matheus.financascosmeticos.R;
-import com.tecnoia.matheus.financascosmeticos.adapters.AdapterProdutosVendas;
-import com.tecnoia.matheus.financascosmeticos.adapters.AdapterVendasRevendedor;
+import com.tecnoia.matheus.financascosmeticos.adapters.AdapterProdutosRevendedor;
 import com.tecnoia.matheus.financascosmeticos.model.Produto;
 import com.tecnoia.matheus.financascosmeticos.utils.GetDataFromFirebase;
 
@@ -29,7 +28,7 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class VendasRevendedor extends Fragment {
+public class ProdutosRevendedor extends Fragment {
 
 
     private ListView listViewVendas;
@@ -39,11 +38,11 @@ public class VendasRevendedor extends Fragment {
     private SharedPreferences sharedPrefRevendedor;
     private String idSupervisor;
     private String idRevendedor;
-    private AdapterVendasRevendedor adapterVendas;
+    private AdapterProdutosRevendedor adapterVendas;
 
 
-    public static VendasRevendedor newInstance() {
-        return new VendasRevendedor();
+    public static ProdutosRevendedor newInstance() {
+        return new ProdutosRevendedor();
     }
 
 
@@ -51,7 +50,7 @@ public class VendasRevendedor extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_vendas_revendedor, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_produtos_revendedor, container, false);
         if (container != null) {
             container.removeAllViews();
         }
@@ -59,7 +58,7 @@ public class VendasRevendedor extends Fragment {
         recuperaDados();
         initViews(rootView);
         preencheListaVendas();
-        adapterVendas = new AdapterVendasRevendedor(getActivity(), produtoList, idRevendedor, idSupervisor, listViewVendas);
+        adapterVendas = new AdapterProdutosRevendedor(getActivity(), produtoList, idRevendedor, idSupervisor, listViewVendas);
         listViewVendas.setAdapter(adapterVendas);
         return rootView;
 

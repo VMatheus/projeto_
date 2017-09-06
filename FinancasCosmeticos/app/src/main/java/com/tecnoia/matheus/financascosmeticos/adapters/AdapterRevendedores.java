@@ -18,7 +18,7 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseReference;
 import com.tecnoia.matheus.financascosmeticos.R;
 import com.tecnoia.matheus.financascosmeticos.model.Revendedor;
-import com.tecnoia.matheus.financascosmeticos.supervisor.fragments.VendasFragment;
+import com.tecnoia.matheus.financascosmeticos.supervisor.fragments.ConsultarVendasFragment;
 import com.tecnoia.matheus.financascosmeticos.utils.FragmentUtils;
 
 import java.util.ArrayList;
@@ -113,12 +113,12 @@ public class AdapterRevendedores extends RecyclerView.Adapter<AdapterRevendedore
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.item_vendas:
+                    case R.id.item_consultar_vendas:
 
                         Bundle bundle = new Bundle();
                         bundle.putString("idRevendedor", idRevendedor);
                         bundle.putString("nomeRevendedor", nomeRevendedor);
-                        Fragment fragment = VendasFragment.newInstance();
+                        Fragment fragment = ConsultarVendasFragment.newInstance();
                         fragment.setArguments(bundle);
                         FragmentUtils.replaceRetorno(activity, fragment);
                         break;

@@ -2,16 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/item_vendas"
+        android:id="@+id/item__vendas"
         android:enabled="true"
-        android:icon="@drawable/ic_action_vendas2"
+        android:icon="@drawable/ic_action_vendas3"
         android:title="@string/vendas"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/item_perfil_supervisor"
+        android:id="@+id/item_produtos"
         android:enabled="true"
-        android:icon="@drawable/ic_action_perfil"
-        android:title="@string/supervisora"
+        android:icon="@drawable/ic_action_vendas2"
+        android:title="@string/produtos"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/item_perfil_revendedor"

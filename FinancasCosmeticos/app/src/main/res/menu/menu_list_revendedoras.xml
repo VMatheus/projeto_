@@ -2,10 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/item_vendas"
+        android:id="@+id/item_consultar_vendas"
         android:enabled="true"
-        android:icon="@drawable/ic_action_perfil"
-        android:title="@string/vendas"
+
+        android:title="@string/consultar_vendas"
+        app:showAsAction="never"
+
+        />
+    <item
+        android:id="@+id/item_remover_revendedor"
+        android:enabled="true"
+
+        android:title="@string/remover_revendedora"
         app:showAsAction="never"
 
         />

@@ -54,6 +54,15 @@
     <string name="estoque_menu">Estoque</string>
     <string name="estoque_insuficiente">Estoque insuficiente!</string>
     <string name="vendidos">Vendidos:</string>
+    <string name="produtos">Produtos</string>
+    <string name="consultar_vendas">Consultar vendas</string>
+    <string name="remover_revendedora">Remover</string>
+    <string name="adicionar_produtos">Adicionar produtos</string>
+    <string name="finalizar_venda">Finalizar venda</string>
+    <string name="selecione_o_produto">Selecione o produto</string>
+    <string name="selecione_o_produto_error">Necessário selecionar um produto</string>
+    <string name="quantidade_erro">Informe a quantidade</string>
+    <string name="quantidade_indisponivel">Quantidade indisponível</string>
 
 
 </resources>

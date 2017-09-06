@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.tecnoia.matheus.financascosmeticos.supervisor.fragments.VendasFragment">
+    tools:context="com.tecnoia.matheus.financascosmeticos.supervisor.fragments.ConsultarVendasFragment">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_vendas"
+        android:id="@+id/toolbar_consultar_vendas"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"

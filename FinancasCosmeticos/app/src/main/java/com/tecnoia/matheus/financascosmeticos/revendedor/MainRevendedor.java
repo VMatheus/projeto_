@@ -1,5 +1,6 @@
 package com.tecnoia.matheus.financascosmeticos.revendedor;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,16 +16,18 @@ import com.tecnoia.matheus.financascosmeticos.utils.FragmentUtils;
 
 public class MainRevendedor extends Fragment {
     private BottomNavigationView bottomNavigationView;
+    private int saveState;
 
     public static MainRevendedor newInstance() {
         return new MainRevendedor();
     }
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_main_revendedor, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_main_revendedor, container, false);
         if (container != null) {
             container.removeAllViews();
         }
+
 
 
         initViews(rootView);
@@ -35,6 +38,18 @@ public class MainRevendedor extends Fragment {
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        bottomNavigationView.setSelectedItemId(saveState);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        saveState = bottomNavigationView.getSelectedItemId();
+    }
+
     private void initViews(View rootView) {
         bottomNavigationView = rootView.findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -43,18 +58,18 @@ public class MainRevendedor extends Fragment {
                 Fragment fragment = null;
 
                 switch (item.getItemId()) {
-                    case R.id.item_vendas:
-                        fragment = VendasRevendedor.newInstance();
+                    case R.id.item__vendas:
+                        fragment = VendasRealizadas.newInstance();
 
 
                         break;
 
                     case R.id.item_perfil_revendedor:
-                        fragment = VendasRevendedor.newInstance();
+                        fragment = ProdutosRevendedor.newInstance();
                         break;
 
-                    case R.id.item_perfil_supervisor:
-                        fragment = VendasRevendedor.newInstance();
+                    case R.id.item_produtos:
+                        fragment = ProdutosRevendedor.newInstance();
                         break;
                 }
 
@@ -65,7 +80,7 @@ public class MainRevendedor extends Fragment {
             }
         });
 
-        FragmentUtils.replaceRevendedor(getActivity(), VendasRevendedor.newInstance());
+        FragmentUtils.replaceRevendedor(getActivity(), VendasRealizadas.newInstance());
 
     }
 }

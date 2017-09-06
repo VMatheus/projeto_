@@ -56,6 +56,17 @@ public class FragmentUtils {
         transaction.commit();
     }
 
+    //ReplacePrincipalRetorno
+    public static void replacePrincipalRetorno(FragmentActivity activity, Fragment fragment) {
+        replacePrincipalRetorno(activity, fragment, R.id.container_main);
+    }
+
+    public static void replacePrincipalRetorno(FragmentActivity activity, Fragment fragment, int id) {
+        String s = activity.getClass().getName();
+        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+        transaction.replace(id, fragment).addToBackStack(s);
+        transaction.commit();
+    }
 
     public static void replaceOpcaoUsuario(FragmentActivity activity, Fragment fragment) {
         replaceOpcaoUsuario(activity, fragment, R.id.container_main);

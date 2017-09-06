@@ -12,10 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tecnoia.matheus.financascosmeticos.R;
-import com.tecnoia.matheus.financascosmeticos.supervisor.fragments.EstatisticasFragment;
 import com.tecnoia.matheus.financascosmeticos.supervisor.fragments.ListaRevendedores;
 import com.tecnoia.matheus.financascosmeticos.supervisor.fragments.PerfilSupervisor;
-import com.tecnoia.matheus.financascosmeticos.supervisor.fragments.ListaProdutos;
+import com.tecnoia.matheus.financascosmeticos.supervisor.fragments.ListaProdutosEstoque;
 import com.tecnoia.matheus.financascosmeticos.supervisor.fragments.RevendedoresContainer;
 import com.tecnoia.matheus.financascosmeticos.utils.FragmentUtils;
 
@@ -30,7 +29,7 @@ public class MainSupervisor extends Fragment {
     }
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.supervisor_main, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_main_supervisor, container, false);
 
 
         initViews(rootView);
@@ -62,7 +61,7 @@ public class MainSupervisor extends Fragment {
                         break;*/
 
                     case R.id.item_estoque:
-                        fragment = ListaProdutos.newInstance();
+                        fragment = ListaProdutosEstoque.newInstance();
                         break;
 
                     case R.id.item_perfil:

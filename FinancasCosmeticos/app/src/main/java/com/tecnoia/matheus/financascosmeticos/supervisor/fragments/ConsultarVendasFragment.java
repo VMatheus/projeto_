@@ -22,7 +22,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
 import com.tecnoia.matheus.financascosmeticos.R;
-import com.tecnoia.matheus.financascosmeticos.adapters.AdapterProdutosVendas;
+import com.tecnoia.matheus.financascosmeticos.adapters.AdapterConsultarVendas;
 import com.tecnoia.matheus.financascosmeticos.model.Produto;
 import com.tecnoia.matheus.financascosmeticos.utils.FragmentUtils;
 
@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import static android.content.Context.MODE_PRIVATE;
 
 
-public class VendasFragment extends Fragment {
+public class ConsultarVendasFragment extends Fragment {
     private FloatingActionButton buttonAdicionarProdutos;
 
     private Button buttonSalvar;
@@ -41,22 +41,22 @@ public class VendasFragment extends Fragment {
     private String idSupervisor;
     private String idRevendedor;
     private ListView listViewProdutosVenda;
-    private AdapterProdutosVendas adapterProdutos;
+    private AdapterConsultarVendas adapterConsultarVendas;
     private Toolbar toolbar;
     private String nomeRevendedor;
-    ;
 
 
-    public static VendasFragment newInstance() {
 
-        return new VendasFragment();
+    public static ConsultarVendasFragment newInstance() {
+
+        return new ConsultarVendasFragment();
     }
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_vendas, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_consultar_vendas, container, false);
         if (container != null) {
             container.removeAllViews();
         }
@@ -70,8 +70,8 @@ public class VendasFragment extends Fragment {
 
         initViews(rootView);
         toolbarVendas();
-        adapterProdutos = new AdapterProdutosVendas(getActivity(), produtosListVendas, listViewProdutosVenda, idSupervisor, produtosListEstoque, idRevendedor);
-        listViewProdutosVenda.setAdapter(adapterProdutos);
+        adapterConsultarVendas = new AdapterConsultarVendas(getActivity(), produtosListVendas, listViewProdutosVenda, idSupervisor, produtosListEstoque, idRevendedor);
+        listViewProdutosVenda.setAdapter(adapterConsultarVendas);
 
 
         return (rootView);
@@ -94,7 +94,7 @@ public class VendasFragment extends Fragment {
                         produtosListEstoque.add(produto);
 
                     }
-                    adapterProdutos.atualizaEstoque(produtosListEstoque);
+                    adapterConsultarVendas.atualizaEstoque(produtosListEstoque);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -141,7 +141,7 @@ public class VendasFragment extends Fragment {
                     }
 
 
-                    adapterProdutos.atualiza(produtosListVendas);
+                    adapterConsultarVendas.atualiza(produtosListVendas);
 
 
                 } catch (Exception e) {
@@ -179,7 +179,7 @@ public class VendasFragment extends Fragment {
     }
 
     private void initViews(View rootView) {
-        toolbar = rootView.findViewById(R.id.toolbar_vendas);
+        toolbar = rootView.findViewById(R.id.toolbar_consultar_vendas);
         listViewProdutosVenda = rootView.findViewById(R.id.list_view_produtos_venda);
         buttonAdicionarProdutos = rootView.findViewById(R.id.floating_button_adicionar_produtos_venda);
 

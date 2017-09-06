@@ -2,30 +2,23 @@ package com.tecnoia.matheus.financascosmeticos.supervisor.fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialog;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
 import com.tecnoia.matheus.financascosmeticos.R;
 import com.tecnoia.matheus.financascosmeticos.adapters.AdapterProdutos;
 import com.tecnoia.matheus.financascosmeticos.model.Produto;
-import com.tecnoia.matheus.financascosmeticos.utils.ConstantsUtils;
 import com.tecnoia.matheus.financascosmeticos.utils.FragmentUtils;
 
 import java.util.ArrayList;
@@ -33,7 +26,7 @@ import java.util.ArrayList;
 import static android.content.Context.MODE_PRIVATE;
 
 
-public class ListaProdutos extends Fragment {
+public class ListaProdutosEstoque extends Fragment {
     private FloatingActionButton floatingActionButton;
     private ListView listViewProdutos;
     private Query databaseProdutosEstoque;
@@ -45,14 +38,14 @@ public class ListaProdutos extends Fragment {
     //BottomSheetDialog
 
 
-    public static ListaProdutos newInstance() {
+    public static ListaProdutosEstoque newInstance() {
 
-        return new ListaProdutos();
+        return new ListaProdutosEstoque();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootview = inflater.inflate(R.layout.activity_lista_produtos, container, false);
+        View rootview = inflater.inflate(R.layout.activity_lista_produtos_estoque, container, false);
         initViews(rootview);
         recuperaDados();
 

@@ -27,7 +27,6 @@ import com.tecnoia.matheus.financascosmeticos.utils.GetDataFromFirebase;
 
 
 public class ContainerActivity extends AppCompatActivity {
-    private FragmentUtils fragmentUtils = new FragmentUtils();
 
 
     private DatabaseReference databaseSupervisores;
@@ -35,9 +34,9 @@ public class ContainerActivity extends AppCompatActivity {
     private FirebaseAuth autenticacao;
     private String id;
     private SharedPreferences sharedPrefRevendedor, sharedPrefSupervisor;
-    private Fragment fragment;
+    private Fragment fragment = null;
     private DatabaseReference databaseRevendedor;
-
+    private  Integer usuario;
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -62,6 +61,8 @@ public class ContainerActivity extends AppCompatActivity {
 
 
         verficaUsuarioPresente();
+
+
 
 
     }
@@ -116,7 +117,7 @@ public class ContainerActivity extends AppCompatActivity {
     }
 
 
-    private void transitaTela() {
+    public void transitaTela() {
 
 
         databaseSupervisores = FirebaseDatabase.getInstance().getReference(ConstantsUtils.BANCO_SUPERVISORES + "/" + id);
@@ -128,14 +129,17 @@ public class ContainerActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
                     if (dataSnapshot.exists()) {
+                        usuario = 1;
                         carregarDadosSupervisor();
-
-                        FragmentUtils.replacePrincipal(ContainerActivity.this, MainSupervisor.newInstance());
+                        fragment = MainSupervisor.newInstance();
+                        FragmentUtils.replacePrincipal(ContainerActivity.this, fragment);
 
                     } else {
+                        usuario = 2;
                         carregarDadosRevendedor();
+                        fragment = MainRevendedor.newInstance();
 
-                        FragmentUtils.replacePrincipal(ContainerActivity.this, MainRevendedor.newInstance());
+                        FragmentUtils.replacePrincipal(ContainerActivity.this, fragment);
 
 
                     }
@@ -150,6 +154,8 @@ public class ContainerActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
 
             }
+
+
         });
 
 

@@ -58,15 +58,17 @@ public class AdapterVendasRealizadas extends ArrayAdapter {
         LayoutInflater inflater1 = activity.getLayoutInflater();
         final View view1 = inflater1.inflate(R.layout.adapter_vendas_realizadas, null);
 
-        TextView textViewNome, textViewVendidos;
+        TextView textViewNome, textViewVendidos, textViewSaldoItens;
 
         textViewVendidos = view1.findViewById(R.id.text_quantidade_vendidos);
         textViewNome = view1.findViewById(R.id.text_nome_vendas_realizadas);
+        textViewSaldoItens = view1.findViewById(R.id.text_saldo_itens);
         final ItemVenda itemVenda = itemVendaList.get(position);
 
 
         textViewNome.setText(itemVenda.getNome());
         textViewVendidos.setText(itemVenda.getQuantidade());
+        textViewSaldoItens.setText(String.valueOf(itemVenda.getSaldoItens()) +" R$");
         return view1;
 
     }

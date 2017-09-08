@@ -18,6 +18,7 @@ import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
 import com.tecnoia.matheus.financascosmeticos.R;
 import com.tecnoia.matheus.financascosmeticos.model.Produto;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -118,7 +119,7 @@ public class CadastroProdutoFragment extends Fragment {
     private void cadastraProduto() {
 
 
-        Produto produto = new Produto(idProduto, nome, preco, quantidade, "0");
+        Produto produto = new Produto(idProduto, nome, Double.parseDouble(preco), quantidade, "0");
         produto.salvarProduto(idSupervisor);
         FragmentManager fm = getActivity().getSupportFragmentManager();
         fm.popBackStack();

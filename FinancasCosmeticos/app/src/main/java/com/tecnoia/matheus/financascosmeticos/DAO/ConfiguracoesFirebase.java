@@ -61,7 +61,12 @@ public class ConfiguracoesFirebase {
     }
 
     public static DatabaseReference getVendasRealizadas(String idSupervisor, String idRevendedor) {
-        return FirebaseDatabase.getInstance().getReference(idSupervisor + "/" + ConstantsUtils.VENDAS_REALIZADAS +"/"+ idRevendedor);
+        return FirebaseDatabase.getInstance().getReference(idSupervisor + "/" + ConstantsUtils.VENDAS_REALIZADAS + "/" + idRevendedor);
+
+    }
+
+    public static DatabaseReference getVendasRealizadasUpdate(String idSupervisor, String idRevendedor, String idProduto) {
+        return FirebaseDatabase.getInstance().getReference(idSupervisor + "/" + ConstantsUtils.VENDAS_REALIZADAS + "/" + idRevendedor + "/" + idProduto);
 
     }
 }

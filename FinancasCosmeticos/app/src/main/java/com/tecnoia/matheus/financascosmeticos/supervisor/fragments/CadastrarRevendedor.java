@@ -27,6 +27,7 @@ import com.tecnoia.matheus.financascosmeticos.model.Revendedor;
 import com.tecnoia.matheus.financascosmeticos.model.Supervisor;
 import com.tecnoia.matheus.financascosmeticos.utils.FragmentUtils;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -149,7 +150,8 @@ public class CadastrarRevendedor extends Fragment {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     String idRevendedor = task.getResult().getUser().getUid();
-                    Revendedor revendedor = new Revendedor(idRevendedor, idSupervisor, nome, email, senha, "...");
+
+                    Revendedor revendedor = new Revendedor(idRevendedor, idSupervisor, nome, email, senha, "..." ,0.00);
                     revendedor.salvarRevendedor(idSupervisor);
 
 

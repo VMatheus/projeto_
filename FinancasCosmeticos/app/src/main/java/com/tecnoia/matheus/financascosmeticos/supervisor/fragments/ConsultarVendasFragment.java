@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -44,7 +45,8 @@ public class ConsultarVendasFragment extends Fragment {
     private AdapterConsultarVendas adapterConsultarVendas;
     private Toolbar toolbar;
     private String nomeRevendedor;
-
+    private String saldoTotal;
+    private TextView textViewSaldoTotal;
 
 
     public static ConsultarVendasFragment newInstance() {
@@ -182,7 +184,8 @@ public class ConsultarVendasFragment extends Fragment {
         toolbar = rootView.findViewById(R.id.toolbar_consultar_vendas);
         listViewProdutosVenda = rootView.findViewById(R.id.list_view_produtos_venda);
         buttonAdicionarProdutos = rootView.findViewById(R.id.floating_button_adicionar_produtos_venda);
-
+        textViewSaldoTotal = rootView.findViewById(R.id.text_saldo_total);
+        textViewSaldoTotal.setText("R$ " + saldoTotal );
         buttonAdicionarProdutos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -209,6 +212,8 @@ public class ConsultarVendasFragment extends Fragment {
         if (bundle != null) {
             idRevendedor = bundle.getString("idRevendedor");
             nomeRevendedor = bundle.getString("nomeRevendedor");
+
+            saldoTotal = bundle.getString("saldoTotal");
 
         }
 

@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.tecnoia.matheus.financascosmeticos.R;
 import com.tecnoia.matheus.financascosmeticos.model.ItemVenda;
-import com.tecnoia.matheus.financascosmeticos.model.Produto;
 
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class AdapterItensVenda extends ArrayAdapter {
 
 
     public AdapterItensVenda(FragmentActivity activity, List<ItemVenda> itemVendaList, Integer quantidadeDesejada) {
-        super(activity, R.layout.adapter_produtos_separacao);
+        super(activity, R.layout.adapter_nova_venda);
         this.itemVendaList = itemVendaList;
         this.activity = activity;
         this.quantidadeDesejada = quantidadeDesejada;
@@ -44,7 +43,7 @@ public class AdapterItensVenda extends ArrayAdapter {
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = activity.getLayoutInflater();
-        View view = inflater.inflate(R.layout.adapter_produtos_separacao, null, true);
+        View view = inflater.inflate(R.layout.adapter_nova_venda, null, true);
         TextView textViewNome, textViewUnidades;
         ImageView imageViewRemover;
         textViewNome = view.findViewById(R.id.text_nome_separacao);

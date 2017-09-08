@@ -1,9 +1,15 @@
 package com.tecnoia.matheus.financascosmeticos.adapters;
 
 import android.app.Activity;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
@@ -71,18 +77,28 @@ public class AdapterConsultarVendas extends ArrayAdapter {
     public View getView(int position, View convertView, ViewGroup viewGroup) {
         LayoutInflater inflater = activity.getLayoutInflater();
         View view = inflater.inflate(R.layout.adapter_vendas, null, true);
-        final TextView nome, preco, quantidade;
+        final TextView nome, preco, quantidade, status;
         nome = view.findViewById(R.id.text_nome_produto_venda);
         preco = view.findViewById(R.id.text_preco_produto_venda);
         quantidade = view.findViewById(R.id.text_disponiveis_avenda);
 
+
+        status = view.findViewById(R.id.tex_status_vendidos);
+
+
         final Produto produto = produtoListVendas.get(position);
 
         nome.setText(produto.getNome());
-        preco.setText(String.format("%s R$", produto.getPreco()));
-        String s = activity.getResources().getString(R.string.disponiveis_a_venda);
-        quantidade.setText(String.format("%s%s", s, produto.getQuantidade()));
+        Double saldoTens = produto.getPreco() *  Double.parseDouble(produto.getStatus());
+        preco.setText(String.format("%s R$", String.valueOf(saldoTens)));
 
+
+        quantidade.setText(activity.getString(R.string.itens_a_venda) + " " + produto.getQuantidade());
+        status.setText(String.format("Vendidos: %s", produto.getStatus()));
+        Integer statusV = Integer.parseInt(produto.getStatus());
+        if (statusV.equals(0)){
+            sendNotification(view);
+        }
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -182,7 +198,9 @@ public class AdapterConsultarVendas extends ArrayAdapter {
 
         final TextView textViewEstoque = view1.findViewById(R.id.unidades_disponiveis_dialog_vendas);
         final TextView textViewPreco = view1.findViewById(R.id.preco_dialog_vendas);
+
         final EditText editTextFornecidos = view1.findViewById(R.id.edit_fornecidos_vendas);
+
         editTextFornecidos.setError(null);
 
         int z;
@@ -342,5 +360,27 @@ public class AdapterConsultarVendas extends ArrayAdapter {
         this.produtoListEstoque = produtosListE;
         this.notifyDataSetChanged();
 
+    }
+    public void sendNotification(View view) {
+
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(activity);
+
+//Create the intent that’ll fire when the user taps the notification//
+
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.androidauthority.com/"));
+        PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, intent, 0);
+
+        mBuilder.setContentIntent(pendingIntent);
+
+        mBuilder.setSmallIcon(R.drawable.common_google_signin_btn_icon_dark);
+        mBuilder.setContentTitle("My notification");
+        mBuilder.setContentText("Hello World!");
+
+        NotificationManager mNotificationManager =
+
+                (NotificationManager)activity.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        mNotificationManager.notify(001, mBuilder.build());
     }
 }

@@ -62,7 +62,7 @@ public class AdapterRevendedores extends RecyclerView.Adapter<AdapterRevendedore
             holder.imageMenu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    menuRevendedor(holder.imageMenu, revendedor.getId(), revendedor.getNome());
+                    menuRevendedor(holder.imageMenu, revendedor.getId(), revendedor.getNome(), revendedor.getSaldoTotal());
 
                 }
             });
@@ -105,7 +105,7 @@ public class AdapterRevendedores extends RecyclerView.Adapter<AdapterRevendedore
         }
     }
 
-    private void menuRevendedor(View view, final String idRevendedor, final String nomeRevendedor) {
+    private void menuRevendedor(View view, final String idRevendedor, final String nomeRevendedor, final Double saldoTotal) {
         PopupMenu popupMenu = new PopupMenu(activity, view);
         final MenuInflater menuInflater = popupMenu.getMenuInflater();
         menuInflater.inflate(R.menu.menu_list_revendedoras, popupMenu.getMenu());
@@ -118,6 +118,7 @@ public class AdapterRevendedores extends RecyclerView.Adapter<AdapterRevendedore
                         Bundle bundle = new Bundle();
                         bundle.putString("idRevendedor", idRevendedor);
                         bundle.putString("nomeRevendedor", nomeRevendedor);
+                        bundle.putString("saldoTotal", String.valueOf(saldoTotal));
                         Fragment fragment = ConsultarVendasFragment.newInstance();
                         fragment.setArguments(bundle);
                         FragmentUtils.replaceRetorno(activity, fragment);

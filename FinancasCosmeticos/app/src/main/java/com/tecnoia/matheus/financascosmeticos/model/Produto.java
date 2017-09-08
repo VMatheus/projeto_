@@ -8,6 +8,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
 import com.tecnoia.matheus.financascosmeticos.utils.ConstantsUtils;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +19,7 @@ import java.util.Map;
 public class Produto {
     private String id;
     private String nome;
-    private String preco;
+    private Double preco;
     private String quantidade;
     private String status;
 
@@ -26,7 +27,7 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(String id, String nome, String preco, String quantidade, String status) {
+    public Produto(String id, String nome, Double preco, String quantidade, String status) {
         this.id = id;
         this.nome = nome;
         this.preco = preco;
@@ -50,13 +51,7 @@ public class Produto {
         this.nome = nome;
     }
 
-    public String getPreco() {
-        return preco;
-    }
 
-    public void setPreco(String preco) {
-        this.preco = preco;
-    }
 
     public void removerProdutoEstoque(String idSupervisor, String idProduto) {
         try {
@@ -137,5 +132,14 @@ public class Produto {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+
+    public Double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(Double preco) {
+        this.preco = preco;
     }
 }

@@ -87,7 +87,8 @@ public class AdapterSelecionarProdutos extends ArrayAdapter {
 
 
                 final Produto produto1 = produtoList.get(i);
-                final String idProduto, nome, preco, quantidade,status;
+                final String idProduto, nome, quantidade,status;
+                final Double preco;
                 idProduto = produto1.getId();
                 nome = produto1.getNome();
                 preco = produto1.getPreco();
@@ -161,7 +162,7 @@ public class AdapterSelecionarProdutos extends ArrayAdapter {
                                 Produto produtoUpdate = new Produto(idProduto, nome, preco, String.valueOf(valorAtualizado),status);
                                 produtoUpdate.atualizarProduto(idSupervisor, idProduto);
 
-                                Produto produtoRevendedor = new Produto(idProduto, nome, preco, String.valueOf(valorCampo),status);
+                                Produto produtoRevendedor = new Produto(idProduto, nome,preco, String.valueOf(valorCampo),status);
 
                                 produtoRevendedor.salvaProdutoVendas(idSupervisor, idRevendedor);
 

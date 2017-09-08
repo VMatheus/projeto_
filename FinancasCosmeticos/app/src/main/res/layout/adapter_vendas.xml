@@ -22,25 +22,28 @@
             android:layout_margin="10dp"
             android:orientation="vertical">
 
-            <TextView
+            <com.tecnoia.matheus.financascosmeticos.utils.RobotoUtils
+
                 android:id="@+id/text_nome_produto_venda"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Base Líquida TimeWise® Acabamento Matte"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                android:textSize="16sp"
+                android:text="Base Líquida TimeWise® Acabamento Matte" />
 
-            <TextView
+            <com.tecnoia.matheus.financascosmeticos.utils.OpenSansUtils
+              android:padding="2dp"
                 android:id="@+id/text_disponiveis_avenda"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:textSize="15sp"
                 android:text="" />
 
-            <TextView
-                android:id="@+id/tex_total_vendidos"
+            <com.tecnoia.matheus.financascosmeticos.utils.OpenSansUtils
+                android:padding="2dp"
+                android:id="@+id/tex_status_vendidos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:textSize="15sp"
                  />
 
         </LinearLayout>
@@ -61,7 +64,7 @@
             android:layout_gravity="center_vertical"
             android:gravity="end"
             android:text="64,00 R$"
-            android:textSize="12sp" />
+            android:textSize="15sp" />
 
     </LinearLayout>
 

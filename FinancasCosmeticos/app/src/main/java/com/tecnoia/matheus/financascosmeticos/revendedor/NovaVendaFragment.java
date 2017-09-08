@@ -3,13 +3,16 @@ package com.tecnoia.matheus.financascosmeticos.revendedor;
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -20,6 +23,7 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
@@ -28,6 +32,7 @@ import com.tecnoia.matheus.financascosmeticos.adapters.AdapterItensVenda;
 import com.tecnoia.matheus.financascosmeticos.adapters.AdapterNovaVendaDialog;
 import com.tecnoia.matheus.financascosmeticos.model.ItemVenda;
 import com.tecnoia.matheus.financascosmeticos.model.Produto;
+import com.tecnoia.matheus.financascosmeticos.utils.GetDataFromFirebase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,10 +55,14 @@ public class NovaVendaFragment extends Fragment {
     private Integer quatidadeDisponivel, quantidadeDesejada;
     private ListView listViewProdutosEmSeparação;
 
+    private Double updateSaldo, saldoItemAtual;
     private List<Produto> produtoList = new ArrayList<>();
 
     private List<ItemVenda> itemVendaList = new ArrayList<>();
-    private Integer updateStatus, updateQuantidade;
+
+
+    private DatabaseReference databaseVendasRealizadas;
+    private ArrayList<ItemVenda> itemVendasRealizadas = new ArrayList<>();
 
 
     public static NovaVendaFragment newInstance() {
@@ -67,13 +76,44 @@ public class NovaVendaFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_nova_venda, container, false);
-
+        setHasOptionsMenu(true);
         initViews(rootView);
         recuperaDados();
+        vendasRealizadas();
+
+        toolbarNovaVenda();
+
+        produto = new Produto();
+        popUpSelecionarPodutos();
         return rootView;
     }
 
+    private void toolbarNovaVenda() {
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Nova Venda");
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                fm.popBackStack();
+
+                break;
+
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
     private void initViews(View rootView) {
+        toolbar = rootView.findViewById(R.id.toolbar_nova_venda);
         buttonFinalizarVenda = rootView.findViewById(R.id.buttomFinalizarVenda);
         listViewProdutosEmSeparação = rootView.findViewById(R.id.list_view_produtos_separacao);
         textViewSelecionaProduto = rootView.findViewById(R.id.text_seleciona_produto);
@@ -90,8 +130,7 @@ public class NovaVendaFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                produto = new Produto();
-                popUpSelecionarPodutos();
+                dialog.show();
 
             }
         });
@@ -154,27 +193,15 @@ public class NovaVendaFragment extends Fragment {
         builder.setCancelable(false);
 
 
-      /*  builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-
-            }
-        });*/
         builder.setPositiveButton("Fechar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
 
-               /* //retorna tela dos produtos em venda
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                fm.popBackStack();
-*/
-
             }
         });
         dialog = builder.create();
-        dialog.show();
+
 
         adapterNovaVendaDialog = new AdapterNovaVendaDialog(getActivity(), produtoList, listViewProdutos, idSupervisor, dialog, textViewSelecionaProduto, produto);
         listViewProdutos.setAdapter(adapterNovaVendaDialog);
@@ -231,13 +258,7 @@ public class NovaVendaFragment extends Fragment {
         }
 
         if (!cancela) {
-         /*   try {
-                 updateStatus = Integer.parseInt(produto.getStatus()) + quantidadeDesejada;
-                 updateQuantidade = Integer.parseInt(produto.getQuantidade()) - quantidadeDesejada;
 
-            }catch (Exception e){
-                e.printStackTrace();
-            }*/
 
             adicionaProdutos();
 
@@ -248,7 +269,10 @@ public class NovaVendaFragment extends Fragment {
     }
 
     private void adicionaProdutos() {
-        ItemVenda itemVenda = new ItemVenda(produto.getId(), produto.getNome(), String.valueOf(quantidadeDesejada));
+
+
+        ItemVenda itemVenda = new ItemVenda(produto.getId(), produto.getNome(), String.valueOf(quantidadeDesejada), Double.parseDouble("0"));
+
         itemVendaList.add(itemVenda);
 
 
@@ -259,7 +283,9 @@ public class NovaVendaFragment extends Fragment {
 
     }
 
-    private void verificaItens() {
+
+    public void verificaItens() {
+
         if (itemVendaList.isEmpty()) {
             Toast.makeText(getActivity(), "0 Itens", Toast.LENGTH_SHORT).show();
         } else {
@@ -279,15 +305,39 @@ public class NovaVendaFragment extends Fragment {
 
                             Integer updateQuantidade = Integer.parseInt(produto.getQuantidade()) - Integer.parseInt(itemVenda.getQuantidade());
                             Integer updateStatus = Integer.parseInt(produto.getStatus()) + Integer.parseInt(itemVenda.getQuantidade());
-
                             Produto produtoUpdateEstoque = new Produto(itemVenda.getId(), itemVenda.getNome(), produto.getPreco(), String.valueOf(updateQuantidade), String.valueOf(updateStatus));
                             produtoUpdateEstoque.salvaProdutoVendas(idSupervisor, idRevendedor);
 
                             Integer quantidadeVendidos = Integer.parseInt(produto.getStatus()) + Integer.parseInt(itemVenda.getQuantidade());
 
+                            for (int x = 0; x < itemVendasRealizadas.size(); x++) {
 
-                            ItemVenda itemVendaVendidos = new ItemVenda(itemVenda.getId(), itemVenda.getNome(), quantidadeVendidos + updateQuantidade + "");
-                            itemVendaVendidos.vendasRealizadas(idSupervisor, idRevendedor);
+                                ItemVenda vendasRealizadas = itemVendasRealizadas.get(i);
+                                if (vendasRealizadas.getId().equals(itemVenda.getId())) {
+                                    saldoItemAtual = vendasRealizadas.getSaldoItens();
+
+                                }
+
+
+                            }
+                            Log.v(saldoItemAtual + "", "saldoitem");
+
+                            if (saldoItemAtual == null) {
+                                Integer unidades = Integer.parseInt(itemVenda.getQuantidade());
+                                updateSaldo = produto.getPreco() * unidades;
+
+                                ItemVenda itemVendaVendidos = new ItemVenda(itemVenda.getId(), itemVenda.getNome(), quantidadeVendidos + "", updateSaldo);
+                                itemVendaVendidos.vendasRealizadas(idSupervisor, idRevendedor);
+
+
+                            } else {
+                                updateSaldo = saldoItemAtual + produto.getPreco() * Integer.parseInt(itemVenda.getQuantidade());
+
+                                ItemVenda itemVendaVendidos = new ItemVenda(itemVenda.getId(), itemVenda.getNome(), quantidadeVendidos + "", updateSaldo);
+                                itemVendaVendidos.vendasRealizadas(idSupervisor, idRevendedor);
+
+
+                            }
 
 
                             i++;
@@ -311,6 +361,46 @@ public class NovaVendaFragment extends Fragment {
             fm.popBackStack();
 
         }
+
+    }
+
+    public void vendasRealizadas() {
+
+
+        databaseVendasRealizadas = ConfiguracoesFirebase.getVendasRealizadas(idSupervisor, idRevendedor);
+        databaseVendasRealizadas.keepSynced(true);
+        new GetDataFromFirebase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        databaseVendasRealizadas.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try {
+                    itemVendasRealizadas.clear();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                        ItemVenda itemVenda = snapshot.getValue(ItemVenda.class);
+
+
+                        produtoList.add(produto);
+
+                        itemVendasRealizadas.add(itemVenda);
+
+
+                    }
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
     }
 

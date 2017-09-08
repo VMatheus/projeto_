@@ -7,7 +7,7 @@
     tools:context="com.tecnoia.matheus.financascosmeticos.revendedor.NovaVendaFragment">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_lista_produtos_estoque"
+        android:id="@+id/toolbar_nova_venda"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
@@ -15,7 +15,7 @@
         app:popupTheme="@style/AppTheme"
         app:subtitleTextColor="@android:color/white"
         app:theme="@style/ToolbarColoredBackArrow"
-        app:title="Nova Venda"
+
         app:titleTextColor="@android:color/white" />
 
 
@@ -28,7 +28,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.11"
+            android:layout_weight="0.12"
             android:orientation="vertical">
 
             <TextView
@@ -97,11 +97,12 @@
             android:orientation="vertical">
 
             <ListView
+                android:padding="10dp"
+
                 android:id="@+id/list_view_produtos_separacao"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+
                 android:layout_weight="0.1" />
 
             <Button

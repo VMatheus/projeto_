@@ -76,14 +76,14 @@ public class AdapterProdutosRevendedor extends ArrayAdapter {
         linearLayout = view.findViewById(R.id.linear_adapter_vendas);
 
         textViewQuantidade = view.findViewById(R.id.text_disponiveis_avenda);
-        textViewStatus = view.findViewById(R.id.tex_total_vendidos);
+        textViewStatus = view.findViewById(R.id.tex_status_vendidos);
 
         final Produto produto = produtoList.get(position);
         textViewNome.setText(produto.getNome());
         textViewPreco.setText(String.format("%s R$", produto.getPreco()));
-        textViewQuantidade.setText(activity.getResources().getString(R.string.disponiveis_a_venda) +" "+ produto.getQuantidade());
-        textViewStatus.setText(String.format("Vendidos: %s", produto.getStatus()));
-        if (produto.getQuantidade().equals("0")){
+        textViewQuantidade.setText("Disponivel: " + produto.getQuantidade() + " Und");
+        textViewStatus.setText(String.format("Vendidos: %s", produto.getStatus()) + "Und");
+        if (produto.getQuantidade().equals("0")) {
             linearLayout.setBackgroundColor(0xFFb5ffdc);
         }
         listViewVendas.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -14,13 +14,14 @@ public class ItemVenda {
     private String id;
     private String nome;
     private String quantidade;
+    private Double saldoItens;
 
 
-
-    public ItemVenda(String id, String nome, String quantidade) {
+    public ItemVenda(String id, String nome, String quantidade,  Double saldoItens) {
         this.id = id;
         this.nome = nome;
         this.quantidade = quantidade;
+        this.saldoItens = saldoItens;
     }
 
     public ItemVenda() {
@@ -51,7 +52,6 @@ public class ItemVenda {
     }
 
 
-
     public void vendasRealizadas(String idSupervisor, String idRevendedor) {
         try {
             DatabaseReference reference = ConfiguracoesFirebase.getFirebase();
@@ -64,5 +64,13 @@ public class ItemVenda {
         }
 
 
+    }
+
+    public Double getSaldoItens() {
+        return saldoItens;
+    }
+
+    public void setSaldoItens(Double saldoItens) {
+        this.saldoItens = saldoItens;
     }
 }

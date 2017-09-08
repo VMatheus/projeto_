@@ -5,6 +5,7 @@ import com.google.firebase.database.Exclude;
 import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
 import com.tecnoia.matheus.financascosmeticos.utils.ConstantsUtils;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,6 +20,8 @@ public class Revendedor {
     private String email;
     private String senha;
     private String photoUrl;
+    private Double saldoTotal;
+
 
 
     public Revendedor() {
@@ -64,13 +67,15 @@ public class Revendedor {
         this.photoUrl = photoUrl;
     }
 
-    public Revendedor(String id, String idSupervisor, String nome, String email, String senha, String photoUrl) {
+    public Revendedor(String id, String idSupervisor, String nome, String email, String senha, String photoUrl, Double saldoTotal) {
         this.id = id;
         this.idSupervisor = idSupervisor;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.photoUrl = photoUrl;
+        this.saldoTotal = saldoTotal;
+
     }
 
 
@@ -82,13 +87,14 @@ public class Revendedor {
     }
     @Exclude
     public Map<String, Object> map(){
-        HashMap<String, Object> hashMapSupervisor = new HashMap<>();
-        hashMapSupervisor.put("id", getId());
-        hashMapSupervisor.put("nome", getNome());
-        hashMapSupervisor.put("email", getEmail());
-        hashMapSupervisor.put("senha", getSenha());
-        hashMapSupervisor.put("photoUrl", getPhotoUrl());
-        return  hashMapSupervisor;
+        HashMap<String, Object> hashMapRevendedor = new HashMap<>();
+        hashMapRevendedor.put("id", getId());
+        hashMapRevendedor.put("nome", getNome());
+        hashMapRevendedor.put("email", getEmail());
+        hashMapRevendedor.put("senha", getSenha());
+        hashMapRevendedor.put("photoUrl", getPhotoUrl());
+        hashMapRevendedor.put("saldoTotal", getSaldoTotal());
+        return  hashMapRevendedor;
 
 
     }
@@ -99,5 +105,13 @@ public class Revendedor {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Double getSaldoTotal() {
+        return saldoTotal;
+    }
+
+    public void setSaldoTotal(Double saldoTotal) {
+        this.saldoTotal = saldoTotal;
     }
 }

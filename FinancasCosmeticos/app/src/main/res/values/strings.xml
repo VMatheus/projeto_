@@ -63,6 +63,7 @@
     <string name="selecione_o_produto_error">Necessário selecionar um produto</string>
     <string name="quantidade_erro">Informe a quantidade</string>
     <string name="quantidade_indisponivel">Quantidade indisponível</string>
+    <string name="itens_a_venda">Ítens a venda: </string>
 
 
 </resources>

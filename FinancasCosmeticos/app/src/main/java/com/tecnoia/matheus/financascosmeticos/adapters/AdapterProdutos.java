@@ -104,7 +104,7 @@ public class AdapterProdutos extends ArrayAdapter {
 
                 bundle.putString("idProduto", produto1.getId());
                 bundle.putString("nomeProduto", produto1.getNome());
-                bundle.putString("precoProduto", produto1.getPreco());
+                bundle.putString("precoProduto", String.valueOf(produto1.getPreco()));
                 bundle.putString("quantidadeProduto", produto1.getQuantidade());
 
                 Fragment fragment = CadastroProdutoFragment.newInstance();

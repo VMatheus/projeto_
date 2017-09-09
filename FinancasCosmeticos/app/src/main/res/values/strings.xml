@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FinancasCosmeticos</string>
+    <string name="app_name">Monitoria de Vendas</string>
     <string name="acessar">Acessar</string>
     <string name="registrar">Registrar</string>
     <string name="nome">Nome</string>
@@ -64,6 +64,7 @@
     <string name="quantidade_erro">Informe a quantidade</string>
     <string name="quantidade_indisponivel">Quantidade indisponível</string>
     <string name="itens_a_venda">Ítens a venda: </string>
+    <string name="description">Servindo como o sucessor 360 Challenge Stradale, o Scuderia, revelado por Michael Schumacher no Salão do Automóvel de Frankfurt 2008, promete competir com carros como Porsche-RS e o Lamborghini Gallardo SE, é 115 kg mais leve do que o F430 padrão e o motor é 22,3 cv mais potente (agora são 513,1 a 8550 RPM). Assim a relação do peso-potência foi reduzida de 2.93 kg/cv para 2.35 kg/cv. Além do peso reduzido, a transmissão manual seqüencial da Scuderia ganha o software melhorado de “Superfast III” por deslocamentos mais rápidos em 55 milissegundos. Um novo sistema combina o controle da tração e da estabilidade da F1-Track com o diferencial eletrônico de E-Drifft.</string>
 
 
 </resources>

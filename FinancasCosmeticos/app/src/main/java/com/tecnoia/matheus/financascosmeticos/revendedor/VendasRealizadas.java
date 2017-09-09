@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,9 +20,11 @@ import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
 import com.tecnoia.matheus.financascosmeticos.R;
 import com.tecnoia.matheus.financascosmeticos.adapters.AdapterVendasRealizadas;
 import com.tecnoia.matheus.financascosmeticos.model.ItemVenda;
+import com.tecnoia.matheus.financascosmeticos.model.Revendedor;
 import com.tecnoia.matheus.financascosmeticos.utils.FragmentUtils;
 import com.tecnoia.matheus.financascosmeticos.utils.GetDataFromFirebase;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,9 +39,13 @@ public class VendasRealizadas extends Fragment {
     private FloatingActionButton buttonNovaVenda;
     private List<ItemVenda> itemVendaList;
     private SharedPreferences sharedPrefRevendedor;
+    private TextView textViewSaldoTotal;
     private String idSupervisor, idRevendedor;
     private DatabaseReference databaseVendasRealizadas;
     private AdapterVendasRealizadas adapterVendasRealizadas;
+    private DatabaseReference databaseDadosRevendedor;
+    private Double saldoTotal;
+    private List<Revendedor> dadosRevendedorList = new ArrayList<>();
 
 
     public static VendasRealizadas newInstance() {
@@ -57,20 +64,69 @@ public class VendasRealizadas extends Fragment {
         initViews(rootView);
         recuperaDados();
         preencheLista();
+        dadosRevendedor();
+
 
         adapterVendasRealizadas = new AdapterVendasRealizadas(getActivity(), itemVendaList);
         listViewVendas.setAdapter(adapterVendasRealizadas);
 
 
-
-
         return rootView;
+    }
+
+    private void dadosRevendedor() {
+
+/*
+
+        databaseDadosRevendedor = ConfiguracoesFirebase.getConsultaDadosRevendedor(idSupervisor, idRevendedor).child("saldoTotal");
+        databaseDadosRevendedor.keepSynced(true);
+        new GetDataFromFirebase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        databaseDadosRevendedor.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                textViewSaldoTotal.setText(String.valueOf(dataSnapshot.getValue(Double.class)));
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+*/
+
+
+        databaseDadosRevendedor = ConfiguracoesFirebase.getConsultaDadosRevendedor(idSupervisor, idRevendedor);
+        databaseDadosRevendedor.keepSynced(true);
+        new GetDataFromFirebase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        databaseDadosRevendedor.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try {
+                    Revendedor revendedor = dataSnapshot.getValue(Revendedor.class);
+                    saldoTotal = revendedor.getSaldoTotal();
+                    String saldoNew = ConfiguracoesFirebase.format(saldoTotal);
+                    textViewSaldoTotal.setText(saldoNew +" R$");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
 
     private void preencheLista() {
         itemVendaList = new ArrayList<>();
-
-
         databaseVendasRealizadas = ConfiguracoesFirebase.getVendasRealizadas(idSupervisor, idRevendedor);
         databaseVendasRealizadas.keepSynced(true);
         new GetDataFromFirebase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -104,6 +160,7 @@ public class VendasRealizadas extends Fragment {
     }
 
     private void initViews(View rootView) {
+        textViewSaldoTotal = rootView.findViewById(R.id.text_saldo_total);
         listViewVendas = rootView.findViewById(R.id.list_view_vendas_realizadas);
         buttonNovaVenda = rootView.findViewById(R.id.floating_button_nova_venda);
         buttonNovaVenda.setOnClickListener(new View.OnClickListener() {

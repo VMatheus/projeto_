@@ -30,10 +30,10 @@
                 android:orientation="horizontal">
 
                 <com.tecnoia.matheus.financascosmeticos.utils.RobotoUtils
-                    android:layout_width="0dp"
+
                     android:layout_height="wrap_content"
 
-                    android:layout_weight="0.8"
+                   android:layout_width="wrap_content"
                     android:padding="10dp"
                     android:text="Saldo de vendas: "
                     android:textColor="@color/album_title"
@@ -41,10 +41,11 @@
 
                 <com.tecnoia.matheus.financascosmeticos.utils.RobotoUtils
                     android:id="@+id/text_saldo_total"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
 
-                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+
                     android:padding="10dp"
                     android:text=""
                     android:textColor="@color/album_title"

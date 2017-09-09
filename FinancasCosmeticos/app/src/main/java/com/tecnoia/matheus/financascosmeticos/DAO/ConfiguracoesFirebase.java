@@ -6,6 +6,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.tecnoia.matheus.financascosmeticos.utils.ConstantsUtils;
 
+import java.text.DecimalFormat;
+
 /**
  * Created by matheus on 21/08/17.
  */
@@ -68,5 +70,16 @@ public class ConfiguracoesFirebase {
     public static DatabaseReference getVendasRealizadasUpdate(String idSupervisor, String idRevendedor, String idProduto) {
         return FirebaseDatabase.getInstance().getReference(idSupervisor + "/" + ConstantsUtils.VENDAS_REALIZADAS + "/" + idRevendedor + "/" + idProduto);
 
+    }
+
+    public static DatabaseReference getConsultaDadosRevendedor(String idSupervisor, String idRevendedor) {
+        return FirebaseDatabase.getInstance().getReference(idSupervisor + "/" + ConstantsUtils.BANCO_REVENDEDORES + "/" + idRevendedor+"/");
+
+
+    }
+
+    public static String format(double x) {
+        DecimalFormat df = new DecimalFormat("#0.00");
+        return df.format(x);
     }
 }

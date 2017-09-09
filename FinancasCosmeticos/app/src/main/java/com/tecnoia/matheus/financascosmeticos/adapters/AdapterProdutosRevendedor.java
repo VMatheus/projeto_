@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
 import com.tecnoia.matheus.financascosmeticos.R;
 import com.tecnoia.matheus.financascosmeticos.model.Produto;
 
@@ -80,7 +81,7 @@ public class AdapterProdutosRevendedor extends ArrayAdapter {
 
         final Produto produto = produtoList.get(position);
         textViewNome.setText(produto.getNome());
-        textViewPreco.setText(String.format("%s R$", produto.getPreco()));
+        textViewPreco.setText(String.format("%s R$", ConfiguracoesFirebase.format(produto.getPreco())));
         textViewQuantidade.setText("Disponivel: " + produto.getQuantidade() + " Und");
         textViewStatus.setText(String.format("Vendidos: %s", produto.getStatus()) + "Und");
         if (produto.getQuantidade().equals("0")) {

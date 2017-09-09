@@ -65,7 +65,7 @@ public class MainRevendedor extends Fragment {
                         break;
 
                     case R.id.item_perfil_revendedor:
-                        fragment = ProdutosRevendedor.newInstance();
+                        fragment = PerfilRevendedor.newInstance();
                         break;
 
                     case R.id.item_produtos:

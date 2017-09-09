@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
 import com.tecnoia.matheus.financascosmeticos.R;
 import com.tecnoia.matheus.financascosmeticos.model.ItemVenda;
 
@@ -68,7 +69,8 @@ public class AdapterVendasRealizadas extends ArrayAdapter {
 
         textViewNome.setText(itemVenda.getNome());
         textViewVendidos.setText(itemVenda.getQuantidade());
-        textViewSaldoItens.setText(String.valueOf(itemVenda.getSaldoItens()) +" R$");
+
+        textViewSaldoItens.setText(ConfiguracoesFirebase.format(itemVenda.getSaldoItens()) +" R$");
         return view1;
 
     }

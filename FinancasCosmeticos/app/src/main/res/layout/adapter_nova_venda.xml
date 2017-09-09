@@ -37,7 +37,7 @@
         <ImageView
             android:id="@+id/image_remover_separacao"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_weight="0.5"
             android:src="@drawable/ic_action_remover" />
 

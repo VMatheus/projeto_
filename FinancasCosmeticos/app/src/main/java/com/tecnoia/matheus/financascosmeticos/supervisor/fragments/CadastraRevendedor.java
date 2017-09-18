@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,13 +26,12 @@ import com.tecnoia.matheus.financascosmeticos.model.Revendedor;
 import com.tecnoia.matheus.financascosmeticos.model.Supervisor;
 import com.tecnoia.matheus.financascosmeticos.utils.FragmentUtils;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class CadastrarRevendedor extends Fragment {
+public class CadastraRevendedor extends Fragment {
     private EditText editTextNome, editTextEmail, editTextSenha;
     private Button buttonSalvar;
     private View focusView = null;
@@ -53,11 +51,9 @@ public class CadastrarRevendedor extends Fragment {
     private FirebaseApp myApp;
 
 
-    public static CadastrarRevendedor newInstance() {
-        CadastrarRevendedor cadastrarRevendedor = new CadastrarRevendedor();
+    public static CadastraRevendedor newInstance() {
 
-
-        return cadastrarRevendedor;
+        return new CadastraRevendedor();
     }
 
 

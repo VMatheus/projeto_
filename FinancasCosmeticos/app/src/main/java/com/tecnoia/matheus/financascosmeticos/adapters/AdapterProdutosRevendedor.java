@@ -81,7 +81,7 @@ public class AdapterProdutosRevendedor extends ArrayAdapter {
 
         final Produto produto = produtoList.get(position);
         textViewNome.setText(produto.getNome());
-        textViewPreco.setText(String.format("%s R$", ConfiguracoesFirebase.format(produto.getPreco())));
+        textViewPreco.setText("R$ "+produto.getPreco().toString());
         textViewQuantidade.setText("Disponivel: " + produto.getQuantidade() + " Und");
         textViewStatus.setText(String.format("Vendidos: %s", produto.getStatus()) + "Und");
         if (produto.getQuantidade().equals("0")) {

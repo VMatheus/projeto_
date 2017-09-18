@@ -14,10 +14,10 @@ public class ItemVenda {
     private String id;
     private String nome;
     private String quantidade;
-    private Double saldoItens;
+    private String saldoItens;
 
 
-    public ItemVenda(String id, String nome, String quantidade,  Double saldoItens) {
+    public ItemVenda(String id, String nome, String quantidade, String saldoItens) {
         this.id = id;
         this.nome = nome;
         this.quantidade = quantidade;
@@ -66,11 +66,11 @@ public class ItemVenda {
 
     }
 
-    public Double getSaldoItens() {
+    public String getSaldoItens() {
         return saldoItens;
     }
 
-    public void setSaldoItens(Double saldoItens) {
+    public void setSaldoItens(String saldoItens) {
         this.saldoItens = saldoItens;
     }
 }

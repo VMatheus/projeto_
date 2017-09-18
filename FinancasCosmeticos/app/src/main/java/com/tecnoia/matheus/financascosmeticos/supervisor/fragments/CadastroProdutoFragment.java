@@ -12,14 +12,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
 import com.tecnoia.matheus.financascosmeticos.R;
 import com.tecnoia.matheus.financascosmeticos.model.Produto;
+import com.tecnoia.matheus.financascosmeticos.utils.MoneyTextWatcher;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Locale;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -68,9 +70,14 @@ public class CadastroProdutoFragment extends Fragment {
         buttonAdicionar = rootView.findViewById(R.id.btn_adicionar_produto);
         spinnerCategoria = rootView.findViewById(R.id.spinner_categoria_produto);
         editTextQuantidade = rootView.findViewById(R.id.edit_quantidade_produto);
+
         editTextNome.setError(null);
         editTextPreco.setError(null);
         editTextQuantidade.setError(null);
+        Locale mLocale = new Locale("pt", "BR");
+        editTextPreco.addTextChangedListener(new MoneyTextWatcher(editTextPreco, mLocale));
+
+
         buttonAdicionar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,9 +124,16 @@ public class CadastroProdutoFragment extends Fragment {
     }
 
     private void cadastraProduto() {
+        String aux = editTextPreco.getText().toString();
+        BigDecimal preco = recuperaString(aux.substring(2));
+
+        String valoPreco = recuperaValorBigDecimal(preco);
 
 
-        Produto produto = new Produto(idProduto, nome, Double.parseDouble(preco), quantidade, "0");
+    /*    Toast.makeText(getActivity(), valoPreco, Toast.LENGTH_SHORT).show();*/
+
+
+        Produto produto = new Produto(idProduto, nome, valoPreco, quantidade, "0");
         produto.salvarProduto(idSupervisor);
         FragmentManager fm = getActivity().getSupportFragmentManager();
         fm.popBackStack();
@@ -127,6 +141,17 @@ public class CadastroProdutoFragment extends Fragment {
 
     }
 
+    public BigDecimal recuperaString(String str) {
+        str = str.replace(".", "");
+        str = str.replace(",", ".");
+        str = str.trim();
+        return new BigDecimal(str);
+    }
+
+    public String recuperaValorBigDecimal(BigDecimal bigDecimal) {
+        DecimalFormat decFormat = new DecimalFormat("#,###,##0.00");
+        return decFormat.format(bigDecimal);
+    }
 
     private void recuperaDados() {
         sharedPrefSupervisor = getActivity().getPreferences(MODE_PRIVATE);

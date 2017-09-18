@@ -12,9 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
 import com.tecnoia.matheus.financascosmeticos.R;
+import com.tecnoia.matheus.financascosmeticos.utils.ValidaCamposConexao;
 
 public class PerfilSupervisor extends Fragment {
 
@@ -57,13 +56,20 @@ public class PerfilSupervisor extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_desconectar:
+                //Dialog confirmar
+                ValidaCamposConexao.alertDialogDesconectar(getActivity());
+
+                break;
             case R.id.action_editar:
-                FirebaseAuth autenticacao = ConfiguracoesFirebase.getFirebaseAutenticacao();
-                autenticacao.signOut();
-                /*FragmentUtils.replaceRetorno(getActivity(), PerfilEditSupervisor.newInstace());*/
+
+                
                 break;
         }
         return super.onOptionsItemSelected(item);
 
+
     }
+
+
 }

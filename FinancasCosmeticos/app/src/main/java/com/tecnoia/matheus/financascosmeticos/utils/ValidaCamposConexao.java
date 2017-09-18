@@ -1,9 +1,20 @@
 package com.tecnoia.matheus.financascosmeticos.utils;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.support.v4.app.FragmentActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
+import com.tecnoia.matheus.financascosmeticos.R;
+
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+
+import static java.security.AccessController.getContext;
 
 /**
  * Created by matheus on 18/08/17.
@@ -13,16 +24,16 @@ public class ValidaCamposConexao {
 
     //classe para validação de campos
 
-    public boolean validaValorEstoque(Integer itensVenda, Integer estoqueAtual, Integer novoValor) {
+    public static boolean validaValorEstoque(Integer itensVenda, Integer estoqueAtual, Integer novoValor) {
         return novoValor <= itensVenda + estoqueAtual;
     }
 
-    public boolean validaSenha(String s) {
+    public static boolean validaSenha(String s) {
         return s.length() > 4;
 
     }
 
-    public boolean validaEmail(String e) {
+    public  static boolean validaEmail(String e) {
         return e.contains("@");
     }
 
@@ -32,7 +43,7 @@ public class ValidaCamposConexao {
     }
 
 
-    public boolean verificaConexao(FragmentActivity activity) {
+    public static boolean verificaConexao(FragmentActivity activity) {
         boolean conectado;
         ConnectivityManager conectivtyManager = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
         conectado = conectivtyManager.getActiveNetworkInfo() != null
@@ -41,14 +52,53 @@ public class ValidaCamposConexao {
         return conectado;
     }
 
-    public void progressDialog(Context activity, ProgressDialog progressDialog, String titulo, String mensagem) {
-        progressDialog = new ProgressDialog(activity);
-        progressDialog.setTitle(titulo);
-        progressDialog.setMessage(mensagem);
-        progressDialog.show();
+
+    public static BigDecimal formatStringToBigDecimal(String str) {
+        str = str.replace(".", "");
+        str = str.replace(",", ".");
+        str = str.trim();
+        return new BigDecimal(str);
+    }
+    public static String formataBigDecimalToString(BigDecimal bigDecimal) {
+        DecimalFormat decFormat = new DecimalFormat("#,###,##0.00");
+        return decFormat.format(bigDecimal);
+    }
+    public static void alertDialogDesconectar(Context context) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+
+        alertDialogBuilder
+                .setMessage("Sair?")
+                .setCancelable(false)
+                .setPositiveButton(context.getString(R.string.sim),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int id) {
+                                FirebaseAuth autenticacao = ConfiguracoesFirebase.getFirebaseAutenticacao();
+                                autenticacao.signOut();
+
+                            }
+                        })
+                .setNegativeButton(context.getString(R.string.nao),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int id) {
+
+                                //chama a activity principal
+                                dialog.dismiss();
+
+                            }
+                        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.setCanceledOnTouchOutside(false);
+
+
+        alertDialog.show();
 
 
     }
+
 
 
 }

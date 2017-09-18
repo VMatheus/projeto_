@@ -19,7 +19,7 @@ import java.util.Map;
 public class Produto {
     private String id;
     private String nome;
-    private Double preco;
+    private String preco;
     private String quantidade;
     private String status;
 
@@ -27,7 +27,7 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(String id, String nome, Double preco, String quantidade, String status) {
+    public Produto(String id, String nome, String preco, String quantidade, String status) {
         this.id = id;
         this.nome = nome;
         this.preco = preco;
@@ -135,11 +135,11 @@ public class Produto {
     }
 
 
-    public Double getPreco() {
+    public String getPreco() {
         return preco;
     }
 
-    public void setPreco(Double preco) {
+    public void setPreco(String preco) {
         this.preco = preco;
     }
 }

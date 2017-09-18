@@ -14,12 +14,12 @@ import android.view.ViewGroup;
 import com.tecnoia.matheus.financascosmeticos.R;
 import com.tecnoia.matheus.financascosmeticos.utils.FragmentUtils;
 
-public class MainRevendedor extends Fragment {
+public class MenuRevendedora extends Fragment {
     private BottomNavigationView bottomNavigationView;
     private int saveState;
 
-    public static MainRevendedor newInstance() {
-        return new MainRevendedor();
+    public static MenuRevendedora newInstance() {
+        return new MenuRevendedora();
     }
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -27,7 +27,6 @@ public class MainRevendedor extends Fragment {
         if (container != null) {
             container.removeAllViews();
         }
-
 
 
         initViews(rootView);
@@ -60,7 +59,6 @@ public class MainRevendedor extends Fragment {
                 switch (item.getItemId()) {
                     case R.id.item__vendas:
                         fragment = VendasRealizadas.newInstance();
-
 
                         break;
 

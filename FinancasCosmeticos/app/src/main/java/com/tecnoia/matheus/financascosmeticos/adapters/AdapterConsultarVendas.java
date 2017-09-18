@@ -22,11 +22,13 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tecnoia.matheus.financascosmeticos.R;
 import com.tecnoia.matheus.financascosmeticos.model.Produto;
 import com.tecnoia.matheus.financascosmeticos.utils.ValidaCamposConexao;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,14 +91,18 @@ public class AdapterConsultarVendas extends ArrayAdapter {
         final Produto produto = produtoListVendas.get(position);
 
         nome.setText(produto.getNome());
-        Double saldoTens = produto.getPreco() *  Double.parseDouble(produto.getStatus());
-        preco.setText(String.format("%s R$", String.valueOf(saldoTens)));
+
+        BigDecimal precoUnitario = ValidaCamposConexao.formatStringToBigDecimal(produto.getPreco());
+        BigDecimal quantidadeVendida = ValidaCamposConexao.formatStringToBigDecimal(produto.getStatus());
+        BigDecimal saldoItens = precoUnitario.multiply(quantidadeVendida);
+
+        preco.setText("R$ " + ValidaCamposConexao.formataBigDecimalToString(saldoItens));
 
 
         quantidade.setText(activity.getString(R.string.itens_a_venda) + " " + produto.getQuantidade());
         status.setText(String.format("Vendidos: %s", produto.getStatus()));
         Integer statusV = Integer.parseInt(produto.getStatus());
-        if (statusV.equals(0)){
+        if (statusV.equals(0)) {
             sendNotification(view);
         }
 
@@ -112,41 +118,6 @@ public class AdapterConsultarVendas extends ArrayAdapter {
         });
         return view;
     }
-
-/*
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                   *//* ;*//*
-                try {
-
-
-*//*  Integer quantidadeAtualizada = Integer.parseInt(produto.getQuantidade()) + Integer.parseInt(produto.getQuantidade());
-
-                            Produto produtoUpdate = new Produto(produto.getId(), produto.getNome(), produto.getPreco(), String.valueOf(quantidadeAtualizada));
-                            produto.salvaProdutoVendas(idSupervisor, idRevendedor);
-*//**//*
-
-
-                            } else {
-
-
-                            }
-
-*//*
-
-                        }
-                    }
-
-                    return true;
-                }
-            });
-
-
-                return view;
-        }
-        */
-
     public void atualiza(ArrayList<Produto> produtosList) {
         this.produtoListVendas = produtosList;
         this.notifyDataSetChanged();
@@ -167,7 +138,7 @@ public class AdapterConsultarVendas extends ArrayAdapter {
             public void onClick(View view) {
 
 
-                inflatepopup(produtoVenda);
+                popUpAtualizar(produtoVenda);
                 dialog.dismiss();
 
 
@@ -177,9 +148,9 @@ public class AdapterConsultarVendas extends ArrayAdapter {
         linearLayoutRemover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                produtoVenda.removeProdutoVenda(idSupervisor, produtoVenda.getId(), idRevendedor);
-
-
+                popUpRemoverProduto(produtoVenda);
+               /*
+*/
                 dialog.dismiss();
 
 
@@ -188,7 +159,71 @@ public class AdapterConsultarVendas extends ArrayAdapter {
 
     }
 
-    private void inflatepopup(final Produto produtoVenda) {
+    private void popUpRemoverProduto(final Produto produtoVenda) {
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+
+        builder.setMessage("Remover este produto das vendas?");
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+
+            }
+        });
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+
+
+
+                /*
+*/
+
+            }
+        });
+
+
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Integer quantidadeEmEstoque = null;
+                Integer quantidadeAvenda = Integer.parseInt(produtoVenda.getQuantidade());
+                if (quantidadeAvenda > 0) {
+                    for (int x = 0; x < produtoListEstoque.size(); x++) {
+                        Produto produtoEstoque = produtoListEstoque.get(x);
+                        if (produtoEstoque.getId().equals(produtoVenda.getId())) {
+                            quantidadeEmEstoque = Integer.parseInt(produtoEstoque.getQuantidade());
+
+
+
+                            Integer quantidadeUpdate = quantidadeAvenda+ quantidadeEmEstoque;
+
+                            //atualiza estoque
+                            Produto produtoUpdateEstoque = new Produto(produtoEstoque.getId(), produtoEstoque.getNome(), produtoEstoque.getPreco(), String.valueOf(quantidadeUpdate), produtoEstoque.getStatus());
+                            produtoUpdateEstoque.atualizarProduto(idSupervisor, produtoEstoque.getId());
+                            produtoVenda.removeProdutoVenda(idSupervisor, produtoVenda.getId(), idRevendedor);
+                            dialog.dismiss();
+                        }
+
+
+                    }
+
+
+                }
+
+            }
+        });
+
+
+
+    }
+
+    private void popUpAtualizar(final Produto produtoVenda) {
 
         final Integer iniciofornecidos = Integer.parseInt(produtoVenda.getQuantidade());
 
@@ -255,7 +290,7 @@ public class AdapterConsultarVendas extends ArrayAdapter {
                 editTextFornecidos.setError(null);
                 String valorCampo = editTextFornecidos.getText().toString();
 
-                ValidaCamposConexao validaCamposConexao = new ValidaCamposConexao();
+
 
 
                 View focusView = null;
@@ -265,7 +300,7 @@ public class AdapterConsultarVendas extends ArrayAdapter {
                     focusView = editTextFornecidos;
                     cancel = true;
 
-                } else if (!validaCamposConexao.validaValorEstoque(Integer.parseInt(produtoVenda.getQuantidade()), quantidadeEstoque, Integer.parseInt(valorCampo))) {
+                } else if (!ValidaCamposConexao.validaValorEstoque(Integer.parseInt(produtoVenda.getQuantidade()), quantidadeEstoque, Integer.parseInt(valorCampo))) {
                     editTextFornecidos.setError(activity.getString(R.string.estoque_insuficiente));
                     focusView = editTextFornecidos;
                     cancel = true;
@@ -361,6 +396,7 @@ public class AdapterConsultarVendas extends ArrayAdapter {
         this.notifyDataSetChanged();
 
     }
+
     public void sendNotification(View view) {
 
         NotificationCompat.Builder mBuilder =
@@ -379,7 +415,7 @@ public class AdapterConsultarVendas extends ArrayAdapter {
 
         NotificationManager mNotificationManager =
 
-                (NotificationManager)activity.getSystemService(Context.NOTIFICATION_SERVICE);
+                (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
 
         mNotificationManager.notify(001, mBuilder.build());
     }

@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="false"
 
-    tools:context="com.tecnoia.matheus.financascosmeticos.supervisor.fragments.CadastrarRevendedor">
+    tools:context="com.tecnoia.matheus.financascosmeticos.supervisor.fragments.CadastraRevendedor">
 
     >
 

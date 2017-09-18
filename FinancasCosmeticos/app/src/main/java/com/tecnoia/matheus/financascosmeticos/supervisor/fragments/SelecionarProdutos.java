@@ -32,13 +32,15 @@ import static android.content.Context.MODE_PRIVATE;
 public class SelecionarProdutos extends Fragment {
     private ListView listViewSelecionarProdutos;
     private FloatingActionButton buttonSalvar;
-    private ArrayList<Produto> produtosList;
+    private ArrayList<Produto> produtosListEstoque;
     private SharedPreferences sharedPrefSupervisor;
     private String idSupervisor;
-    private Query databaseProdutosEstoque;
+
     private AdapterSelecionarProdutos adapterSelecionarProdutos;
     private String idRevendedor;
     private Toolbar toolbar;
+    private ArrayList<Produto> produtosListVendas;
+    private Query databaseProdutoVenda, databaseProdutoEstoque;
 
 
     public static SelecionarProdutos newInstance() {
@@ -56,11 +58,12 @@ public class SelecionarProdutos extends Fragment {
         setHasOptionsMenu(true);
         recuperaDados();
         initViews(rootview);
+        carrecarListaProdutosVenda();
+        carregarListeProdutosEstoque();
 
-        preencheLista();
         toolbarSelecionarProdutos();
 
-        adapterSelecionarProdutos = new AdapterSelecionarProdutos(getActivity(), produtosList, buttonSalvar, listViewSelecionarProdutos, idSupervisor, idRevendedor);
+        adapterSelecionarProdutos = new AdapterSelecionarProdutos(getActivity(), produtosListEstoque, produtosListVendas, buttonSalvar, listViewSelecionarProdutos, idSupervisor, idRevendedor);
         listViewSelecionarProdutos.setAdapter(adapterSelecionarProdutos);
 
         return rootview;
@@ -101,27 +104,73 @@ public class SelecionarProdutos extends Fragment {
 
     }
 
-    private void preencheLista() {
-        produtosList = new ArrayList<>();
 
-        databaseProdutosEstoque = ConfiguracoesFirebase.getListaProdutosEstoque(idSupervisor);
+    private void recuperaDados() {
+        sharedPrefSupervisor = getActivity().getPreferences(MODE_PRIVATE);
+        idSupervisor = sharedPrefSupervisor.getString("idSupervisor", "");
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            idRevendedor = bundle.getString("idRevendedor");
+
+        }
 
 
-        databaseProdutosEstoque.keepSynced(true);
+    }
+
+    private void carregarListeProdutosEstoque() {
+        produtosListEstoque = new ArrayList<>();
 
 
-        databaseProdutosEstoque.addValueEventListener(new ValueEventListener() {
+        databaseProdutoEstoque = ConfiguracoesFirebase.getListaProdutosEstoque(idSupervisor);
+
+        databaseProdutoEstoque.keepSynced(true);
+        databaseProdutoEstoque.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
-                    produtosList.clear();
+                    for (DataSnapshot snapshotEstoque : dataSnapshot.getChildren()) {
+                        Produto produto = snapshotEstoque.getValue(Produto.class);
+                        produtosListEstoque.add(produto);
+
+                    }
+                    adapterSelecionarProdutos.atualizaEstoque(produtosListEstoque);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void carrecarListaProdutosVenda() {
+        produtosListVendas = new ArrayList<>();
+
+        databaseProdutoVenda = ConfiguracoesFirebase.getListaProdutosVenda(idSupervisor, idRevendedor);
+
+        databaseProdutoVenda.keepSynced(true);
+
+
+        databaseProdutoVenda.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try {
+                    produtosListVendas.clear();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Produto produto = snapshot.getValue(Produto.class);
 
-                        produtosList.add(produto);
+                        produtosListVendas.add(produto);
+
                     }
 
-                    adapterSelecionarProdutos.atualiza(produtosList);
+
+                    adapterSelecionarProdutos.atualizaProdutosVenda(produtosListVendas);
 
 
                 } catch (Exception e) {
@@ -138,17 +187,6 @@ public class SelecionarProdutos extends Fragment {
 
             }
         });
-
-    }
-
-    private void recuperaDados() {
-        sharedPrefSupervisor = getActivity().getPreferences(MODE_PRIVATE);
-        idSupervisor = sharedPrefSupervisor.getString("idSupervisor", "");
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            idRevendedor = bundle.getString("idRevendedor");
-
-        }
 
 
     }

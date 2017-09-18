@@ -33,7 +33,9 @@ import com.tecnoia.matheus.financascosmeticos.adapters.AdapterNovaVendaDialog;
 import com.tecnoia.matheus.financascosmeticos.model.ItemVenda;
 import com.tecnoia.matheus.financascosmeticos.model.Produto;
 import com.tecnoia.matheus.financascosmeticos.utils.GetDataFromFirebase;
+import com.tecnoia.matheus.financascosmeticos.utils.ValidaCamposConexao;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +57,7 @@ public class NovaVendaFragment extends Fragment {
     private Integer quatidadeDisponivel, quantidadeDesejada;
     private ListView listViewProdutosEmSeparação;
 
-    private Double updateSaldo, saldoItemAtual;
+    private BigDecimal saldoItemAtual;
     private List<Produto> produtoList = new ArrayList<>();
 
     private List<ItemVenda> itemVendaList = new ArrayList<>();
@@ -63,6 +65,8 @@ public class NovaVendaFragment extends Fragment {
 
     private DatabaseReference databaseVendasRealizadas;
     private ArrayList<ItemVenda> itemVendasRealizadas = new ArrayList<>();
+    private BigDecimal updateSaldos;
+    private BigDecimal precoProduto;
 
 
     public static NovaVendaFragment newInstance() {
@@ -271,7 +275,7 @@ public class NovaVendaFragment extends Fragment {
     private void adicionaProdutos() {
 
 
-        ItemVenda itemVenda = new ItemVenda(produto.getId(), produto.getNome(), String.valueOf(quantidadeDesejada), Double.parseDouble("0"));
+        ItemVenda itemVenda = new ItemVenda(produto.getId(), produto.getNome(), String.valueOf(quantidadeDesejada), "0");
 
         itemVendaList.add(itemVenda);
 
@@ -314,26 +318,30 @@ public class NovaVendaFragment extends Fragment {
 
                                 ItemVenda vendasRealizadas = itemVendasRealizadas.get(i);
                                 if (vendasRealizadas.getId().equals(itemVenda.getId())) {
-                                    saldoItemAtual = vendasRealizadas.getSaldoItens();
+                                    saldoItemAtual = ValidaCamposConexao.formatStringToBigDecimal(vendasRealizadas.getSaldoItens());
 
                                 }
 
 
                             }
-                            Log.v(saldoItemAtual + "", "saldoitem");
+
 
                             if (saldoItemAtual == null) {
                                 Integer unidades = Integer.parseInt(itemVenda.getQuantidade());
-                                updateSaldo = produto.getPreco() * unidades;
+                                precoProduto = ValidaCamposConexao.formatStringToBigDecimal(produto.getPreco());
+                                updateSaldos = precoProduto.multiply(new BigDecimal(unidades));
 
-                                ItemVenda itemVendaVendidos = new ItemVenda(itemVenda.getId(), itemVenda.getNome(), quantidadeVendidos + "", updateSaldo);
+
+                                ItemVenda itemVendaVendidos = new ItemVenda(itemVenda.getId(), itemVenda.getNome(), quantidadeVendidos + "", ValidaCamposConexao.formataBigDecimalToString(updateSaldos));
                                 itemVendaVendidos.vendasRealizadas(idSupervisor, idRevendedor);
 
 
                             } else {
-                                updateSaldo = saldoItemAtual + produto.getPreco() * Integer.parseInt(itemVenda.getQuantidade());
+                                Integer itemVendaQuantidade = Integer.parseInt(itemVenda.getQuantidade());
+                                updateSaldos = saldoItemAtual.add(precoProduto).multiply(new BigDecimal(itemVendaQuantidade))
+                                ;
 
-                                ItemVenda itemVendaVendidos = new ItemVenda(itemVenda.getId(), itemVenda.getNome(), quantidadeVendidos + "", updateSaldo);
+                                ItemVenda itemVendaVendidos = new ItemVenda(itemVenda.getId(), itemVenda.getNome(), quantidadeVendidos + "", ValidaCamposConexao.formataBigDecimalToString(updateSaldos));
                                 itemVendaVendidos.vendasRealizadas(idSupervisor, idRevendedor);
 
 

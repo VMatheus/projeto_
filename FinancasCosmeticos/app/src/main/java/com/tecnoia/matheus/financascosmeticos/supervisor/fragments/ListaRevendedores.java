@@ -116,15 +116,15 @@ public class ListaRevendedores extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ValidaCamposConexao validaCamposConexao = new ValidaCamposConexao();
-                if (!validaCamposConexao.verificaConexao(getActivity())) {
+
+                if (!ValidaCamposConexao.verificaConexao(getActivity())) {
 
 
                     Toast.makeText(getActivity(), "Verifique sua conexão!", Toast.LENGTH_SHORT).show();
                 } else {
 
 
-                    FragmentUtils.replaceRetorno(getActivity(), CadastrarRevendedor.newInstance());
+                    FragmentUtils.replaceRetorno(getActivity(), CadastraRevendedor.newInstance());
 
 
                 }

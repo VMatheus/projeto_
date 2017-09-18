@@ -35,7 +35,7 @@ public class LoginSupervisor extends Fragment {
     private View focusView = null;
     private Supervisor supervisor;
 
-    private ValidaCamposConexao validaCamposConexao = new ValidaCamposConexao();
+
     private String email, senha;
     private SharedPreferences sharedPref;
 
@@ -88,7 +88,7 @@ public class LoginSupervisor extends Fragment {
             focusView = editTextEmail;
             cancel = true;
 
-        } else if (!validaCamposConexao.validaEmail(email)) {
+        } else if (!ValidaCamposConexao.validaEmail(email)) {
             editTextEmail.setError(getString(R.string.email_invalido));
             focusView = editTextEmail;
             cancel = true;
@@ -99,7 +99,7 @@ public class LoginSupervisor extends Fragment {
             focusView = editTextSenha;
             cancel = true;
 
-        } else if (!validaCamposConexao.validaSenha(senha)) {
+        } else if (!ValidaCamposConexao.validaSenha(senha)) {
             editTextEmail.setError(getString(R.string.senha_invalida));
             focusView = editTextSenha;
             cancel = true;

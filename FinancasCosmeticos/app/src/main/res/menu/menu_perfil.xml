@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/action_editar"
-        android:icon="@drawable/ic_action_editar"
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+        <!-- "file" submenu -->
 
-        android:title="Editar"
-        app:showAsAction="ifRoom" />
+            <item android:id="@+id/action_editar"
+                android:title="Editar" />
+            <item android:id="@+id/action_desconectar"
+                android:title="Desconectar" />
+        </menu>
 
-</menu>

@@ -18,14 +18,14 @@ import com.tecnoia.matheus.financascosmeticos.supervisor.fragments.ListaProdutos
 import com.tecnoia.matheus.financascosmeticos.supervisor.fragments.RevendedoresContainer;
 import com.tecnoia.matheus.financascosmeticos.utils.FragmentUtils;
 
-public class MainSupervisor extends Fragment {
+public class MenuSupervisora extends Fragment {
 
     private BottomNavigationView bottomNavigationView;
     private SharedPreferences sharedPrefSupervisor;
 
 
-    public static MainSupervisor newInstance() {
-        return new MainSupervisor();
+    public static MenuSupervisora newInstance() {
+        return new MenuSupervisora();
     }
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

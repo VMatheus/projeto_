@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -18,8 +17,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
 import com.tecnoia.matheus.financascosmeticos.model.Revendedor;
 import com.tecnoia.matheus.financascosmeticos.model.Supervisor;
-import com.tecnoia.matheus.financascosmeticos.revendedor.MainRevendedor;
-import com.tecnoia.matheus.financascosmeticos.supervisor.MainSupervisor;
+import com.tecnoia.matheus.financascosmeticos.revendedor.MenuRevendedora;
+import com.tecnoia.matheus.financascosmeticos.supervisor.MenuSupervisora;
 import com.tecnoia.matheus.financascosmeticos.supervisor.fragments.TipoUsuarioFragment;
 import com.tecnoia.matheus.financascosmeticos.utils.ConstantsUtils;
 import com.tecnoia.matheus.financascosmeticos.utils.FragmentUtils;
@@ -131,13 +130,13 @@ public class ContainerActivity extends AppCompatActivity {
                     if (dataSnapshot.exists()) {
                         usuario = 1;
                         carregarDadosSupervisor();
-                        fragment = MainSupervisor.newInstance();
+                        fragment = MenuSupervisora.newInstance();
                         FragmentUtils.replacePrincipal(ContainerActivity.this, fragment);
 
                     } else {
                         usuario = 2;
                         carregarDadosRevendedor();
-                        fragment = MainRevendedor.newInstance();
+                        fragment = MenuRevendedora.newInstance();
 
                         FragmentUtils.replacePrincipal(ContainerActivity.this, fragment);
 

@@ -70,7 +70,7 @@ public class AdapterVendasRealizadas extends ArrayAdapter {
         textViewNome.setText(itemVenda.getNome());
         textViewVendidos.setText(itemVenda.getQuantidade());
 
-        textViewSaldoItens.setText(ConfiguracoesFirebase.format(itemVenda.getSaldoItens()) +" R$");
+        textViewSaldoItens.setText("RS "+itemVenda.getSaldoItens());
         return view1;
 
     }

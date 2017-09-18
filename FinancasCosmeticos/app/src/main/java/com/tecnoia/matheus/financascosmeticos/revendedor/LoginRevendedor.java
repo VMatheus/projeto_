@@ -29,7 +29,7 @@ public class LoginRevendedor extends Fragment {
     private String email, senha;
     private View focusView = null;
     private boolean cancel = false;
-    private ValidaCamposConexao  camposConexao = new ValidaCamposConexao();
+
     private ProgressDialog progressDialog;
     private FirebaseAuth autenticacao;
 
@@ -79,7 +79,7 @@ public class LoginRevendedor extends Fragment {
             focusView = editTextEmail;
             cancel = true;
 
-        } else if (!camposConexao.validaEmail(email)) {
+        } else if (!ValidaCamposConexao.validaEmail(email)) {
             editTextEmail.setError(getString(R.string.email_invalido));
             focusView = editTextEmail;
             cancel = true;
@@ -90,7 +90,7 @@ public class LoginRevendedor extends Fragment {
             focusView = editTextSenha;
             cancel = true;
 
-        } else if (!camposConexao.validaSenha(senha)) {
+        } else if (!ValidaCamposConexao.validaSenha(senha)) {
             editTextEmail.setError(getString(R.string.senha_invalida));
             focusView = editTextSenha;
             cancel = true;

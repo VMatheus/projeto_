@@ -20,11 +20,11 @@ import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
 import com.tecnoia.matheus.financascosmeticos.R;
 import com.tecnoia.matheus.financascosmeticos.adapters.AdapterVendasRealizadas;
 import com.tecnoia.matheus.financascosmeticos.model.ItemVenda;
+import com.tecnoia.matheus.financascosmeticos.model.Produto;
 import com.tecnoia.matheus.financascosmeticos.model.Revendedor;
 import com.tecnoia.matheus.financascosmeticos.utils.FragmentUtils;
 import com.tecnoia.matheus.financascosmeticos.utils.GetDataFromFirebase;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -137,9 +137,9 @@ public class VendasRealizadas extends Fragment {
                     itemVendaList.clear();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                        ItemVenda itemVenda = snapshot.getValue(ItemVenda.class);
+                        ItemVenda itemVenda7 = snapshot.getValue(ItemVenda.class);
 
-                        itemVendaList.add(itemVenda);
+                        itemVendaList.add(itemVenda7);
 
 
                     }

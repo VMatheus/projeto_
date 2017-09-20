@@ -22,7 +22,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.tecnoia.matheus.financascosmeticos.R;
 import com.tecnoia.matheus.financascosmeticos.model.Produto;
@@ -118,6 +117,7 @@ public class AdapterConsultarVendas extends ArrayAdapter {
         });
         return view;
     }
+
     public void atualiza(ArrayList<Produto> produtosList) {
         this.produtoListVendas = produtosList;
         this.notifyDataSetChanged();
@@ -193,32 +193,38 @@ public class AdapterConsultarVendas extends ArrayAdapter {
             public void onClick(View view) {
                 Integer quantidadeEmEstoque = null;
                 Integer quantidadeAvenda = Integer.parseInt(produtoVenda.getQuantidade());
-                if (quantidadeAvenda > 0) {
-                    for (int x = 0; x < produtoListEstoque.size(); x++) {
-                        Produto produtoEstoque = produtoListEstoque.get(x);
-                        if (produtoEstoque.getId().equals(produtoVenda.getId())) {
-                            quantidadeEmEstoque = Integer.parseInt(produtoEstoque.getQuantidade());
+
+                Integer quantidadeUpdate;
+                boolean existente = false;
+
+                for (Produto produtoEstoque : produtoListEstoque) {
+
+                    if (produtoEstoque.getId().equals(produtoVenda.getId())) {
+                        quantidadeEmEstoque = Integer.parseInt(produtoEstoque.getQuantidade());
 
 
+                        quantidadeUpdate = quantidadeAvenda + quantidadeEmEstoque;
 
-                            Integer quantidadeUpdate = quantidadeAvenda+ quantidadeEmEstoque;
-
-                            //atualiza estoque
-                            Produto produtoUpdateEstoque = new Produto(produtoEstoque.getId(), produtoEstoque.getNome(), produtoEstoque.getPreco(), String.valueOf(quantidadeUpdate), produtoEstoque.getStatus());
-                            produtoUpdateEstoque.atualizarProduto(idSupervisor, produtoEstoque.getId());
-                            produtoVenda.removeProdutoVenda(idSupervisor, produtoVenda.getId(), idRevendedor);
-                            dialog.dismiss();
-                        }
-
-
+                        //atualiza estoque
+                        Produto produtoUpdateEstoque = new Produto(produtoEstoque.getId(), produtoEstoque.getNome(), produtoEstoque.getPreco(), String.valueOf(quantidadeUpdate), produtoEstoque.getStatus());
+                        produtoUpdateEstoque.atualizarProduto(idSupervisor, produtoEstoque.getId());
+                        produtoVenda.removeProdutoVenda(idSupervisor, produtoVenda.getId(), idRevendedor);
+                        dialog.dismiss();
+                        existente = true;
+                        break;
                     }
 
 
                 }
+                if (!existente) {
+                    produtoVenda.removeProdutoVenda(idSupervisor, produtoVenda.getId(), idRevendedor);
+                    dialog.dismiss();
+
+                }
+
 
             }
         });
-
 
 
     }
@@ -289,8 +295,6 @@ public class AdapterConsultarVendas extends ArrayAdapter {
             public void onClick(View view) {
                 editTextFornecidos.setError(null);
                 String valorCampo = editTextFornecidos.getText().toString();
-
-
 
 
                 View focusView = null;

@@ -6,22 +6,38 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
         android:orientation="horizontal">
-
-        <com.tecnoia.matheus.financascosmeticos.utils.RobotoUtils
-
-            android:id="@+id/text_nome_separacao"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_weight="2"
-            android:maxLength="32"
-            android:padding="2dp"
-            android:text="QUASAR SURF DES. COLÔNIA, 125ML"
-            android:textSize="@dimen/album_title" />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <com.tecnoia.matheus.financascosmeticos.utils.RobotoUtils
+                android:textColor="@color/album_title"
+
+                android:id="@+id/text_nome_separacao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="2"
+                android:maxLength="32"
+                android:padding="2dp"
+                android:text="QUASAR SURF DES. COLÔNIA, 125ML"
+                android:textSize="@dimen/album_title" />
+            <com.tecnoia.matheus.financascosmeticos.utils.RobotoUtils
+                android:padding="2dp"
+                android:text="R$ 52,00"
+                android:id="@+id/text_saldo_itens"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/album_title"/>
+        </LinearLayout>
+
+
 
         <com.tecnoia.matheus.financascosmeticos.utils.OpenSansUtils
             android:id="@+id/text_unidades_separacao"
@@ -35,9 +51,11 @@
             android:textSize="@dimen/album_title" />
 
         <ImageView
+            android:tint="@color/colorAccent"
+            android:layout_gravity="center"
             android:id="@+id/image_remover_separacao"
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="25dp"
             android:layout_weight="0.5"
             android:src="@drawable/ic_action_remover" />
 

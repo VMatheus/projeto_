@@ -35,7 +35,7 @@
                 android:id="@+id/text_disponiveis_avenda"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:text="" />
 
             <com.tecnoia.matheus.financascosmeticos.utils.OpenSansUtils
@@ -43,7 +43,7 @@
                 android:id="@+id/tex_status_vendidos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:textSize="14sp"
                  />
 
         </LinearLayout>
@@ -64,7 +64,7 @@
             android:layout_gravity="center_vertical"
             android:gravity="start"
             android:text="64,00 R$"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
 
     </LinearLayout>
 

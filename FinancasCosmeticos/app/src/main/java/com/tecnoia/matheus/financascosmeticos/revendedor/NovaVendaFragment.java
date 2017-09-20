@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +35,7 @@ import com.tecnoia.matheus.financascosmeticos.utils.GetDataFromFirebase;
 import com.tecnoia.matheus.financascosmeticos.utils.ValidaCamposConexao;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +64,7 @@ public class NovaVendaFragment extends Fragment {
 
 
     private DatabaseReference databaseVendasRealizadas;
-    private ArrayList<ItemVenda> itemVendasRealizadas = new ArrayList<>();
+    private ArrayList<ItemVenda> vendasRealizadasList = new ArrayList<>();
     private BigDecimal updateSaldos;
     private BigDecimal precoProduto;
 
@@ -277,7 +277,34 @@ public class NovaVendaFragment extends Fragment {
 
         ItemVenda itemVenda = new ItemVenda(produto.getId(), produto.getNome(), String.valueOf(quantidadeDesejada), "0");
 
-        itemVendaList.add(itemVenda);
+        boolean existete = false;
+        int position = 0;
+        int quantidadeItem = 0;
+
+        //verifica se o item ja esta presente na lista
+        for (ItemVenda itemVendaLista : itemVendaList) {
+            if (itemVendaLista.getId().equals(produto.getId())) {
+                existete = true;
+                quantidadeItem = Integer.parseInt(itemVendaLista.getQuantidade());
+                break;
+
+
+            }
+            position++;
+
+        }
+        if (existete) {
+
+            int updateQuantidade = quantidadeDesejada + quantidadeItem;
+            ItemVenda updateItemLista = new ItemVenda(produto.getId(), produto.getNome(), String.valueOf(updateQuantidade), produto.getPreco());
+
+            itemVendaList.set(position, updateItemLista);
+            Toast.makeText(getActivity(), position + "", Toast.LENGTH_SHORT).show();
+        } else {
+            itemVendaList.add(itemVenda);
+
+
+        }
 
 
         AdapterItensVenda adapterItensVenda = new AdapterItensVenda(getActivity(), itemVendaList, quantidadeDesejada);
@@ -293,62 +320,124 @@ public class NovaVendaFragment extends Fragment {
         if (itemVendaList.isEmpty()) {
             Toast.makeText(getActivity(), "0 Itens", Toast.LENGTH_SHORT).show();
         } else {
-            try {
+
+            for (ItemVenda itemVenda : itemVendaList) {
+                for (Produto produto : produtoList) {
+
+                    if (itemVenda.getId().equals(produto.getId())) {
+                        BigDecimal precoUnitario = new BigDecimal(produto.getPreco());
+                        int quantidadeVendido = 0;
+
+                        String saldoItens = "";
 
 
-                for (int i = 0; i < itemVendaList.size(); i++) {
-                    for (int j = 0; j < produtoList.size(); j++) {
+                        boolean exitente = false;
+                        // verifica se o item ja foi vendido antes
+                        for (ItemVenda vendasRealizadas : vendasRealizadasList) {
+                            try {
+                                if (vendasRealizadas.getId().equals(produto.getId())) {
+                                    exitente = true;
+                                    quantidadeVendido = Integer.parseInt(vendasRealizadas.getQuantidade());
 
-                        if (itemVendaList.get(i).getId().equals(produtoList.get(j).getId())) {
+                                   /* saldoItens = new BigDecimal(vendasRealizadas.getSaldoItens());*/
+                                    saldoItens = vendasRealizadas.getSaldoItens();
 
-                            Log.e(itemVendaList.get(i).getId(), "itemVenda");
+                                    break;
 
-                            ItemVenda itemVenda = itemVendaList.get(i);
-                            Produto produto = produtoList.get(j);
-
-
-                            Integer updateQuantidade = Integer.parseInt(produto.getQuantidade()) - Integer.parseInt(itemVenda.getQuantidade());
-                            Integer updateStatus = Integer.parseInt(produto.getStatus()) + Integer.parseInt(itemVenda.getQuantidade());
-                            Produto produtoUpdateEstoque = new Produto(itemVenda.getId(), itemVenda.getNome(), produto.getPreco(), String.valueOf(updateQuantidade), String.valueOf(updateStatus));
-                            produtoUpdateEstoque.salvaProdutoVendas(idSupervisor, idRevendedor);
-
-                            Integer quantidadeVendidos = Integer.parseInt(produto.getStatus()) + Integer.parseInt(itemVenda.getQuantidade());
-
-                            for (int x = 0; x < itemVendasRealizadas.size(); x++) {
-
-                                ItemVenda vendasRealizadas = itemVendasRealizadas.get(i);
-                                if (vendasRealizadas.getId().equals(itemVenda.getId())) {
-                                    saldoItemAtual = ValidaCamposConexao.formatStringToBigDecimal(vendasRealizadas.getSaldoItens());
 
                                 }
 
 
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
 
+                        }
+                        if (exitente) {
 
-                            if (saldoItemAtual == null) {
-                                Integer unidades = Integer.parseInt(itemVenda.getQuantidade());
-                                precoProduto = ValidaCamposConexao.formatStringToBigDecimal(produto.getPreco());
-                                updateSaldos = precoProduto.multiply(new BigDecimal(unidades));
+                            //prepara itens para atualizar
+                            String updateQuantidade = String.valueOf(quantidadeVendido+ Integer.parseInt(itemVenda.getQuantidade()));
+                            BigDecimal saldoItensNovo = precoUnitario.multiply(new BigDecimal(itemVenda.getQuantidade()));
+                            String saldoItemFinal;
+                            String saldo = (ValidaCamposConexao.formataBigDecimalToString(saldoItensNovo));
+                            if (saldo.length() > 6) {
 
 
-                                ItemVenda itemVendaVendidos = new ItemVenda(itemVenda.getId(), itemVenda.getNome(), quantidadeVendidos + "", ValidaCamposConexao.formataBigDecimalToString(updateSaldos));
-                                itemVendaVendidos.vendasRealizadas(idSupervisor, idRevendedor);
+                                saldoItemFinal = saldo.replace(",", "");
 
 
                             } else {
-                                Integer itemVendaQuantidade = Integer.parseInt(itemVenda.getQuantidade());
-                                updateSaldos = saldoItemAtual.add(precoProduto).multiply(new BigDecimal(itemVendaQuantidade))
-                                ;
+                                saldoItemFinal = saldo;
 
-                                ItemVenda itemVendaVendidos = new ItemVenda(itemVenda.getId(), itemVenda.getNome(), quantidadeVendidos + "", ValidaCamposConexao.formataBigDecimalToString(updateSaldos));
-                                itemVendaVendidos.vendasRealizadas(idSupervisor, idRevendedor);
+                            }
+                            BigDecimal saldoItemAtual = new BigDecimal(saldoItens);
 
+                            BigDecimal updateSaldo = saldoItemAtual.add(new BigDecimal(saldoItemFinal));
+                            //inicia nova  conversão
+
+                            String updateSaldoFinal;
+                            String saldoAtual = ValidaCamposConexao.formataBigDecimalToString(updateSaldo);
+
+                            if (saldoAtual.length()> 6){
+                                updateSaldoFinal = saldoAtual.replace(",","");
+
+                            }else
+                            {
+                                updateSaldoFinal = saldoAtual;
+
+                            }
+                            Toast.makeText(getActivity(),updateSaldoFinal +"/" + updateQuantidade +"", Toast.LENGTH_SHORT).show();
+
+
+                            //atualiza quantidade de itens vendidos e saldo total
+                            ItemVenda novoItemVenda = new ItemVenda(itemVenda.getId(), itemVenda.getNome(), updateQuantidade, updateSaldoFinal);
+                            novoItemVenda.novaVenda(idSupervisor, idRevendedor);
+
+                            //atualiza produtos disponiveis
+                            Integer disponivelUpdate = quatidadeDisponivel - Integer.parseInt(itemVenda.getQuantidade());
+                            Integer quatidadeVendida = Integer.parseInt(produto.getStatus()) + Integer.parseInt(itemVenda.getQuantidade());
+
+                            Produto produtoUpdate = new Produto(produto.getId(), produto.getNome(), produto.getPreco(), String.valueOf(disponivelUpdate), String.valueOf(quatidadeVendida));
+                            produtoUpdate.salvaProdutoVendas(idSupervisor, idRevendedor);
+
+
+
+
+
+
+
+
+
+
+
+
+                        } else {
+                            //se este produto ainda não foi vendido efetua a primeira venda
+
+                            BigDecimal saldoItensNovo = precoUnitario.multiply(new BigDecimal(itemVenda.getQuantidade()));
+                            String saldoItemFinal;
+                            String saldo = (ValidaCamposConexao.formataBigDecimalToString(saldoItensNovo));
+                            if (saldo.length() > 6) {
+
+
+                                saldoItemFinal = saldo.replace(",", "");
+
+
+                            } else {
+                                saldoItemFinal = saldo;
 
                             }
 
 
-                            i++;
+                            ItemVenda novoItemVenda = new ItemVenda(itemVenda.getId(), itemVenda.getNome(), itemVenda.getQuantidade(), saldoItemFinal);
+                            novoItemVenda.novaVenda(idSupervisor, idRevendedor);
+
+                            //atualiza produtos disponiveis
+                            Integer disponivelUpdate = quatidadeDisponivel - Integer.parseInt(itemVenda.getQuantidade());
+                            Integer quatidadeVendida = Integer.parseInt(produto.getStatus()) + Integer.parseInt(itemVenda.getQuantidade());
+
+                            Produto produtoUpdate = new Produto(produto.getId(), produto.getNome(), produto.getPreco(), String.valueOf(disponivelUpdate), String.valueOf(quatidadeVendida));
+                            produtoUpdate.salvaProdutoVendas(idSupervisor, idRevendedor);
 
 
                         }
@@ -356,21 +445,19 @@ public class NovaVendaFragment extends Fragment {
 
                     }
 
-
                 }
 
 
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+
 
             itemVendaList.clear();
             FragmentManager fm = getActivity().getSupportFragmentManager();
             fm.popBackStack();
-
         }
 
     }
+
 
     public void vendasRealizadas() {
 
@@ -382,7 +469,7 @@ public class NovaVendaFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
-                    itemVendasRealizadas.clear();
+                    vendasRealizadasList.clear();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                         ItemVenda itemVenda = snapshot.getValue(ItemVenda.class);
@@ -390,7 +477,7 @@ public class NovaVendaFragment extends Fragment {
 
                         produtoList.add(produto);
 
-                        itemVendasRealizadas.add(itemVenda);
+                        vendasRealizadasList.add(itemVenda);
 
 
                     }
@@ -410,6 +497,18 @@ public class NovaVendaFragment extends Fragment {
         });
 
 
+    }
+
+    public String convertStringFinal(String str) {
+        str = str.replace(".", "");
+        str = str.replace(",", ".");
+        str = str.trim();
+        return str;
+    }
+
+    public String recuperaValorBigDecimal(BigDecimal bigDecimal) {
+        DecimalFormat decFormat = new DecimalFormat("#,###,##0.00");
+        return decFormat.format(bigDecimal);
     }
 
 

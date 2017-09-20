@@ -7,6 +7,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
 
     tools:showIn="@layout/content_nova_venda">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -90,19 +91,23 @@
         </LinearLayout>
 
 
-
-            <ListView
-                android:layout_height="250dp"
-                android:layout_width="match_parent"
-                android:id="@+id/list_view_produtos_separacao"
-
+        <ListView
+            android:id="@+id/list_view_produtos_separacao"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
 
 
-                android:padding="10dp" />
+            android:padding="10dp" />
 
-
-
-
+        <com.tecnoia.matheus.financascosmeticos.utils.RobotoUtils
+            android:textColor="@color/album_title"
+            android:gravity="end"
+            android:textSize="15sp"
+            android:padding="10dp"
+            
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Total vendas: R$ 100,00" />
 
 
         <!--&lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;

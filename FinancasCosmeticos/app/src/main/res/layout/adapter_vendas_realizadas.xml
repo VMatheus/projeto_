@@ -1,48 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="15dp"
-    android:padding="5dp"
-    android:orientation="horizontal">
+    android:layout_margin="@dimen/card_margin"
+    android:orientation="horizontal"
+
+    >
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_weight="0.7"
+        android:orientation="horizontal">
 
-        <com.tecnoia.matheus.financascosmeticos.utils.RobotoUtils
-            android:id="@+id/text_nome_vendas_realizadas"
+
+        <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="2dp"
-            android:textSize="16sp" />
+            android:layout_margin="10dp"
+            android:orientation="vertical">
 
-        <com.tecnoia.matheus.financascosmeticos.utils.OpenSansUtils
-            android:id="@+id/text_quantidade_vendidos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="2dp"
-            android:textSize="15sp" />
+            <com.tecnoia.matheus.financascosmeticos.utils.RobotoUtils
+                android:id="@+id/text_nome_vendas_realizadas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Base Líquida TimeWise® Acabamento Matte"
+                android:textSize="16sp" />
+
+            <com.tecnoia.matheus.financascosmeticos.utils.OpenSansUtils
+                android:id="@+id/text_quantidade_vendidos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="14sp"
+
+                />
+
+        </LinearLayout>
 
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="0.3"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:layout_weight="0.2"
+        android:gravity="center_horizontal">
 
         <com.tecnoia.matheus.financascosmeticos.utils.OpenSansUtils
+            android:id="@+id/text_saldo_itens"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="2dp"
-            android:textSize="15sp"
-            android:id="@+id/text_saldo_itens"/>
+            android:layout_gravity="center_vertical"
+            android:gravity="end"
+            android:text="64,00 R$"
+            android:textSize="14sp" />
+
     </LinearLayout>
+
 
 </LinearLayout>
+
+
+
+

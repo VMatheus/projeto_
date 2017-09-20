@@ -52,7 +52,7 @@ public class ItemVenda {
     }
 
 
-    public void vendasRealizadas(String idSupervisor, String idRevendedor) {
+    public void novaVenda(String idSupervisor, String idRevendedor) {
         try {
             DatabaseReference reference = ConfiguracoesFirebase.getFirebase();
             reference.child(idSupervisor + "/" + ConstantsUtils.VENDAS_REALIZADAS + "/" + idRevendedor).child(String.valueOf(getId())).setValue(this);

@@ -12,11 +12,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
 import com.tecnoia.matheus.financascosmeticos.R;
 import com.tecnoia.matheus.financascosmeticos.model.Produto;
 import com.tecnoia.matheus.financascosmeticos.utils.MoneyTextWatcher;
+import com.tecnoia.matheus.financascosmeticos.utils.ValidaCamposConexao;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -129,11 +131,14 @@ public class CadastroProdutoFragment extends Fragment {
 
         String valoPreco = recuperaValorBigDecimal(preco);
 
+        String valor = convertStringFinal(valoPreco);
 
-    /*    Toast.makeText(getActivity(), valoPreco, Toast.LENGTH_SHORT).show();*/
 
 
-        Produto produto = new Produto(idProduto, nome, valoPreco, quantidade, "0");
+
+
+
+        Produto produto = new Produto(idProduto, nome, valor, quantidade, "0");
         produto.salvarProduto(idSupervisor);
         FragmentManager fm = getActivity().getSupportFragmentManager();
         fm.popBackStack();
@@ -151,6 +156,12 @@ public class CadastroProdutoFragment extends Fragment {
     public String recuperaValorBigDecimal(BigDecimal bigDecimal) {
         DecimalFormat decFormat = new DecimalFormat("#,###,##0.00");
         return decFormat.format(bigDecimal);
+    }
+    public String convertStringFinal(String str) {
+        str = str.replace(".", "");
+        str = str.replace(",", ".");
+        str = str.trim();
+        return str;
     }
 
     private void recuperaDados() {

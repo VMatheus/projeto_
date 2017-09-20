@@ -1,7 +1,6 @@
 package com.tecnoia.matheus.financascosmeticos.utils;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.ConnectivityManager;
@@ -13,8 +12,8 @@ import com.tecnoia.matheus.financascosmeticos.R;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-
-import static java.security.AccessController.getContext;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 /**
  * Created by matheus on 18/08/17.
@@ -33,7 +32,7 @@ public class ValidaCamposConexao {
 
     }
 
-    public  static boolean validaEmail(String e) {
+    public static boolean validaEmail(String e) {
         return e.contains("@");
     }
 
@@ -59,10 +58,12 @@ public class ValidaCamposConexao {
         str = str.trim();
         return new BigDecimal(str);
     }
+
     public static String formataBigDecimalToString(BigDecimal bigDecimal) {
         DecimalFormat decFormat = new DecimalFormat("#,###,##0.00");
         return decFormat.format(bigDecimal);
     }
+
     public static void alertDialogDesconectar(Context context) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
@@ -99,6 +100,15 @@ public class ValidaCamposConexao {
 
     }
 
+    public static String exibeValor(String valor) {
+        Locale Local = new Locale("pt", "BR");
+        //Number pra string
+        // double value = 2637.64;
+        DecimalFormat df = new DecimalFormat("#,##0.00", new DecimalFormatSymbols(Local));
+        String s = df.format(valor);
+        //System.out.println(s);//imprime 2.637,64
+        return s;
+    }
 
 
 }

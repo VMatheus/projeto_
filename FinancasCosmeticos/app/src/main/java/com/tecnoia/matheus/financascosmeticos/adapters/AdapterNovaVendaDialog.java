@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.tecnoia.matheus.financascosmeticos.R;
 import com.tecnoia.matheus.financascosmeticos.model.Produto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,7 +42,6 @@ public class AdapterNovaVendaDialog extends ArrayAdapter {
 
 
     }
-
 
 
     @Override
@@ -74,10 +72,12 @@ public class AdapterNovaVendaDialog extends ArrayAdapter {
         LayoutInflater inflater = activity.getLayoutInflater();
         View view = inflater.inflate(R.layout.adapter_produtos_dialog_venda, null, true);
 
-        TextView textViewNomeProduto;
+        TextView textViewNomeProduto, textViewDisponivel;
         textViewNomeProduto = view.findViewById(R.id.text_nome_produto);
+        textViewDisponivel = view.findViewById(R.id.text_disponiveis);
         final Produto produto = produtoList.get(position);
         textViewNomeProduto.setText(produto.getNome());
+        textViewDisponivel.setText("Estoque: " + produto.getQuantidade());
 
 
         listViewProdutos.setOnItemClickListener(new AdapterView.OnItemClickListener() {

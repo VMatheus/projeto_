@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- "file" submenu -->
+
+    <item
+        app:showAsAction="always"
+        android:icon="@drawable/ic_action_salvar2"
+        android:iconTint="@android:color/white"
+        android:id="@+id/action_editar"
+        android:title="Salvar" />
+
+
 
 </menu>

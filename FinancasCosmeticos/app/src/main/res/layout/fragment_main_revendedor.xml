@@ -10,6 +10,7 @@
 
 
     <FrameLayout
+        android:animateLayoutChanges="true"
         android:id="@+id/container_principal_revendedor"
         android:layout_width="match_parent"
         android:layout_height="0dp"

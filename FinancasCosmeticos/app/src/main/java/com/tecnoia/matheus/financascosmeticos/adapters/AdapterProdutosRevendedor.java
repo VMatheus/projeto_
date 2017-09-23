@@ -1,6 +1,7 @@
 package com.tecnoia.matheus.financascosmeticos.adapters;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
@@ -82,10 +83,10 @@ public class AdapterProdutosRevendedor extends ArrayAdapter {
         final Produto produto = produtoList.get(position);
         textViewNome.setText(produto.getNome());
         textViewPreco.setText("R$ "+produto.getPreco().toString());
-        textViewQuantidade.setText("Disponivel: " + produto.getQuantidade() + " Und");
-        textViewStatus.setText(String.format("Vendidos: %s", produto.getStatus()) + "Und");
+        textViewQuantidade.setText("Disponivel: " + produto.getQuantidade() );
+        textViewStatus.setText(String.format("Vendidos: %s", produto.getStatus()));
         if (produto.getQuantidade().equals("0")) {
-            linearLayout.setBackgroundColor(0xFFb5ffdc);
+           textViewQuantidade.setTextColor(Color.RED);
         }
         listViewVendas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

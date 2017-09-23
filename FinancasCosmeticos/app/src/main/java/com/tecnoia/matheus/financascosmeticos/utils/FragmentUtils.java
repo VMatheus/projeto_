@@ -80,11 +80,11 @@ public class FragmentUtils {
 
     }
 
-    public static void replaceSemRetoro(FragmentActivity activity, Fragment fragment) {
-        replaceSemRetoro(activity, fragment, R.id.container_main);
+    public static void replaceSemRetorno(FragmentActivity activity, Fragment fragment) {
+        replaceSemRetorno(activity, fragment, R.id.container_main);
     }
 
-    public static void replaceSemRetoro(FragmentActivity activity, Fragment fragment, int id) {
+    public static void replaceSemRetorno(FragmentActivity activity, Fragment fragment, int id) {
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.replace(id, fragment);
 
@@ -97,12 +97,24 @@ public class FragmentUtils {
 
 
     public static void replaceRevendedor(FragmentActivity activity, Fragment fragment) {
-        replace(activity, fragment, R.id.container_principal_revendedor);
+        replaceRevendedor(activity, fragment, R.id.container_principal_revendedor);
     }
 
     public static void replaceRevendedor(FragmentActivity activity, Fragment fragment, int id) {
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.replace(id, fragment);
+        transaction.commit();
+    }
+
+
+    public static void replaceRevendedorRetorno(FragmentActivity activity, Fragment fragment) {
+        replaceRevendedorRetorno(activity, fragment, R.id.container_principal_revendedor);
+    }
+
+    public static void replaceRevendedorRetorno(FragmentActivity activity, Fragment fragment, int id) {
+        String s = activity.getClass().getName();
+        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+        transaction.replace(id, fragment).addToBackStack(s);
         transaction.commit();
     }
 

@@ -70,7 +70,7 @@ public class AdapterVendasRealizadas extends ArrayAdapter {
 
 
         textViewNome.setText(itemVenda.getNome());
-        textViewVendidos.setText(itemVenda.getQuantidade());
+        textViewVendidos.setText("Vendidos: " + itemVenda.getQuantidade());
 
         return view1;
 

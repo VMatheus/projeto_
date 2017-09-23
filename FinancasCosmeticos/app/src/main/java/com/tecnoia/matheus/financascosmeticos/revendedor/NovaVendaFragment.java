@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -339,7 +340,6 @@ public class NovaVendaFragment extends Fragment {
                                     exitente = true;
                                     quantidadeVendido = Integer.parseInt(vendasRealizadas.getQuantidade());
 
-                                   /* saldoItens = new BigDecimal(vendasRealizadas.getSaldoItens());*/
                                     saldoItens = vendasRealizadas.getSaldoItens();
 
                                     break;
@@ -355,43 +355,18 @@ public class NovaVendaFragment extends Fragment {
                         }
                         if (exitente) {
 
+
                             //prepara itens para atualizar
-                            String updateQuantidade = String.valueOf(quantidadeVendido+ Integer.parseInt(itemVenda.getQuantidade()));
-                            BigDecimal saldoItensNovo = precoUnitario.multiply(new BigDecimal(itemVenda.getQuantidade()));
+                            String updateQuantidade = String.valueOf(quantidadeVendido + Integer.parseInt(itemVenda.getQuantidade()));
+                            BigDecimal saldoItensNovo = precoUnitario.multiply(new BigDecimal(itemVenda.getQuantidade())).add(new BigDecimal(saldoItens));
                             String saldoItemFinal;
-                            String saldo = (ValidaCamposConexao.formataBigDecimalToString(saldoItensNovo));
-                            if (saldo.length() > 6) {
-
-
-                                saldoItemFinal = saldo.replace(",", "");
-
-
-                            } else {
-                                saldoItemFinal = saldo;
-
-                            }
-                            BigDecimal saldoItemAtual = new BigDecimal(saldoItens);
-
-                            BigDecimal updateSaldo = saldoItemAtual.add(new BigDecimal(saldoItemFinal));
-                            //inicia nova  conversão
-
-                            String updateSaldoFinal;
-                            String saldoAtual = ValidaCamposConexao.formataBigDecimalToString(updateSaldo);
-
-                            if (saldoAtual.length()> 6){
-                                updateSaldoFinal = saldoAtual.replace(",","");
-
-                            }else
-                            {
-                                updateSaldoFinal = saldoAtual;
-
-                            }
-                            Toast.makeText(getActivity(),updateSaldoFinal +"/" + updateQuantidade +"", Toast.LENGTH_SHORT).show();
+                           /* Log.v("sal", saldoItensNovo + "");*/
 
 
                             //atualiza quantidade de itens vendidos e saldo total
-                            ItemVenda novoItemVenda = new ItemVenda(itemVenda.getId(), itemVenda.getNome(), updateQuantidade, updateSaldoFinal);
+                            ItemVenda novoItemVenda = new ItemVenda(itemVenda.getId(), itemVenda.getNome(), updateQuantidade, String.valueOf(saldoItensNovo));
                             novoItemVenda.novaVenda(idSupervisor, idRevendedor);
+
 
                             //atualiza produtos disponiveis
                             Integer disponivelUpdate = quatidadeDisponivel - Integer.parseInt(itemVenda.getQuantidade());
@@ -403,33 +378,14 @@ public class NovaVendaFragment extends Fragment {
 
 
 
-
-
-
-
-
-
-
-
                         } else {
                             //se este produto ainda não foi vendido efetua a primeira venda
 
                             BigDecimal saldoItensNovo = precoUnitario.multiply(new BigDecimal(itemVenda.getQuantidade()));
-                            String saldoItemFinal;
-                            String saldo = (ValidaCamposConexao.formataBigDecimalToString(saldoItensNovo));
-                            if (saldo.length() > 6) {
+                            Log.v(saldoItensNovo+"", "saldo");
 
 
-                                saldoItemFinal = saldo.replace(",", "");
-
-
-                            } else {
-                                saldoItemFinal = saldo;
-
-                            }
-
-
-                            ItemVenda novoItemVenda = new ItemVenda(itemVenda.getId(), itemVenda.getNome(), itemVenda.getQuantidade(), saldoItemFinal);
+                            ItemVenda novoItemVenda = new ItemVenda(itemVenda.getId(), itemVenda.getNome(), itemVenda.getQuantidade(), String.valueOf(saldoItensNovo));
                             novoItemVenda.novaVenda(idSupervisor, idRevendedor);
 
                             //atualiza produtos disponiveis
@@ -449,7 +405,6 @@ public class NovaVendaFragment extends Fragment {
 
 
             }
-
 
             itemVendaList.clear();
             FragmentManager fm = getActivity().getSupportFragmentManager();

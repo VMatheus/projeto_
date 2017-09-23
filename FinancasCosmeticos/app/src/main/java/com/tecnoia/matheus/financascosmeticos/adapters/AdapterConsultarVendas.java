@@ -91,11 +91,15 @@ public class AdapterConsultarVendas extends ArrayAdapter {
 
         nome.setText(produto.getNome());
 
-        BigDecimal precoUnitario = ValidaCamposConexao.formatStringToBigDecimal(produto.getPreco());
-        BigDecimal quantidadeVendida = ValidaCamposConexao.formatStringToBigDecimal(produto.getStatus());
-        BigDecimal saldoItens = precoUnitario.multiply(quantidadeVendida);
 
-        preco.setText("R$ " + ValidaCamposConexao.formataBigDecimalToString(saldoItens));
+        BigDecimal precoUnitario = new BigDecimal(produto.getPreco());
+        Integer quantidadeVendida = Integer.parseInt(produto.getStatus());
+
+        BigDecimal saldoItens = precoUnitario.multiply(new BigDecimal(quantidadeVendida));
+
+
+
+        preco.setText("R$ " + saldoItens+"");
 
 
         quantidade.setText(activity.getString(R.string.itens_a_venda) + " " + produto.getQuantidade());

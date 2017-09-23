@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tecnoia.matheus.financascosmeticos.R;
+import com.tecnoia.matheus.financascosmeticos.utils.FragmentUtils;
 import com.tecnoia.matheus.financascosmeticos.utils.ValidaCamposConexao;
 
 /**
@@ -62,6 +63,8 @@ public class PerfilRevendedor extends Fragment {
 
                 break;
             case R.id.action_editar:
+
+                FragmentUtils.replaceRevendedorRetorno(getActivity(), EditarPerfilRevendedorActivity.newInstace());
 
 
                 break;

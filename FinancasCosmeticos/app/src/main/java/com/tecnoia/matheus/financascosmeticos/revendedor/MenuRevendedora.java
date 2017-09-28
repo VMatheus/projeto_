@@ -12,11 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tecnoia.matheus.financascosmeticos.R;
+import com.tecnoia.matheus.financascosmeticos.supervisor.fragments.PerfilEditSupervisor;
 import com.tecnoia.matheus.financascosmeticos.utils.FragmentUtils;
 
 public class MenuRevendedora extends Fragment {
     private BottomNavigationView bottomNavigationView;
+    Fragment fragment = null;
     private int saveState;
+
 
     public static MenuRevendedora newInstance() {
         return new MenuRevendedora();
@@ -49,12 +52,13 @@ public class MenuRevendedora extends Fragment {
         saveState = bottomNavigationView.getSelectedItemId();
     }
 
+
     private void initViews(View rootView) {
         bottomNavigationView = rootView.findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fragment = null;
+
 
                 switch (item.getItemId()) {
                     case R.id.item__vendas:
@@ -62,13 +66,14 @@ public class MenuRevendedora extends Fragment {
 
                         break;
 
-                    case R.id.item_perfil_revendedor:
-                        fragment = PerfilRevendedor.newInstance();
-                        break;
 
                     case R.id.item_produtos:
                         fragment = ProdutosRevendedor.newInstance();
                         break;
+                    case R.id.item_perfil_revendedor:
+                        fragment = PerfilRevendedor.newInstance();
+                        break;
+
                 }
 
 
@@ -78,7 +83,14 @@ public class MenuRevendedora extends Fragment {
             }
         });
 
-        FragmentUtils.replaceRevendedor(getActivity(), VendasRealizadas.newInstance());
+            FragmentUtils.replaceRevendedor(getActivity(), VendasRealizadas.newInstance());
+
+
+
 
     }
+
+
+
+
 }

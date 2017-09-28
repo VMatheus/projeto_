@@ -174,7 +174,7 @@ public class CadastroSupervisor extends Fragment {
 
     private void showProgressDialog() {
         progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setTitle(getString(R.string.criando_conta));
+
         progressDialog.setMessage(getString(R.string.aguarde));
         progressDialog.show();
 

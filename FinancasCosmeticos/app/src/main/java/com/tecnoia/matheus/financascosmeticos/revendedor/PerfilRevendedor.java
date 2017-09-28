@@ -1,7 +1,9 @@
 package com.tecnoia.matheus.financascosmeticos.revendedor;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,8 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tecnoia.matheus.financascosmeticos.PerfilActivity;
 import com.tecnoia.matheus.financascosmeticos.R;
-import com.tecnoia.matheus.financascosmeticos.utils.FragmentUtils;
 import com.tecnoia.matheus.financascosmeticos.utils.ValidaCamposConexao;
 
 /**
@@ -21,8 +23,10 @@ import com.tecnoia.matheus.financascosmeticos.utils.ValidaCamposConexao;
  */
 public class PerfilRevendedor extends Fragment {
     private Toolbar toolbar;
+    private BottomNavigationView bottomNavigationViewss;
 
     public static PerfilRevendedor newInstance() {
+
         return new PerfilRevendedor();
     }
 
@@ -38,6 +42,7 @@ public class PerfilRevendedor extends Fragment {
     }
 
     private void initViews(View rootview) {
+
 
         toolbar = rootview.findViewById(R.id.toolbar_perfil);
 
@@ -63,9 +68,8 @@ public class PerfilRevendedor extends Fragment {
 
                 break;
             case R.id.action_editar:
-
-                FragmentUtils.replaceRevendedorRetorno(getActivity(), EditarPerfilRevendedorActivity.newInstace());
-
+                startActivity(new Intent(getActivity(), PerfilActivity.class));
+              /*  FragmentUtils.replaceRevendedorRetorno(getActivity(), EditarPerfilRevendedorActivity.newInstace());*/
 
                 break;
         }

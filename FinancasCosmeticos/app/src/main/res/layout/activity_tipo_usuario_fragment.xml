@@ -1,57 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.tecnoia.matheus.financascosmeticos.supervisor.fragments.TipoUsuarioFragment"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:orientation="vertical"
+    tools:context="com.tecnoia.matheus.financascosmeticos.supervisor.fragments.TipoUsuarioFragment">
 
 
     <ImageView
-        android:layout_marginTop="85dp"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="85dp"
         android:src="@drawable/logo" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:text="@string/app_name"
-        android:textSize="20dp"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-        android:gravity="center_horizontal"/>
+        android:textSize="19dp" />
 
 
     <LinearLayout
-        android:layout_marginTop="85dp"
+
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="85dp"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/buttonSupervisor"
 
-            android:textColor="@color/colorAccent"
-            android:layout_margin="8dp"
-            android:background="@drawable/button_style"
+            android:id="@+id/buttonSupervisor"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-
             android:layout_weight="1"
             android:text="Supervisor/a"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+
+            android:theme="@style/ButtomUsuario" />
 
         <Button
             android:id="@+id/buttonRevendedor"
-            android:textColor="@color/colorAccent"
-            android:layout_margin="8dp"
-            android:background="@drawable/button_style"
+
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_height="wrap_content"
+
             android:text="Revendedor/a"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+
+            android:theme="@style/ButtomUsuario" />
+        <!--
+                <Button
+                    android:id="@+id/buttonSupervisor"
+
+                    android:textColor="@color/colorAccent"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/button_style"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_weight="1"
+                    android:text="Supervisor/a"
+                    android:textAllCaps="false" />
+        -->
+
+        <!-- <Button
+
+             android:id="@+id/buttonRevendedor"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_margin="8dp"
+             android:layout_weight="1"
+             android:background="@drawable/button_style"
+             android:text="Revendedor/a"
+             android:textAllCaps="false"
+             android:textColor="@color/colorAccent" />-->
 
     </LinearLayout>
 

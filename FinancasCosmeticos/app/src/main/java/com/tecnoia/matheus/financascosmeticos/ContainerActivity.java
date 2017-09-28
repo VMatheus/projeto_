@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,86 +37,48 @@ public class ContainerActivity extends AppCompatActivity {
     private SharedPreferences sharedPrefRevendedor, sharedPrefSupervisor;
     private Fragment fragment = null;
     private DatabaseReference databaseRevendedor;
-    private  Integer usuario;
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
 
 
-    }
-
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_container);
-        autenticacao = ConfiguracoesFirebase.getFirebaseAutenticacao();
 
 
-        verficaUsuarioPresente();
-
-
-
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        autenticacao.addAuthStateListener(authStateListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (authStateListener != null) {
-            autenticacao.removeAuthStateListener(authStateListener);
-        }
-    }
-
-
-    private void verficaUsuarioPresente() {
-        authStateListener = new FirebaseAuth.AuthStateListener() {
-
+        FirebaseAuth.getInstance().addAuthStateListener(new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                try {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
 
 
-                    if (firebaseAuth.getCurrentUser() == null) {
-                        fragment = TipoUsuarioFragment.newInstace();
-                        FragmentUtils.replacePrincipal(ContainerActivity.this, fragment);
+                    id = firebaseAuth.getCurrentUser().getUid();
+                    transitaTela();
 
 
-                    } else {
+                } else {
+                    try {
 
 
-                        id = autenticacao.getCurrentUser().getUid();
+                        FragmentUtils.replacePrincipal(ContainerActivity.this, TipoUsuarioFragment.newInstace());
 
-                        transitaTela();
-
+                    } catch (IllegalStateException e) {
+                        e.printStackTrace();
 
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
+
+
+
+
                 }
-
-
+                // ...
             }
+        });
 
-
-        };
 
     }
-
 
     public void transitaTela() {
 
@@ -128,13 +92,13 @@ public class ContainerActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
                     if (dataSnapshot.exists()) {
-                        usuario = 1;
+
                         carregarDadosSupervisor();
                         fragment = MenuSupervisora.newInstance();
                         FragmentUtils.replacePrincipal(ContainerActivity.this, fragment);
 
                     } else {
-                        usuario = 2;
+
                         carregarDadosRevendedor();
                         fragment = MenuRevendedora.newInstance();
 
@@ -223,4 +187,3 @@ public class ContainerActivity extends AppCompatActivity {
 
 
 }
-

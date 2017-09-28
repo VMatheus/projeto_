@@ -141,7 +141,7 @@ public class LoginRevendedor extends Fragment {
 
     private void showProgressDialog() {
             progressDialog = new ProgressDialog(getActivity());
-            progressDialog.setTitle(getString(R.string.autenticando));
+
             progressDialog.setMessage(getString(R.string.aguarde));
             progressDialog.setIndeterminate(true);
             progressDialog.show();

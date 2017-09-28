@@ -73,7 +73,7 @@ public class ConfiguracoesFirebase {
     }
 
     public static DatabaseReference getConsultaDadosRevendedor(String idSupervisor, String idRevendedor) {
-        return FirebaseDatabase.getInstance().getReference(idSupervisor + "/" + ConstantsUtils.BANCO_REVENDEDORES + "/" + idRevendedor+"/");
+        return FirebaseDatabase.getInstance().getReference(idSupervisor + "/" + ConstantsUtils.BANCO_REVENDEDORES + "/" + idRevendedor + "/");
 
 
     }
@@ -82,4 +82,10 @@ public class ConfiguracoesFirebase {
         DecimalFormat df = new DecimalFormat("#0.00");
         return df.format(x);
     }
+
+    public static DatabaseReference getListaConsultaListaSupervisores2() {
+        return FirebaseDatabase.getInstance().getReference(ConstantsUtils.BANCO_SUPERVISORES);
+
+    }
+
 }

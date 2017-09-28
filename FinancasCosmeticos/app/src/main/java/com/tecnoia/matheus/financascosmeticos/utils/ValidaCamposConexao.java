@@ -1,6 +1,7 @@
 package com.tecnoia.matheus.financascosmeticos.utils;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.ConnectivityManager;
@@ -64,7 +65,10 @@ public class ValidaCamposConexao {
         return decFormat.format(bigDecimal);
     }
 
-    public static void alertDialogDesconectar(Context context) {
+
+
+
+    public static void alertDialogDesconectar(final Context context) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
 
@@ -77,6 +81,8 @@ public class ValidaCamposConexao {
                                                 int id) {
                                 FirebaseAuth autenticacao = ConfiguracoesFirebase.getFirebaseAutenticacao();
                                 autenticacao.signOut();
+
+
 
                             }
                         })

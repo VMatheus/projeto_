@@ -78,13 +78,21 @@ public class Revendedor {
 
     }
 
+   //salva revendedora tendo como parametro o id de sua supervisora
 
     public void salvarRevendedor(String idSupervisor) {
         DatabaseReference reference = ConfiguracoesFirebase.getFirebase();
+
+        //salva revendora na tabela especifica de sua supervisora, para controle e monitoria das vendas
         reference.child(idSupervisor +"/"+ConstantsUtils.BANCO_REVENDEDORES).child(String.valueOf(getId())).setValue(this);
+
+        //salva na base raiz para edicao dos dados
         reference.child(String.valueOf(getId())).setValue(this);
 
     }
+
+
+
     @Exclude
     public Map<String, Object> map(){
         HashMap<String, Object> hashMapRevendedor = new HashMap<>();

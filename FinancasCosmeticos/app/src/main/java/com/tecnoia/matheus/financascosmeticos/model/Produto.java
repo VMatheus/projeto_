@@ -8,7 +8,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
 import com.tecnoia.matheus.financascosmeticos.utils.ConstantsUtils;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,8 +50,20 @@ public class Produto {
         this.nome = nome;
     }
 
+    //salva produto tendo como parametro o id da supervisora
+    public void salvarProduto(String idSupervisor) {
+        try {
 
 
+            DatabaseReference reference = ConfiguracoesFirebase.getFirebase();
+            reference.child(idSupervisor + "/" + ConstantsUtils.BANCO_PRODUTOS_ESTOQUE).child(String.valueOf(getId())).setValue(this);
+        } catch (Exception e) {
+            Log.e(e + "", "Erro!");
+        }
+    }
+
+
+    //remove o produto tendo como parametro o id da supervisora e o id do produto
     public void removerProdutoEstoque(String idSupervisor, String idProduto) {
         try {
 
@@ -65,16 +76,7 @@ public class Produto {
 
     }
 
-    public void salvarProduto(String idSupervisor) {
-        try {
-
-
-            DatabaseReference reference = ConfiguracoesFirebase.getFirebase();
-            reference.child(idSupervisor + "/" + ConstantsUtils.BANCO_PRODUTOS_ESTOQUE).child(String.valueOf(getId())).setValue(this);
-        } catch (Exception e) {
-            Log.e(e + "", "Erro!");
-        }
-    }
+    //atualiza  o produto tendo como paramentro o id da supervisora e o id do produto
 
     public void atualizarProduto(String idSupervisor, String idProduto) {
         DatabaseReference reference = ConfiguracoesFirebase.getFirebase();
@@ -96,10 +98,12 @@ public class Produto {
 
     }
 
+    //salva produtos destinados a especificas revendedoras, tendo como parametro o id da supervisora e o id da revendendora
     public void salvaProdutoVendas(String idSupervisor, String idRevendedor) {
         try {
             DatabaseReference reference = ConfiguracoesFirebase.getFirebase();
-            reference.child(idSupervisor + "/" + ConstantsUtils.BANCO_PRODUTOS_VENDAS + "/" + idRevendedor).child(String.valueOf(getId())).setValue(this);
+            reference.child(idSupervisor + "/" + ConstantsUtils.BANCO_PRODUTOS_VENDAS + "/" + idRevendedor)
+                    .child(String.valueOf(getId())).setValue(this);
 
 
         } catch (Exception e) {
@@ -120,7 +124,7 @@ public class Produto {
     }
 
     public void removeProdutoVenda(String idSupervisor, String idProduto, String idRevendedor) {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference(idSupervisor + "/" + ConstantsUtils.BANCO_PRODUTOS_VENDAS + "/" + idRevendedor+"/"+idProduto);
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference(idSupervisor + "/" + ConstantsUtils.BANCO_PRODUTOS_VENDAS + "/" + idRevendedor + "/" + idProduto);
         reference.removeValue();
 
     }

@@ -2,10 +2,8 @@ package com.tecnoia.matheus.financascosmeticos.model;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
-import com.google.firebase.database.FirebaseDatabase;
 import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
 import com.tecnoia.matheus.financascosmeticos.utils.ConstantsUtils;
-import com.tecnoia.matheus.financascosmeticos.utils.FragmentUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -65,21 +63,26 @@ public class Supervisor {
 
 
 
-    public  void salvarSupervisor(){
+    //salvando na tabela de supervisores e na tabela de fluxo
+    public void salvarSupervisor() {
         DatabaseReference reference = ConfiguracoesFirebase.getFirebase();
+
+        //tabela utilizada para controle de usuarios
         reference.child(ConstantsUtils.BANCO_SUPERVISORES).child(String.valueOf(getId())).setValue(this);
+
+        //tabela para controle de fluxo de dados
         reference.child(String.valueOf(getId())).child("perfil").setValue(this);
 
     }
 
     @Exclude
-    public Map<String, Object> map(){
+    public Map<String, Object> map() {
         HashMap<String, Object> hashMapSupervisor = new HashMap<>();
         hashMapSupervisor.put("id", getId());
         hashMapSupervisor.put("nome", getNome());
         hashMapSupervisor.put("email", getEmail());
         hashMapSupervisor.put("senha", getSenha());
-      return  hashMapSupervisor;
+        return hashMapSupervisor;
 
 
     }

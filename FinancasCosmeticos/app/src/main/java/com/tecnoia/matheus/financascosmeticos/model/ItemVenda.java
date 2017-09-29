@@ -52,10 +52,13 @@ public class ItemVenda {
     }
 
 
+    //salva vendas realizadas das revendedoras , tendo como parametro o id da supervisora e o id da revendedora
     public void novaVenda(String idSupervisor, String idRevendedor) {
         try {
             DatabaseReference reference = ConfiguracoesFirebase.getFirebase();
-            reference.child(idSupervisor + "/" + ConstantsUtils.VENDAS_REALIZADAS + "/" + idRevendedor).child(String.valueOf(getId())).setValue(this);
+
+            reference.child(idSupervisor + "/" + ConstantsUtils.VENDAS_REALIZADAS + "/" + idRevendedor)
+                    .child(String.valueOf(getId())).setValue(this);
 
 
         } catch (Exception e) {

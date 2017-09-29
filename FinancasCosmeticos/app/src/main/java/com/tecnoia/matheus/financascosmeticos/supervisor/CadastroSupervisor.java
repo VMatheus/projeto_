@@ -30,7 +30,7 @@ public class CadastroSupervisor extends Fragment {
     private Button buttonRegistrar;
     private ProgressDialog progressDialog;
     private FirebaseAuth autenticacao;
-    private String email, senha, nome;
+    private String email, senha, nome, photoUrl;
     private boolean cancel = false;
     private View focusView = null;
     private ValidaCamposConexao camposConexao = new ValidaCamposConexao();
@@ -150,7 +150,11 @@ public class CadastroSupervisor extends Fragment {
                         if (task.isSuccessful()) {
 
                             String id = autenticacao.getCurrentUser().getUid();
-                            Supervisor supervisor = new Supervisor(id, nome, email, senha);
+
+                            //salvaprimeira imagem default perfil
+                            salvaImagemDefault(id);
+
+                            Supervisor supervisor = new Supervisor(id, nome, email, senha, photoUrl);
 
                             supervisor.salvarSupervisor();
                             startActivity(new Intent(getActivity(), ContainerActivity.class));
@@ -168,6 +172,15 @@ public class CadastroSupervisor extends Fragment {
                         // ...
                     }
                 });
+
+    }
+
+    public void salvaImagemDefault(String id) {
+        photoUrl = "www.teste";
+
+
+
+
 
     }
 

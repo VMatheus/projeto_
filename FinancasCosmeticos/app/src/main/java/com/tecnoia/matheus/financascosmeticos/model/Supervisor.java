@@ -19,11 +19,22 @@ public class Supervisor {
 
     private String senha;
 
-    public Supervisor(String id, String nome, String email, String senha) {
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
+
+    private String photoUrl;
+
+    public Supervisor(String id, String nome, String email, String senha, String photoUrl) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+        this.photoUrl = photoUrl;
     }
 
     public Supervisor() {
@@ -60,7 +71,6 @@ public class Supervisor {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-
 
 
     //salvando na tabela de supervisores e na tabela de fluxo

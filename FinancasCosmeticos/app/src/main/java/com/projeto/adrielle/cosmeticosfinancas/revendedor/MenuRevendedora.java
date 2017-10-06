@@ -5,16 +5,21 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.tecnoia.matheus.financascosmeticos.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.projeto.adrielle.cosmeticosfinancas.utils.FragmentUtils;
+import com.tecnoia.matheus.financascosmeticos.R;
 
 public class MenuRevendedora extends Fragment {
     private BottomNavigationView bottomNavigationView;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseAuth mAuth;
     Fragment fragment = null;
 
 
@@ -28,6 +33,22 @@ public class MenuRevendedora extends Fragment {
             container.removeAllViews();
         }
 
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d("Status", "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    // User is signed out
+                    Log.d("Status", "onAuthStateChanged:signed_out");
+                }
+                // ...
+            }
+        };
+
+        mAuth = FirebaseAuth.getInstance();
 
         initViews(rootView);
 
@@ -35,6 +56,20 @@ public class MenuRevendedora extends Fragment {
         return rootView;
 
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
     }
 
 

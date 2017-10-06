@@ -20,7 +20,7 @@ public class FragmentUtils {
     public static void replace(FragmentActivity activity, Fragment fragment, int id) {
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.replace(id, fragment);
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
     }
 
     public static void replaceRetorno(FragmentActivity activity, Fragment fragment) {
@@ -34,17 +34,6 @@ public class FragmentUtils {
         transaction.commit();
     }
 
-    public static void replaceListaRevendedores(FragmentActivity activity, Fragment fragment) {
-        replaceListaRevendedores(activity, fragment, R.id.container_rev_fragment);
-    }
-
-    public static void replaceListaRevendedores(FragmentActivity activity, Fragment fragment, int id) {
-        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
-        transaction.replace(id, fragment);
-
-        transaction.commit();
-
-    }
 
     public static void replacePrincipal(AppCompatActivity activity, Fragment fragment) {
         replacePrincipal(activity, fragment, R.id.container_main);

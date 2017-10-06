@@ -6,22 +6,26 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.tecnoia.matheus.financascosmeticos.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.projeto.adrielle.cosmeticosfinancas.supervisor.fragments.ListaProdutosEstoque;
 import com.projeto.adrielle.cosmeticosfinancas.supervisor.fragments.ListaRevendedores;
 import com.projeto.adrielle.cosmeticosfinancas.supervisor.fragments.PerfilSupervisor;
-import com.projeto.adrielle.cosmeticosfinancas.supervisor.fragments.ListaProdutosEstoque;
-import com.projeto.adrielle.cosmeticosfinancas.supervisor.fragments.RevendedoresContainer;
 import com.projeto.adrielle.cosmeticosfinancas.utils.FragmentUtils;
+import com.tecnoia.matheus.financascosmeticos.R;
 
 public class MenuSupervisora extends Fragment {
 
     private BottomNavigationView bottomNavigationView;
     private SharedPreferences sharedPrefSupervisor;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseAuth mAuth;
 
 
     public static MenuSupervisora newInstance() {
@@ -30,7 +34,22 @@ public class MenuSupervisora extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main_supervisor, container, false);
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d("Status", "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    // User is signed out
+                    Log.d("Status", "onAuthStateChanged:signed_out");
+                }
+                // ...
+            }
+        };
 
+        mAuth = FirebaseAuth.getInstance();
 
         initViews(rootView);
         if (container != null) {
@@ -40,6 +59,18 @@ public class MenuSupervisora extends Fragment {
         return rootView;
 
 
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
     }
 
     private void initViews(View rootView) {
@@ -76,9 +107,14 @@ public class MenuSupervisora extends Fragment {
             }
         });
 
+        try {
+/**/
+            FragmentUtils.replace(getActivity(), ListaRevendedores.newInstance());
 
-        FragmentUtils.replace(getActivity(), RevendedoresContainer.newInstance());
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 }

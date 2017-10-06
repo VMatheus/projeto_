@@ -24,11 +24,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.projeto.adrielle.cosmeticosfinancas.PerfilActivity;
-import com.tecnoia.matheus.financascosmeticos.R;
 import com.projeto.adrielle.cosmeticosfinancas.model.Supervisor;
 import com.projeto.adrielle.cosmeticosfinancas.utils.ConstantsUtils;
 import com.projeto.adrielle.cosmeticosfinancas.utils.GetDataFromFirebase;
 import com.projeto.adrielle.cosmeticosfinancas.utils.ValidaCamposConexao;
+import com.tecnoia.matheus.financascosmeticos.R;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -53,11 +53,12 @@ public class PerfilSupervisor extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootview = inflater.inflate(R.layout.activity_perfil_supervisor, container, false);
         setHasOptionsMenu(true);
-
-
         initViews(rootview);
-       /* recuperaDados();
-        preencherPerfil();*/
+        recuperaDados();
+
+
+        preencherPerfil();
+
         return rootview;
 
     }
@@ -72,18 +73,16 @@ public class PerfilSupervisor extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
                     Supervisor supervisor = dataSnapshot.getValue(Supervisor.class);
-
-                   
+                    textViewNome.setText(supervisor.getNome());
                     textViewEmail.setText(supervisor.getEmail());
-                    Glide.with(getActivity()).load(supervisor.getPhotoUrl()).into(imageView);
 
-                    toolbar.setTitle(supervisor.getNome());
+
+
+                    Glide.with(getActivity()).load(supervisor.getPhotoUrl()).into(imageView);
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-
 
 
             }
@@ -102,12 +101,9 @@ public class PerfilSupervisor extends Fragment {
         toolbar = rootview.findViewById(R.id.toolbar);
 
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-
-        /*((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
-        /*imageView = rootview.findViewById(R.id.image);
-        textViewEmail = rootview.findViewById(R.id.text_email);*/
-
-      /*  textViewNumero = rootview.*/
+        imageView = rootview.findViewById(R.id.image);
+        textViewNome = rootview.findViewById(R.id.text_nome);
+        textViewEmail = rootview.findViewById(R.id.text_email);
 
 
     }

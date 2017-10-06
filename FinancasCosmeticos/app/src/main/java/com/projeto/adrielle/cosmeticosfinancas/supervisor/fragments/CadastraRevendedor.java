@@ -22,11 +22,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.projeto.adrielle.cosmeticosfinancas.DAO.ConfiguracoesFirebase;
-import com.tecnoia.matheus.financascosmeticos.R;
 import com.projeto.adrielle.cosmeticosfinancas.model.Revendedor;
 import com.projeto.adrielle.cosmeticosfinancas.model.Supervisor;
 import com.projeto.adrielle.cosmeticosfinancas.utils.FragmentUtils;
 import com.projeto.adrielle.cosmeticosfinancas.utils.ValidaCamposConexao;
+import com.tecnoia.matheus.financascosmeticos.R;
 
 import java.util.List;
 import java.util.UUID;
@@ -41,12 +41,11 @@ public class CadastraRevendedor extends Fragment {
     private ProgressDialog progressDialog;
     private String nome, email, senha;
 
-    private List<Supervisor> supervisorList;
-    private DatabaseReference databasePerfilSupervisor;
+
     private String emailSupervisor, senhaSupervisor, idSupervisor;
     private FirebaseAuth.AuthStateListener authStateListener;
 
-    private ConfiguracoesFirebase configuracoesFirebase = new ConfiguracoesFirebase();
+
     private FirebaseAuth mAuth1, mAuth2;
     private SharedPreferences sharedPrefSupervisor;
     private static String NOME_APP = "FinancasCosmeticos";
@@ -134,6 +133,12 @@ public class CadastraRevendedor extends Fragment {
         email = editTextEmail.getText().toString();
         senha = editTextSenha.getText().toString();
 
+        if (TextUtils.isEmpty(nome)) {
+            editTextNome.setError(getString(R.string.campo_vazio));
+            focusView = editTextNome;
+            cancel = true;
+        }
+
 
         if (TextUtils.isEmpty(email)) {
             editTextEmail.setError(getString(R.string.campo_vazio));
@@ -170,7 +175,6 @@ public class CadastraRevendedor extends Fragment {
 
 
         }
-
 
 
     }

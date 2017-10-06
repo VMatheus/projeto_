@@ -5,7 +5,6 @@ import com.google.firebase.database.Exclude;
 import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
 import com.tecnoia.matheus.financascosmeticos.utils.ConstantsUtils;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,8 +19,7 @@ public class Revendedor {
     private String email;
     private String senha;
     private String photoUrl;
-    private Double saldoTotal;
-
+    private String saldoTotal;
 
 
     public Revendedor() {
@@ -67,7 +65,7 @@ public class Revendedor {
         this.photoUrl = photoUrl;
     }
 
-    public Revendedor(String id, String idSupervisor, String nome, String email, String senha, String photoUrl, Double saldoTotal) {
+    public Revendedor(String id, String idSupervisor, String nome, String email, String senha, String photoUrl, String saldoTotal) {
         this.id = id;
         this.idSupervisor = idSupervisor;
         this.nome = nome;
@@ -78,13 +76,13 @@ public class Revendedor {
 
     }
 
-   //salva revendedora tendo como parametro o id de sua supervisora
+    //salva revendedora tendo como parametro o id de sua supervisora
 
     public void salvarRevendedor(String idSupervisor) {
         DatabaseReference reference = ConfiguracoesFirebase.getFirebase();
 
         //salva revendora na tabela especifica de sua supervisora, para controle e monitoria das vendas
-        reference.child(idSupervisor +"/"+ConstantsUtils.BANCO_REVENDEDORES).child(String.valueOf(getId())).setValue(this);
+        reference.child(idSupervisor + "/" + ConstantsUtils.BANCO_REVENDEDORES).child(String.valueOf(getId())).setValue(this);
 
         //salva na base raiz para edicao dos dados
         reference.child(String.valueOf(getId())).setValue(this);
@@ -92,9 +90,8 @@ public class Revendedor {
     }
 
 
-
     @Exclude
-    public Map<String, Object> map(){
+    public Map<String, Object> map() {
         HashMap<String, Object> hashMapRevendedor = new HashMap<>();
         hashMapRevendedor.put("id", getId());
         hashMapRevendedor.put("nome", getNome());
@@ -102,7 +99,7 @@ public class Revendedor {
         hashMapRevendedor.put("senha", getSenha());
         hashMapRevendedor.put("photoUrl", getPhotoUrl());
         hashMapRevendedor.put("saldoTotal", getSaldoTotal());
-        return  hashMapRevendedor;
+        return hashMapRevendedor;
 
 
     }
@@ -115,11 +112,12 @@ public class Revendedor {
         this.email = email;
     }
 
-    public Double getSaldoTotal() {
+    public String getSaldoTotal() {
         return saldoTotal;
     }
 
-    public void setSaldoTotal(Double saldoTotal) {
+    public void setSaldoTotal(String saldoTotal) {
         this.saldoTotal = saldoTotal;
     }
 }
+

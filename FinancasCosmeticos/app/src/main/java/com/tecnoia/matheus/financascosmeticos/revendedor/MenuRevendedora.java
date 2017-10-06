@@ -50,7 +50,7 @@ public class MenuRevendedora extends Fragment {
                         fragment = VendasRealizadas.newInstance();
 
                         break;
-                    
+
                     case R.id.item_produtos:
                         fragment = ProdutosRevendedor.newInstance();
                         break;

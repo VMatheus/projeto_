@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.tecnoia.matheus.financascosmeticos.PerfilActivity"
     tools:showIn="@layout/activity_perfil">
@@ -11,10 +12,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/holo_purple"
         android:orientation="vertical">
 
         <ImageView
+            android:background="@color/colorAccent"
             android:id="@+id/image"
             android:layout_width="match_parent"
 
@@ -151,6 +152,8 @@
         android:clickable="true"
         android:src="@drawable/ic_action_camera"
         app:layout_anchor="@id/image"
+        android:tint="@color/white"
+
         app:layout_anchorGravity="bottom|right|end" />
 
 </android.support.design.widget.CoordinatorLayout>

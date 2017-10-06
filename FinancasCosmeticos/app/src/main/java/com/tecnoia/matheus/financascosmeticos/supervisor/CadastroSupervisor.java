@@ -2,6 +2,8 @@ package com.tecnoia.matheus.financascosmeticos.supervisor;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,15 +17,22 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageMetadata;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.tecnoia.matheus.financascosmeticos.ContainerActivity;
 import com.tecnoia.matheus.financascosmeticos.DAO.ConfiguracoesFirebase;
 import com.tecnoia.matheus.financascosmeticos.R;
 import com.tecnoia.matheus.financascosmeticos.model.Supervisor;
-import com.tecnoia.matheus.financascosmeticos.supervisor.helper.Preferencias;
 import com.tecnoia.matheus.financascosmeticos.utils.ValidaCamposConexao;
+
+import java.io.ByteArrayOutputStream;
+import java.util.UUID;
 
 public class CadastroSupervisor extends Fragment {
     private EditText editTextNome, editTextEmail, editTextSenha;
@@ -34,6 +43,9 @@ public class CadastroSupervisor extends Fragment {
     private boolean cancel = false;
     private View focusView = null;
     private ValidaCamposConexao camposConexao = new ValidaCamposConexao();
+    private String pathImage;
+    private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private static String TAG = "Adicionado ae banco";
 
 
     @Override
@@ -152,11 +164,14 @@ public class CadastroSupervisor extends Fragment {
                             String id = autenticacao.getCurrentUser().getUid();
 
                             //salvaprimeira imagem default perfil
-                            salvaImagemDefault(id);
+                            try {
 
-                            Supervisor supervisor = new Supervisor(id, nome, email, senha, photoUrl);
+                                salvaImagemDefault(id);
 
-                            supervisor.salvarSupervisor();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
                             startActivity(new Intent(getActivity(), ContainerActivity.class));
 
                             getActivity().finish();
@@ -175,13 +190,35 @@ public class CadastroSupervisor extends Fragment {
 
     }
 
-    public void salvaImagemDefault(String id) {
-        photoUrl = "www.teste";
+    public void salvaImagemDefault(final String id) {
 
 
+        Bitmap bitmap = ValidaCamposConexao.drawableToBitmap(getActivity().getResources().getDrawable(R.drawable.ic_person));
 
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+        byte[] data = outputStream.toByteArray();
 
+        //nomeando image
+        pathImage = UUID.randomUUID().toString();
 
+        StorageReference storageImagem = storage.getReference(pathImage);
+
+        StorageMetadata metadata = new StorageMetadata.Builder().setCustomMetadata(TAG, nome + "perfil").build();
+
+        UploadTask uploadTask = storageImagem.putBytes(data, metadata);
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                @SuppressWarnings("VisibleForTests") Uri uri = taskSnapshot.getDownloadUrl();
+
+                photoUrl = uri.toString();
+                Supervisor supervisor = new Supervisor(id, nome, email, senha, photoUrl, pathImage);
+
+                supervisor.salvarSupervisor();
+
+            }
+        });
     }
 
 

@@ -23,10 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".revendedor.EditarPerfilRevendedorActivity"
-            android:label="@string/title_activity_editar_perfil_revendedor"
-            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".PerfilActivity"
             android:label="@string/title_activity_perfil"

@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,6 +27,7 @@ import com.tecnoia.matheus.financascosmeticos.R;
 import com.tecnoia.matheus.financascosmeticos.model.Revendedor;
 import com.tecnoia.matheus.financascosmeticos.model.Supervisor;
 import com.tecnoia.matheus.financascosmeticos.utils.FragmentUtils;
+import com.tecnoia.matheus.financascosmeticos.utils.ValidaCamposConexao;
 
 import java.util.List;
 import java.util.UUID;
@@ -61,7 +64,7 @@ public class CadastraRevendedor extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootview = inflater.inflate(R.layout.activity_cadastrar_revendedor, container, false);
         mAuth1 = FirebaseAuth.getInstance();
-        recuperaDados();
+
 
         try {
             FirebaseOptions firebaseOptions = new FirebaseOptions.Builder()
@@ -69,7 +72,7 @@ public class CadastraRevendedor extends Fragment {
                     .setApiKey("AIzaSyBvaCYgm4KanJ7JhvBlvYjsBGVQB3UVGOI")
                     .setApplicationId("1:855606521832:android:be1214118720ccaa").build();
 
-             myApp = FirebaseApp.initializeApp(getActivity(),firebaseOptions, UUID.randomUUID()+"");
+            myApp = FirebaseApp.initializeApp(getActivity(), firebaseOptions, UUID.randomUUID() + "");
 
             mAuth2 = FirebaseAuth.getInstance(myApp);
 
@@ -77,7 +80,7 @@ public class CadastraRevendedor extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         /*  Toast.makeText(getActivity(),"Erro! " + e, Toast.LENGTH_SHORT).show();*/
-            Log.e(e+"", "erro!");
+            Log.e(e + "", "erro!");
 
         }
 
@@ -131,14 +134,50 @@ public class CadastraRevendedor extends Fragment {
         nome = editTextNome.getText().toString();
         email = editTextEmail.getText().toString();
         senha = editTextSenha.getText().toString();
-        showProgressDialog();
-        criaRevendedor();
+
+
+        if (TextUtils.isEmpty(email)) {
+            editTextEmail.setError(getString(R.string.campo_vazio));
+            focusView = editTextEmail;
+            cancel = true;
+
+        } else if (!ValidaCamposConexao.validaEmail(email)) {
+            editTextEmail.setError(getString(R.string.email_invalido));
+            focusView = editTextEmail;
+            cancel = true;
+
+        }
+        if (TextUtils.isEmpty(senha)) {
+            editTextSenha.setError(getString(R.string.campo_vazio));
+            focusView = editTextSenha;
+            cancel = true;
+
+        } else if (!ValidaCamposConexao.validaSenha(senha)) {
+            editTextEmail.setError(getString(R.string.senha_invalida));
+            focusView = editTextSenha;
+            cancel = true;
+
+
+        }
+
+        if (cancel) {
+            focusView.requestFocus();
+
+        } else {
+
+            showProgressDialog();
+            idSupervisor = mAuth1.getCurrentUser().getUid();
+            criaRevendedor(idSupervisor);
+
+
+        }
+
 
 
     }
 
 
-    private void criaRevendedor() {
+    private void criaRevendedor(final String idSupervisor) {
 
 
         mAuth2.createUserWithEmailAndPassword(email, senha).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
@@ -147,7 +186,7 @@ public class CadastraRevendedor extends Fragment {
                 if (task.isSuccessful()) {
                     String idRevendedor = task.getResult().getUser().getUid();
 
-                    Revendedor revendedor = new Revendedor(idRevendedor, idSupervisor, nome, email, senha, "..." ,0.00);
+                    Revendedor revendedor = new Revendedor(idRevendedor, idSupervisor, nome, email, senha, "...", "0.00");
                     revendedor.salvarRevendedor(idSupervisor);
 
 

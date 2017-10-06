@@ -45,6 +45,9 @@ public class ListaRevendedores extends Fragment {
     private String senhaSupervisor;
     private DatabaseReference databaseRevendedores;
     private ArrayList<Revendedor> revendedoresList;
+
+
+
     private AdapterRevendedores adapterRevendedores;
 
     public static ListaRevendedores newInstance() {

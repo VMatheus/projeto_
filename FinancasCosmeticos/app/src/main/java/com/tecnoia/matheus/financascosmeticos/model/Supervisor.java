@@ -18,6 +18,18 @@ public class Supervisor {
     private String email;
 
     private String senha;
+    private String photoUrl;
+    private String pathImagem;
+
+    public String getPathImagem() {
+        return pathImagem;
+    }
+
+    public void setPathImagem(String pathImagem) {
+        this.pathImagem = pathImagem;
+    }
+
+
 
     public String getPhotoUrl() {
         return photoUrl;
@@ -27,14 +39,15 @@ public class Supervisor {
         this.photoUrl = photoUrl;
     }
 
-    private String photoUrl;
 
-    public Supervisor(String id, String nome, String email, String senha, String photoUrl) {
+
+    public Supervisor(String id, String nome, String email, String senha, String photoUrl, String pathImagem) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.photoUrl = photoUrl;
+        this.pathImagem = pathImagem;
     }
 
     public Supervisor() {

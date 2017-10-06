@@ -1,6 +1,7 @@
 package com.tecnoia.matheus.financascosmeticos.utils;
 
 import android.app.Application;
+import android.widget.Toast;
 
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.OkHttpDownloader;
@@ -14,6 +15,7 @@ public class DadosOffline extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         Picasso.Builder builder = new Picasso.Builder(this);
@@ -25,5 +27,6 @@ public class DadosOffline extends Application {
 
 
     }
+
 
 }

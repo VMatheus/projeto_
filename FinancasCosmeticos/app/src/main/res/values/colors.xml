@@ -1,22 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-   <!-- <color name="colorPrimary">#F50057</color> <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorPrimaryDark">#F50057</color>-->
+    <!-- <color name="colorPrimary">#F50057</color> <color name="colorPrimary">#3F51B5</color>
+     <color name="colorPrimaryDark">#303F9F</color>
+     <color name="colorPrimaryDark">#F50057</color>-->
 
-  <!--  <color name="colorAccent">#FF4081</color>-->
+    <!--  <color name="colorAccent">#FF4081</color>-->
+    
 
-    <color name="colorPrimary">#6d0094</color>
-    <color name="colorPrimaryDark">#6d0094</color>
-    <color name="colorAccent">#ff2068</color>
+    <color name="colorPrimaryDark">#8c3a9a</color>
+    <color name="colorPrimary">#ab47bc</color>
+    <color name="colorAccent">#ab46bc</color>
     <color name="colorAccentSecondary">#ad1a7f</color>
     <color name="album_title">#4c4c4c</color>
 
 
+    <color name="colorBackground">#e4e4e4</color>
+    <color name="colorTextPrimary">#FFFFFF</color>
 
- <color name="colorBackground">#e4e4e4</color>
- <color name="colorTextPrimary">#FFFFFF</color>
+    <color name="bs_text_color">#3B73CC</color>
 
- <color name="bs_text_color">#3B73CC</color>
+
+
+
+
+
+    <color name="transparentWhite">#77ffffff</color>
+    <color name="transparentWhiteMed">#aaffffff</color>
+    <color name="transparentWhiteMedDark">#bbffffff</color>
+    <color name="transparentWhiteDark">#ccffffff</color>
+
+    <color name="transparentBlack">#77000000</color>
+    <color name="transparentBlackMed">#aa000000</color>
+    <color name="transparentBlackMedDark">#bb000000</color>
+    <color name="transparentBlackDark">#cc000000</color>
+    <color name="transparent">#00FFFFFF</color>
 
 </resources>

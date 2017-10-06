@@ -7,10 +7,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +26,8 @@ import com.tecnoia.matheus.financascosmeticos.utils.ConstantsUtils;
 import com.tecnoia.matheus.financascosmeticos.utils.FragmentUtils;
 import com.tecnoia.matheus.financascosmeticos.utils.GetDataFromFirebase;
 
+import java.lang.reflect.Field;
+
 
 public class ContainerActivity extends AppCompatActivity {
 
@@ -37,7 +39,8 @@ public class ContainerActivity extends AppCompatActivity {
     private SharedPreferences sharedPrefRevendedor, sharedPrefSupervisor;
     private Fragment fragment = null;
     private DatabaseReference databaseRevendedor;
-
+    private ProgressBar progressBar;
+    private FirebaseAuth mAuth;
 
 
     @Override
@@ -45,13 +48,14 @@ public class ContainerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_container);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
 
 
         FirebaseAuth.getInstance().addAuthStateListener(new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
+                if (firebaseAuth.getCurrentUser() != null) {
 
 
                     id = firebaseAuth.getCurrentUser().getUid();
@@ -63,6 +67,7 @@ public class ContainerActivity extends AppCompatActivity {
 
 
                         FragmentUtils.replacePrincipal(ContainerActivity.this, TipoUsuarioFragment.newInstace());
+                        progressBar.setVisibility(View.GONE);
 
                     } catch (IllegalStateException e) {
                         e.printStackTrace();
@@ -70,13 +75,10 @@ public class ContainerActivity extends AppCompatActivity {
                     }
 
 
-
-
                 }
                 // ...
             }
         });
-
 
     }
 
@@ -96,6 +98,7 @@ public class ContainerActivity extends AppCompatActivity {
                         carregarDadosSupervisor();
                         fragment = MenuSupervisora.newInstance();
                         FragmentUtils.replacePrincipal(ContainerActivity.this, fragment);
+                        progressBar.setVisibility(View.GONE);
 
                     } else {
 
@@ -103,6 +106,7 @@ public class ContainerActivity extends AppCompatActivity {
                         fragment = MenuRevendedora.newInstance();
 
                         FragmentUtils.replacePrincipal(ContainerActivity.this, fragment);
+                        progressBar.setVisibility(View.GONE);
 
 
                     }

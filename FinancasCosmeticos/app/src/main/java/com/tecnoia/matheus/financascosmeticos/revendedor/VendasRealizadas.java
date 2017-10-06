@@ -40,11 +40,11 @@ public class VendasRealizadas extends Fragment {
     private List<ItemVenda> itemVendaList;
     private SharedPreferences sharedPrefRevendedor;
     private TextView textViewSaldoTotal;
-    private String idSupervisor, idRevendedor;
+    private String idSupervisor, idRevendedor, saldoTotal;
     private DatabaseReference databaseVendasRealizadas;
     private AdapterVendasRealizadas adapterVendasRealizadas;
     private DatabaseReference databaseDadosRevendedor;
-    private Double saldoTotal;
+
     private List<Revendedor> dadosRevendedorList = new ArrayList<>();
 
 
@@ -107,7 +107,7 @@ public class VendasRealizadas extends Fragment {
                 try {
                     Revendedor revendedor = dataSnapshot.getValue(Revendedor.class);
                     saldoTotal = revendedor.getSaldoTotal();
-                    String saldoNew = ConfiguracoesFirebase.format(saldoTotal);
+                    String saldoNew = saldoTotal;
                     textViewSaldoTotal.setText(saldoNew +" R$");
                 } catch (Exception e) {
                     e.printStackTrace();

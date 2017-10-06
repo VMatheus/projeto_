@@ -45,9 +45,7 @@ public class TipoUsuarioFragment extends Fragment {
     }
 
 
-    public void onBackPressed() {
-        getActivity().finish();
-    }
+
 
     private void initViews(View rootView) {
         buttonSupervisor = rootView.findViewById(R.id.buttonSupervisor);
@@ -77,4 +75,7 @@ public class TipoUsuarioFragment extends Fragment {
         });
 
     }
+
+
+
 }

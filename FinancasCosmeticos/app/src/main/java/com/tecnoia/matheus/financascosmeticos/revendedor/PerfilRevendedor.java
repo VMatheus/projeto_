@@ -44,7 +44,7 @@ public class PerfilRevendedor extends Fragment {
     private void initViews(View rootview) {
 
 
-        toolbar = rootview.findViewById(R.id.toolbar_perfil);
+        toolbar = rootview.findViewById(R.id.toolbar);
 
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 

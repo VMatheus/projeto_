@@ -63,7 +63,6 @@ public class AdapterRevendedores extends RecyclerView.Adapter<AdapterRevendedore
                 @Override
                 public void onClick(View view) {
                     menuRevendedor(holder.imageMenu, revendedor.getId(), revendedor.getNome(), revendedor.getSaldoTotal());
-
                 }
             });
 
@@ -105,7 +104,7 @@ public class AdapterRevendedores extends RecyclerView.Adapter<AdapterRevendedore
         }
     }
 
-    private void menuRevendedor(View view, final String idRevendedor, final String nomeRevendedor, final Double saldoTotal) {
+    private void menuRevendedor(View view, final String idRevendedor, final String nomeRevendedor, final String saldoTotal) {
         PopupMenu popupMenu = new PopupMenu(activity, view);
         final MenuInflater menuInflater = popupMenu.getMenuInflater();
         menuInflater.inflate(R.menu.menu_list_revendedoras, popupMenu.getMenu());

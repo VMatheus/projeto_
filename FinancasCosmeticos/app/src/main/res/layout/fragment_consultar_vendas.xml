@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.tecnoia.matheus.financascosmeticos.supervisor.fragments.ConsultarVendasFragment">
+    tools:context="com.projeto.adrielle.cosmeticosfinancas.supervisor.fragments.ConsultarVendasFragment">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_consultar_vendas"
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.tecnoia.matheus.financascosmeticos.utils.RobotoUtils
+                <com.projeto.adrielle.cosmeticosfinancas.utils.RobotoUtils
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
 
@@ -51,7 +51,7 @@
                     android:textColor="@color/album_title"
                     android:textSize="16sp" />
 
-                <com.tecnoia.matheus.financascosmeticos.utils.RobotoUtils
+                <com.projeto.adrielle.cosmeticosfinancas.utils.RobotoUtils
                     android:id="@+id/text_saldo_total"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

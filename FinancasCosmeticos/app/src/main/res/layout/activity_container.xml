@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.tecnoia.matheus.financascosmeticos.ContainerActivity">
+    tools:context="com.tecnoia.matheus.financascosmeticos.com.projeto.adrielle.cosmeticosfinancas.ContainerActivity">
     <ProgressBar
         android:visibility="gone"
         android:id="@+id/progressBar"

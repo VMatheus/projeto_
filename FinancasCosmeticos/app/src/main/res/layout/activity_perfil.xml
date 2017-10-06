@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="false"
-    tools:context="com.tecnoia.matheus.financascosmeticos.PerfilActivity">
+    tools:context="com.tecnoia.matheus.financascosmeticos.com.projeto.adrielle.cosmeticosfinancas.PerfilActivity">
 
 
     <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"

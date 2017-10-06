@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.tecnoia.matheus.financascosmeticos.supervisor.fragments.ListaProdutosEstoque">
+    tools:context="com.projeto.adrielle.cosmeticosfinancas.supervisor.fragments.ListaProdutosEstoque">
 
     <android.support.v7.widget.Toolbar
         app:title=" Meu Estoque"

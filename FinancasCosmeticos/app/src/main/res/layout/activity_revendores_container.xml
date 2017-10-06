@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="false"
-    tools:context="com.tecnoia.matheus.financascosmeticos.supervisor.fragments.RevendedoresContainer">
+    tools:context="com.projeto.adrielle.cosmeticosfinancas.supervisor.fragments.RevendedoresContainer">
 
 
     <include layout="@layout/content_lista_revendedores" />

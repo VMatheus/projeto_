@@ -20,7 +20,7 @@
             android:layout_weight="0.12"
             android:orientation="vertical">
 
-            <com.tecnoia.matheus.financascosmeticos.utils.RobotoUtils
+            <com.projeto.adrielle.cosmeticosfinancas.utils.RobotoUtils
                 android:textSize="15sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.tecnoia.matheus.financascosmeticos.utils.RobotoUtils
+                <com.projeto.adrielle.cosmeticosfinancas.utils.RobotoUtils
 
                     android:id="@+id/text_seleciona_produto"
                     android:layout_width="0dp"
@@ -54,7 +54,7 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <com.tecnoia.matheus.financascosmeticos.utils.RobotoUtils
+                    <com.projeto.adrielle.cosmeticosfinancas.utils.RobotoUtils
                         android:textSize="16sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
 
             android:padding="10dp" />
 
-        <com.tecnoia.matheus.financascosmeticos.utils.RobotoUtils
+        <com.projeto.adrielle.cosmeticosfinancas.utils.RobotoUtils
             android:textColor="@color/album_title"
             android:gravity="end"
             android:textSize="15sp"

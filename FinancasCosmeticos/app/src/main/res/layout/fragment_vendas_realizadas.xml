@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.tecnoia.matheus.financascosmeticos.revendedor.VendasRealizadas">
+    tools:context="com.projeto.adrielle.cosmeticosfinancas.revendedor.VendasRealizadas">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.tecnoia.matheus.financascosmeticos.utils.RobotoUtils
+                <com.projeto.adrielle.cosmeticosfinancas.utils.RobotoUtils
 
                     android:layout_height="wrap_content"
 
@@ -39,7 +39,7 @@
                     android:textColor="@color/album_title"
                     android:textSize="16sp" />
 
-                <com.tecnoia.matheus.financascosmeticos.utils.RobotoUtils
+                <com.projeto.adrielle.cosmeticosfinancas.utils.RobotoUtils
                     android:id="@+id/text_saldo_total"
                     android:layout_width="wrap_content"
 

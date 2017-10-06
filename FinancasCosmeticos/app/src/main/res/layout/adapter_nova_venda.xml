@@ -16,7 +16,7 @@
             android:layout_weight="2"
             android:layout_width="0dp"
             android:layout_height="wrap_content">
-            <com.tecnoia.matheus.financascosmeticos.utils.RobotoUtils
+            <com.projeto.adrielle.cosmeticosfinancas.utils.RobotoUtils
                 android:textColor="@color/album_title"
 
                 android:id="@+id/text_nome_separacao"
@@ -28,7 +28,7 @@
                 android:padding="2dp"
                 android:text="QUASAR SURF DES. COLÔNIA, 125ML"
                 android:textSize="@dimen/album_title" />
-            <com.tecnoia.matheus.financascosmeticos.utils.RobotoUtils
+            <com.projeto.adrielle.cosmeticosfinancas.utils.RobotoUtils
                 android:padding="2dp"
                 android:text="R$ 52,00"
                 android:id="@+id/text_saldo_itens"
@@ -39,7 +39,7 @@
 
 
 
-        <com.tecnoia.matheus.financascosmeticos.utils.OpenSansUtils
+        <com.projeto.adrielle.cosmeticosfinancas.utils.OpenSansUtils
             android:id="@+id/text_unidades_separacao"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

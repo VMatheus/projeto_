@@ -22,7 +22,7 @@
             android:layout_margin="10dp"
             android:orientation="vertical">
 
-            <com.tecnoia.matheus.financascosmeticos.utils.RobotoUtils
+            <com.projeto.adrielle.cosmeticosfinancas.utils.RobotoUtils
 
                 android:id="@+id/text_nome_produto_venda"
                 android:layout_width="match_parent"
@@ -30,7 +30,7 @@
                 android:textSize="16sp"
                 android:text="Base Líquida TimeWise® Acabamento Matte" />
 
-            <com.tecnoia.matheus.financascosmeticos.utils.OpenSansUtils
+            <com.projeto.adrielle.cosmeticosfinancas.utils.OpenSansUtils
               android:padding="2dp"
                 android:id="@+id/text_disponiveis_avenda"
                 android:layout_width="match_parent"
@@ -38,7 +38,7 @@
                 android:textSize="14sp"
                 android:text="" />
 
-            <com.tecnoia.matheus.financascosmeticos.utils.OpenSansUtils
+            <com.projeto.adrielle.cosmeticosfinancas.utils.OpenSansUtils
                 android:padding="2dp"
                 android:id="@+id/tex_status_vendidos"
                 android:layout_width="match_parent"

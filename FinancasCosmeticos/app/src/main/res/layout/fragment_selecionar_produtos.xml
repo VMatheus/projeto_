@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/linear_selecionar_produto"
-    tools:context="com.tecnoia.matheus.financascosmeticos.supervisor.fragments.SelecionarProdutos">
+    tools:context="com.projeto.adrielle.cosmeticosfinancas.supervisor.fragments.SelecionarProdutos">
 
     <android.support.v7.widget.Toolbar
 

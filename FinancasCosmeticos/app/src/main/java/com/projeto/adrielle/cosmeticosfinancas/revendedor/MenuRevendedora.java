@@ -102,9 +102,13 @@ public class MenuRevendedora extends Fragment {
                 return true;
             }
         });
+        try {
 
-        FragmentUtils.replaceRevendedor(getActivity(), VendasRealizadas.newInstance());
+            FragmentUtils.replaceRevendedor(getActivity(), VendasRealizadas.newInstance());
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

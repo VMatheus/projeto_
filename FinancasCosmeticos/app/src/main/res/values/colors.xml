@@ -5,7 +5,7 @@
      <color name="colorPrimaryDark">#F50057</color>-->
 
     <!--  <color name="colorAccent">#FF4081</color>-->
-    
+
 
     <color name="colorPrimaryDark">#8c3a9a</color>
     <color name="colorPrimary">#ab47bc</color>
@@ -14,14 +14,16 @@
     <color name="album_title">#4c4c4c</color>
 
 
+    <color name="textColorSecundary">#979797</color>
+
+
     <color name="colorBackground">#e4e4e4</color>
     <color name="colorTextPrimary">#FFFFFF</color>
 
     <color name="bs_text_color">#3B73CC</color>
-
-
-
-
+    <!--AppBarLayoout-->
+    <color name="appBarTextcolorPrimary">#FFFFFF</color>
+    <color name="appBarTextcolorSecundary">#cc9dd4</color>
 
 
     <color name="transparentWhite">#77ffffff</color>

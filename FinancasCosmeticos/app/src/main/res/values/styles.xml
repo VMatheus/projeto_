@@ -6,8 +6,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-
+        <item name="android:textColorSecondary">@color/textColorSecundary</item>
     </style>
+
     <style name="ThemeToolbar" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -15,6 +16,18 @@
         <item name="android:textColorSecondary">@color/white</item>
 
     </style>
+
+    <style name="AppBarLayout" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="android:textColorPrimary">@color/appBarTextcolorPrimary</item>
+        <item name="android:textColorSecondary">@color/appBarTextcolorSecundary</item>
+
+    </style>
+
+    <!--Toolbar Login-->
+
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -54,4 +67,6 @@
     </style>
 
     <color name="white">#ffffff</color>
+    <!-- styles editTexts cadastros-->
+
 </resources>

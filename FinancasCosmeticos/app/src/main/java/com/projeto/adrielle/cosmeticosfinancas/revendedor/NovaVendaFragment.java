@@ -247,9 +247,22 @@ public class NovaVendaFragment extends Fragment {
     }
 
     private void verificaCampos() {
+        int posicao = 0;
+
+        int pos = 0;
+        //pega posicao do item selecionado
+        for (Produto produtoPesquisa : listProdutos) {
+
+            if (produtoPesquisa.getId().equals(produto.getId())) {
+                 /* adicionaProdutos(pos);*/
+                posicao = pos;
+
+            }
+            pos++;
+        }
         try {
 
-            quatidadeDisponivel = Integer.parseInt(listProdutos.get(positionUpdate).getQuantidade());
+            quatidadeDisponivel = Integer.parseInt(listProdutos.get(posicao).getQuantidade());
             quantidadeDesejada = Integer.parseInt(editTextQuantidade.getText().toString());
             Toast.makeText(getActivity(), quatidadeDisponivel, Toast.LENGTH_SHORT).show();
 
@@ -287,16 +300,11 @@ public class NovaVendaFragment extends Fragment {
         }
 
         if (!cancela) {
-            int pos = 0;
-            for (Produto produtoPesquisa : listProdutos) {
-
-                if (produtoPesquisa.getId().equals(produto.getId())) {
-                 /* adicionaProdutos(pos);*/
 
 
-                }
-                pos++;
-            }
+            Log.e(pos + "", "Posicao");
+            Toast.makeText(getActivity(), posicao + "posicao item", Toast.LENGTH_SHORT).show();
+
 
 
 

@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +12,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.tecnoia.matheus.financascosmeticos.R;
 import com.projeto.adrielle.cosmeticosfinancas.model.Produto;
+import com.tecnoia.matheus.financascosmeticos.R;
 
 import java.util.List;
 
@@ -25,12 +27,14 @@ public class AdapterNovaVendaDialog extends ArrayAdapter {
     private ListView listViewProdutos;
     private FragmentActivity activity;
     private List<Produto> produtoList;
-    private String idRevendedor, idSupervisor;
+    private String idRevendedor;
+    private String idSupervisor;
+    private int produtoPosition;
     private Dialog dialog;
     private TextView textViewProduto;
     private Produto produtoSelecionado;
 
-    public AdapterNovaVendaDialog(FragmentActivity activity, List<Produto> produtoArrayList, ListView listViewProdutos, String idSupervisor, Dialog dialog, TextView textViewSelecionaProduto, Produto produto) {
+    public AdapterNovaVendaDialog(FragmentActivity activity, List<Produto> produtoArrayList, ListView listViewProdutos, String idSupervisor, Dialog dialog, TextView textViewSelecionaProduto, Produto produto, int positionUpdate) {
         super(activity, R.layout.adapter_dialog_vendas);
         this.activity = activity;
         this.idSupervisor = idSupervisor;
@@ -39,6 +43,7 @@ public class AdapterNovaVendaDialog extends ArrayAdapter {
         this.dialog = dialog;
         this.produtoSelecionado = produto;
         this.textViewProduto = textViewSelecionaProduto;
+        this.produtoPosition = positionUpdate;
 
 
     }
@@ -68,7 +73,7 @@ public class AdapterNovaVendaDialog extends ArrayAdapter {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = activity.getLayoutInflater();
         View view = inflater.inflate(R.layout.adapter_produtos_dialog_venda, null, true);
 
@@ -79,14 +84,13 @@ public class AdapterNovaVendaDialog extends ArrayAdapter {
         textViewNomeProduto.setText(produto.getNome());
         textViewDisponivel.setText("Estoque: " + produto.getQuantidade());
 
-
         listViewProdutos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Produto produto1 = produtoList.get(i);
                 String nome = produto1.getNome();
                 textViewProduto.setText(nome);
-
+                produtoPosition = i ;
                 produtoSelecionado.setId(produto1.getId());
                 produtoSelecionado.setNome(produto1.getNome());
                 produtoSelecionado.setPreco(produto1.getPreco());

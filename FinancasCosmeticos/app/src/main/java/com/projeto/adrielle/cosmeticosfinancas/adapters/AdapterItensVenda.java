@@ -10,8 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.tecnoia.matheus.financascosmeticos.R;
 import com.projeto.adrielle.cosmeticosfinancas.model.ItemVenda;
+import com.tecnoia.matheus.financascosmeticos.R;
 
 import java.util.List;
 
@@ -44,15 +44,19 @@ public class AdapterItensVenda extends ArrayAdapter {
     public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = activity.getLayoutInflater();
         View view = inflater.inflate(R.layout.adapter_nova_venda, null, true);
-        TextView textViewNome, textViewUnidades;
+        TextView textViewNome, textViewUnidades, textViewSaldoItens;
         ImageView imageViewRemover;
+
         textViewNome = view.findViewById(R.id.text_nome_separacao);
         textViewUnidades = view.findViewById(R.id.text_unidades_separacao);
 
         imageViewRemover = view.findViewById(R.id.image_remover_separacao);
+        textViewSaldoItens = view.findViewById(R.id.text_saldo_itens);
 
         final ItemVenda itemVenda = itemVendaList.get(position);
         textViewNome.setText(itemVenda.getNome());
+        textViewSaldoItens.setText(itemVenda.getSaldoItens());
+
         textViewUnidades.setText(String.format("%sUn", itemVenda.getQuantidade()));
         imageViewRemover.setOnClickListener(new View.OnClickListener() {
             @Override

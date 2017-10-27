@@ -163,6 +163,7 @@ public class CadastroProdutoFragment extends Fragment {
     }
 
     private void recuperaDados() {
+
         sharedPrefSupervisor = getActivity().getPreferences(MODE_PRIVATE);
         idSupervisor = sharedPrefSupervisor.getString("idSupervisor", "");
         Bundle bundle = this.getArguments();

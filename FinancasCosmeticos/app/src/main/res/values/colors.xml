@@ -37,4 +37,12 @@
     <color name="transparentBlackDark">#cc000000</color>
     <color name="transparent">#00FFFFFF</color>
 
+
+
+
+    <color name="option_pressed">#e9e4e4</color>
+    <color name="option_text_pressed">#000000</color>
+    <color name="option_text">#080808</color>
+    <color name="divider">#d4d4d4</color>
+
 </resources>

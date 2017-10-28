@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:fitsSystemWindows="false"
     android:orientation="vertical"
-    android:background="@color/white"
     tools:context="com.projeto.adrielle.cosmeticosfinancas.PerfilActivity">
 
 
@@ -30,17 +30,27 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:clickable="true"
+
+
             android:layout_width="100dp"
-            android:background="#cccccc"
             android:layout_height="100dp"
-            android:layout_margin="20dp">
+            android:layout_margin="20dp"
+            android:background="#cccccc"
+
+            android:clickable="true"
+            >
 
             <ImageView
+
+                android:background="@drawable/image_selector"
+                android:id="@+id/image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_person" />
+                android:scaleType="centerCrop" >
+
+            </ImageView>
+
+
         </LinearLayout>
 
         <LinearLayout

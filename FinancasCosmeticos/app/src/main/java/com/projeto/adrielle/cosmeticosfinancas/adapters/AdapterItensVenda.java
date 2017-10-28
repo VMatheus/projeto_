@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.projeto.adrielle.cosmeticosfinancas.model.ItemVenda;
+import com.projeto.adrielle.cosmeticosfinancas.model.Produto;
 import com.tecnoia.matheus.financascosmeticos.R;
 
 import java.util.List;
@@ -22,14 +23,17 @@ import java.util.List;
 public class AdapterItensVenda extends ArrayAdapter {
     private FragmentActivity activity;
     private List<ItemVenda> itemVendaList;
+    private List<Produto> produtoList;
     private Integer quantidadeDesejada;
 
 
-    public AdapterItensVenda(FragmentActivity activity, List<ItemVenda> itemVendaList, Integer quantidadeDesejada) {
+    public AdapterItensVenda(FragmentActivity activity, List<ItemVenda> itemVendaList, Integer quantidadeDesejada, List<Produto> listProdutos) {
         super(activity, R.layout.adapter_nova_venda);
         this.itemVendaList = itemVendaList;
         this.activity = activity;
         this.quantidadeDesejada = quantidadeDesejada;
+        this.produtoList = listProdutos;
+
     }
 
     @Override
@@ -61,6 +65,19 @@ public class AdapterItensVenda extends ArrayAdapter {
         imageViewRemover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                int pos = 0;
+                for (Produto produto : produtoList) {
+                    if (produto.getId().equals(itemVenda.getId())) {
+                        int quantidadeUpdate = Integer.parseInt(itemVenda.getQuantidade()) + Integer.parseInt(produto.getQuantidade());
+                        Produto produto1 = new Produto(produto.getId(), produto.getNome(), produto.getPreco(), String.valueOf(quantidadeUpdate), produto.getStatus());
+                        produtoList.set(pos, produto1);
+
+
+                    }
+                    pos++;
+
+                }
                 itemVendaList.remove(itemVenda);
                 atualiza(itemVendaList);
 

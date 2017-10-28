@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <LinearLayout
+
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left|center_vertical"
+        android:minWidth="250dp"
+        android:orientation="horizontal">
+        <TextView
+            style="@style/dialog_image"
+            android:id="@+id/selecet_camera"
+            android:text="Camera"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@mipmap/camera_colored"
+            android:gravity="left|center_vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/selecet_gealeria"
+            style="@style/dialog_image"
+            android:drawablePadding="10dp"
+            android:gravity="left|center_vertical"
+            android:text="Galeria"
+            android:drawableLeft="@mipmap/gallery_colored"
+            android:layout_width="0dp"
+
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+
+
+    </LinearLayout>
+
+
+</FrameLayout>

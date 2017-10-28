@@ -198,7 +198,7 @@ public class NovaVendaFragment extends Fragment {
         buttonFinalizarVenda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              /*  verificaItens();*/
+                verificaItens();
             }
         });
 
@@ -306,12 +306,7 @@ public class NovaVendaFragment extends Fragment {
             Toast.makeText(getActivity(), posicao + "posicao item", Toast.LENGTH_SHORT).show();
 
 
-
-
-
-
-            /*
-            adicionaProdutos();*/
+            adicionaProdutos();
 
 
         }
@@ -319,12 +314,12 @@ public class NovaVendaFragment extends Fragment {
 
     }
 
-    private void adicionaProdutos(int pos) {
-        /*BigDecimal precoUnitario = new BigDecimal(produto.getPreco());
+    private void adicionaProdutos() {
+        String saldoAtual = null;
+        BigDecimal precoUnitario = new BigDecimal(produto.getPreco());
 
         BigDecimal saldoItensNovo = precoUnitario.multiply(new BigDecimal(quantidadeDesejada));
-        Toast.makeText(getActivity(), saldoItensNovo + "preco", Toast.LENGTH_SHORT).show();*/
-        ItemVenda itemVenda = new ItemVenda(produto.getId(), produto.getNome(), String.valueOf(quantidadeDesejada), "0.00");
+        ItemVenda itemVenda = new ItemVenda(produto.getId(), produto.getNome(), String.valueOf(quantidadeDesejada), saldoItensNovo + "");
 
 
         boolean existete = false;
@@ -336,6 +331,8 @@ public class NovaVendaFragment extends Fragment {
             if (itemVendaLista.getId().equals(produto.getId())) {
                 existete = true;
                 quantidadeItem = Integer.parseInt(itemVendaLista.getQuantidade());
+                saldoAtual = itemVendaLista.getSaldoItens();
+
                 break;
 
 
@@ -344,9 +341,9 @@ public class NovaVendaFragment extends Fragment {
 
         }
         if (existete) {
-
+            BigDecimal updateSaldo = new BigDecimal(saldoAtual).add(saldoItensNovo);
             int updateQuantidade = quantidadeDesejada + quantidadeItem;
-            ItemVenda updateItemLista = new ItemVenda(produto.getId(), produto.getNome(), String.valueOf(updateQuantidade), "0.00");
+            ItemVenda updateItemLista = new ItemVenda(produto.getId(), produto.getNome(), String.valueOf(updateQuantidade), updateSaldo + "");
 
             itemVendaList.set(position, updateItemLista);
 
@@ -384,7 +381,7 @@ public class NovaVendaFragment extends Fragment {
         }
 
 
-        AdapterItensVenda adapterItensVenda = new AdapterItensVenda(getActivity(), itemVendaList, quantidadeDesejada);
+        AdapterItensVenda adapterItensVenda = new AdapterItensVenda(getActivity(), itemVendaList, quantidadeDesejada, listProdutos);
         listViewProdutosEmSeparação.setAdapter(adapterItensVenda);
         adapterItensVenda.notifyDataSetChanged();
 

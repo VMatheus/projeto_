@@ -23,7 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.projeto.adrielle.cosmeticosfinancas.PerfilActivity;
+import com.projeto.adrielle.cosmeticosfinancas.EditarPerfilActivitySupervisor;
 import com.projeto.adrielle.cosmeticosfinancas.model.Supervisor;
 import com.projeto.adrielle.cosmeticosfinancas.utils.ConstantsUtils;
 import com.projeto.adrielle.cosmeticosfinancas.utils.GetDataFromFirebase;
@@ -123,7 +123,7 @@ public class PerfilSupervisor extends Fragment {
 
                 break;
             case R.id.action_editar:
-                startActivity(new Intent(getActivity(), PerfilActivity.class));
+                startActivity(new Intent(getActivity(), EditarPerfilActivitySupervisor.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

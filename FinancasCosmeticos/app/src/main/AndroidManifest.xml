@@ -30,11 +30,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="com.projeto.adrielle.cosmeticosfinancas.PerfilActivity"
+            android:name="com.projeto.adrielle.cosmeticosfinancas.EditarPerfilActivitySupervisor"
             android:label="@string/title_activity_perfil"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="com.projeto.adrielle.cosmeticosfinancas.EditarPerfilActivityRevendedor"></activity>
     </application>
 
 </manifest>

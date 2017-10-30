@@ -14,7 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.projeto.adrielle.cosmeticosfinancas.PerfilActivity;
+import com.projeto.adrielle.cosmeticosfinancas.EditarPerfilActivityRevendedor;
+import com.projeto.adrielle.cosmeticosfinancas.EditarPerfilActivitySupervisor;
 import com.tecnoia.matheus.financascosmeticos.R;
 import com.projeto.adrielle.cosmeticosfinancas.utils.ValidaCamposConexao;
 
@@ -68,7 +69,7 @@ public class PerfilRevendedor extends Fragment {
 
                 break;
             case R.id.action_editar:
-                startActivity(new Intent(getActivity(), PerfilActivity.class));
+                startActivity(new Intent(getActivity(), EditarPerfilActivityRevendedor.class));
               /*  FragmentUtils.replaceRevendedorRetorno(getActivity(), EditarPerfilRevendedorActivity.newInstace());*/
 
                 break;

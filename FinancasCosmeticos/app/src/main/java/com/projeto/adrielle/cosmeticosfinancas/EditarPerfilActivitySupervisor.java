@@ -21,7 +21,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -49,7 +48,7 @@ import com.tecnoia.matheus.financascosmeticos.R;
 import java.io.ByteArrayOutputStream;
 import java.util.UUID;
 
-public class PerfilActivity extends AppCompatActivity {
+public class EditarPerfilActivitySupervisor extends AppCompatActivity {
     private ImageView imageView;
     private AlertDialog dialog;
     private SharedPreferences sharedPrefSupervisor;
@@ -93,12 +92,12 @@ public class PerfilActivity extends AppCompatActivity {
 
 
         new CroperinoConfig("IMG_" + System.currentTimeMillis() + ".jpg", "/MikeLau/Pictures", "/sdcard/MikeLau/Pictures");
-        CroperinoFileUtil.setupDirectory(PerfilActivity.this);
+        CroperinoFileUtil.setupDirectory(EditarPerfilActivitySupervisor.this);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //libmodificada
-                if (CroperinoFileUtil.verifyStoragePermissions(PerfilActivity.this)) {
+                if (CroperinoFileUtil.verifyStoragePermissions(EditarPerfilActivitySupervisor.this)) {
                     selecionarImagem();
 
                 }
@@ -127,7 +126,7 @@ public class PerfilActivity extends AppCompatActivity {
                     senha = supervisor.getSenha();
 
 
-                    Glide.with(PerfilActivity.this).load(supervisor.getPhotoUrl()).into(imageView);
+                    Glide.with(EditarPerfilActivitySupervisor.this).load(supervisor.getPhotoUrl()).into(imageView);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -146,12 +145,12 @@ public class PerfilActivity extends AppCompatActivity {
     }
 
     private void selecionarImagem() {
-        Croper.prepareChooser(PerfilActivity.this, dialog);
+        Croper.prepareChooser(EditarPerfilActivitySupervisor.this, dialog);
 
     }
 
     private void prepareCamera() {
-        Croper.prepareCamera(PerfilActivity.this);
+        Croper.prepareCamera(EditarPerfilActivitySupervisor.this);
     }
 
 
@@ -161,13 +160,13 @@ public class PerfilActivity extends AppCompatActivity {
         switch (requestCode) {
             case CroperinoConfig.REQUEST_TAKE_PHOTO:
                 if (resultCode == Activity.RESULT_OK) {
-                    Croper.runCropImage(CroperinoFileUtil.getmFileTemp(), PerfilActivity.this, true, 1, 1, 0, 0);
+                    Croper.runCropImage(CroperinoFileUtil.getmFileTemp(), EditarPerfilActivitySupervisor.this, true, 1, 1, 0, 0);
                 }
                 break;
             case CroperinoConfig.REQUEST_PICK_FILE:
                 if (resultCode == Activity.RESULT_OK) {
-                    CroperinoFileUtil.newGalleryFile(data, PerfilActivity.this);
-                    Croper.runCropImage(CroperinoFileUtil.getmFileTemp(), PerfilActivity.this, true, 1, 1, 0, 0);
+                    CroperinoFileUtil.newGalleryFile(data, EditarPerfilActivitySupervisor.this);
+                    Croper.runCropImage(CroperinoFileUtil.getmFileTemp(), EditarPerfilActivitySupervisor.this, true, 1, 1, 0, 0);
                 }
                 break;
             case CroperinoConfig.REQUEST_CROP_PHOTO:
@@ -379,7 +378,7 @@ public class PerfilActivity extends AppCompatActivity {
     }
 
     private void showProgressDialog() {
-        progressDialog = new ProgressDialog(PerfilActivity.this);
+        progressDialog = new ProgressDialog(EditarPerfilActivitySupervisor.this);
 
         progressDialog.setMessage(getString(R.string.aguarde));
         progressDialog.show();

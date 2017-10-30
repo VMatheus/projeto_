@@ -13,15 +13,11 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.mikelau.croperino.AlertInterface;
-import com.mikelau.croperino.CameraDialog;
 import com.mikelau.croperino.CropImage;
 import com.mikelau.croperino.CroperinoConfig;
 import com.mikelau.croperino.CroperinoFileUtil;
 import com.mikelau.croperino.InternalStorageContentProvider;
-import com.projeto.adrielle.cosmeticosfinancas.PerfilActivity;
 import com.tecnoia.matheus.financascosmeticos.R;
 
 import java.io.File;

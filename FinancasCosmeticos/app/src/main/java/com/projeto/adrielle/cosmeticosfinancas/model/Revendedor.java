@@ -19,6 +19,8 @@ public class Revendedor {
     private String email;
     private String senha;
     private String photoUrl;
+    private String pathImagem;
+    private String numero;
     private String saldoTotal;
 
 
@@ -65,13 +67,15 @@ public class Revendedor {
         this.photoUrl = photoUrl;
     }
 
-    public Revendedor(String id, String idSupervisor, String nome, String email, String senha, String photoUrl, String saldoTotal) {
+    public Revendedor(String id, String idSupervisor, String nome, String email, String senha, String photoUrl,String pathImagem, String numero, String saldoTotal) {
         this.id = id;
         this.idSupervisor = idSupervisor;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.photoUrl = photoUrl;
+        this.pathImagem = pathImagem;
+        this.numero  =  numero;
         this.saldoTotal = saldoTotal;
 
     }
@@ -98,6 +102,8 @@ public class Revendedor {
         hashMapRevendedor.put("email", getEmail());
         hashMapRevendedor.put("senha", getSenha());
         hashMapRevendedor.put("photoUrl", getPhotoUrl());
+        hashMapRevendedor.put("pathImagem", getPathImagem());
+        hashMapRevendedor.put("numero", getNumero());
         hashMapRevendedor.put("saldoTotal", getSaldoTotal());
         return hashMapRevendedor;
 
@@ -118,6 +124,22 @@ public class Revendedor {
 
     public void setSaldoTotal(String saldoTotal) {
         this.saldoTotal = saldoTotal;
+    }
+
+    public String getPathImagem() {
+        return pathImagem;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public void setPathImagem(String pathImagem) {
+        this.pathImagem = pathImagem;
     }
 }
 

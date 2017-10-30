@@ -68,7 +68,7 @@ public class AdapterRevendedores extends RecyclerView.Adapter<AdapterRevendedore
 
 
             try {
-                Glide.with(activity).load("http://i.imgur.com/o8Xw7Pu.jpg").into(holder.imageViewPerfil);
+                Glide.with(activity).load(revendedor.getPhotoUrl()).into(holder.imageViewPerfil);
             } catch (Exception e) {
                 e.printStackTrace();
             }

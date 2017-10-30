@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+
     <application
         android:name="com.projeto.adrielle.cosmeticosfinancas.utils.DadosOffline"
         android:allowBackup="true"
@@ -19,6 +20,8 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data android:name="com.projeto.adrielle.cosmeticosfinancas.utils.GlideConfiguration"
+            android:value="GlideModule"/>
         <activity
             android:name="com.projeto.adrielle.cosmeticosfinancas.ContainerActivity"
             android:screenOrientation="portrait"

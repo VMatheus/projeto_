@@ -72,6 +72,7 @@ public class EditarPerfilActivitySupervisor extends AppCompatActivity {
         storageReference = FirebaseStorage.getInstance().getReference();
 
         imageView = findViewById(R.id.image);
+
         editTextNome = findViewById(R.id.edit_nome);
         editTextNumero = findViewById(R.id.edit_numero);
         editTextEmail = findViewById(R.id.edit_email);
@@ -128,6 +129,7 @@ public class EditarPerfilActivitySupervisor extends AppCompatActivity {
 
                     Glide.with(EditarPerfilActivitySupervisor.this).load(supervisor.getPhotoUrl()).into(imageView);
 
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -140,7 +142,6 @@ public class EditarPerfilActivitySupervisor extends AppCompatActivity {
 
             }
         });
-
 
     }
 
@@ -381,6 +382,7 @@ public class EditarPerfilActivitySupervisor extends AppCompatActivity {
         progressDialog = new ProgressDialog(EditarPerfilActivitySupervisor.this);
 
         progressDialog.setMessage(getString(R.string.aguarde));
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
 
     }

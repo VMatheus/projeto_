@@ -394,6 +394,7 @@ public class NovaVendaFragment extends Fragment {
         if (itemVendaList.isEmpty()) {
             Toast.makeText(getActivity(), "0 Itens", Toast.LENGTH_SHORT).show();
         } else {
+            boolean exitente = false;
 
             for (ItemVenda itemVenda : itemVendaList) {
                 for (Produto produto : produtoList) {
@@ -405,7 +406,7 @@ public class NovaVendaFragment extends Fragment {
                         String saldoItens = "";
 
 
-                        boolean exitente = false;
+
                         // verifica se o item ja foi vendido antes
                         for (ItemVenda vendasRealizadas : vendasRealizadasList) {
                             try {

@@ -2,6 +2,8 @@ package com.projeto.adrielle.cosmeticosfinancas.supervisor.fragments;
 
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,20 +17,22 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.projeto.adrielle.cosmeticosfinancas.DAO.ConfiguracoesFirebase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageMetadata;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.projeto.adrielle.cosmeticosfinancas.model.Revendedor;
-import com.projeto.adrielle.cosmeticosfinancas.model.Supervisor;
 import com.projeto.adrielle.cosmeticosfinancas.utils.FragmentUtils;
 import com.projeto.adrielle.cosmeticosfinancas.utils.ValidaCamposConexao;
 import com.tecnoia.matheus.financascosmeticos.R;
 
-import java.util.List;
+import java.io.ByteArrayOutputStream;
 import java.util.UUID;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -50,6 +54,11 @@ public class CadastraRevendedor extends Fragment {
     private SharedPreferences sharedPrefSupervisor;
     private static String NOME_APP = "FinancasCosmeticos";
     private FirebaseApp myApp;
+    private String pathImage;
+
+    private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private String photoUrl;
+    private static String TAG = "Adicionado ae banco";
 
 
     public static CadastraRevendedor newInstance() {
@@ -185,21 +194,46 @@ public class CadastraRevendedor extends Fragment {
 
         mAuth2.createUserWithEmailAndPassword(email, senha).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
+            public void onComplete(@NonNull final Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    String idRevendedor = task.getResult().getUser().getUid();
 
-                    Revendedor revendedor = new Revendedor(idRevendedor, idSupervisor, nome, email, senha, "...", "0.00");
-                    revendedor.salvarRevendedor(idSupervisor);
+                    //uploadImagem
+                    Bitmap bitmap = ValidaCamposConexao.drawableToBitmap(getActivity().getResources().getDrawable(R.drawable.ic_person));
+
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+                    byte[] data = outputStream.toByteArray();
+
+                    //nomeando image
+                    pathImage = UUID.randomUUID().toString();
+
+                    StorageReference storageImagem = storage.getReference(pathImage);
+
+                    StorageMetadata metadata = new StorageMetadata.Builder().setCustomMetadata(TAG, nome + "perfil").build();
+
+                    UploadTask uploadTask = storageImagem.putBytes(data, metadata);
+                    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            @SuppressWarnings("VisibleForTests") Uri uri = taskSnapshot.getDownloadUrl();
+                            String idRevendedor = task.getResult().getUser().getUid();
+
+                            photoUrl = uri.toString();
+                            Revendedor revendedor = new Revendedor(idRevendedor, idSupervisor, nome, email, senha, photoUrl, pathImage, "(**)*********", "0.00");
+                            revendedor.salvarRevendedor(idSupervisor);
+
+                            progressDialog.dismiss();
+                            mAuth2.signOut();
+                            FragmentUtils.replace(getActivity(), ListaRevendedores.newInstance());
 
 
-                    mAuth2.signOut();
-                    FragmentUtils.replace(getActivity(), ListaRevendedores.newInstance());
+                        }
+                    });
 
                 } else {
 
                 }
-                progressDialog.dismiss();
+
             }
         });
 

@@ -44,19 +44,28 @@ public class Croper {
 
     public static void prepareChooser(final Activity ctx, AlertDialog dialog) {
 
-        LayoutInflater inflater = ctx.getLayoutInflater();
+
+        final LayoutInflater inflater = ctx.getLayoutInflater();
         final View view1 = inflater.inflate(R.layout.adapter_dialog_camera, null);
         final TextView camera = view1.findViewById(R.id.selecet_camera);
         final TextView galeria = view1.findViewById(R.id.selecet_gealeria);
 
 
-
-
         final AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+
         builder.setTitle("Escolha");
 
         builder.setView(view1);
         builder.setCancelable(false);
+        builder.setPositiveButton("Fechar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+
+            }
+        });
+
+        final AlertDialog alertDialog = builder.create();
 
 
         galeria.setOnClickListener(new View.OnClickListener() {
@@ -64,9 +73,10 @@ public class Croper {
             public void onClick(View view) {
                 if (CroperinoFileUtil.verifyStoragePermissions(ctx)) {
                     prepareGallery(ctx);
+                    alertDialog.dismiss();
+
                 }
             }
-
 
 
         });
@@ -75,23 +85,18 @@ public class Croper {
             @Override
             public void onClick(View view) {
 
-                if(CroperinoFileUtil.verifyCameraPermissions(ctx)){
+                if (CroperinoFileUtil.verifyCameraPermissions(ctx)) {
                     prepareCamera(ctx);
+                    alertDialog.dismiss();
+
+
                 }
 
             }
         });
 
 
-        builder.setPositiveButton("Fechar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-
-            }
-        });
-        dialog = builder.create();
-        dialog.show();
+        alertDialog.show();
 
     }
 

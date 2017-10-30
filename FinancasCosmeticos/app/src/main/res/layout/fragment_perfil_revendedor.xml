@@ -69,6 +69,7 @@
                     android:id="@+id/name_layout"
                     android:background="@color/transparentWhiteMed">
                     <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/text_nome"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Anna Wilson"
@@ -128,6 +129,7 @@
                                 android:tint="@color/album_title" />
 
                             <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/text_numero"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"

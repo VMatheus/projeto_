@@ -2,6 +2,7 @@ package com.projeto.adrielle.cosmeticosfinancas.revendedor;
 
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -13,9 +14,23 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.projeto.adrielle.cosmeticosfinancas.EditarPerfilActivityRevendedor;
-import com.projeto.adrielle.cosmeticosfinancas.EditarPerfilActivitySupervisor;
+import com.projeto.adrielle.cosmeticosfinancas.model.Revendedor;
+import com.projeto.adrielle.cosmeticosfinancas.model.Supervisor;
+import com.projeto.adrielle.cosmeticosfinancas.utils.ConstantsUtils;
+import com.projeto.adrielle.cosmeticosfinancas.utils.GetDataFromFirebase;
 import com.tecnoia.matheus.financascosmeticos.R;
 import com.projeto.adrielle.cosmeticosfinancas.utils.ValidaCamposConexao;
 
@@ -25,6 +40,11 @@ import com.projeto.adrielle.cosmeticosfinancas.utils.ValidaCamposConexao;
 public class PerfilRevendedor extends Fragment {
     private Toolbar toolbar;
     private BottomNavigationView bottomNavigationViewss;
+    private FirebaseUser firebaseUser;
+    private String idRevendedor;
+    private DatabaseReference referencePerfil ;
+    private TextView textViewNome, textViewEmail, textViewNumero;
+    private ImageView imageView ;
 
     public static PerfilRevendedor newInstance() {
 
@@ -37,12 +57,53 @@ public class PerfilRevendedor extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_perfil_revendedor, container, false);
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        idRevendedor = firebaseUser.getUid();
         setHasOptionsMenu(true);
         initViews(rootView);
+        preencherPerfil();
+
         return rootView;
+    }
+    private void preencherPerfil() {
+
+        new GetDataFromFirebase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        referencePerfil = FirebaseDatabase.getInstance().getReference(idRevendedor);
+        referencePerfil.keepSynced(true);
+        referencePerfil.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try {
+                    Revendedor revendedor = dataSnapshot.getValue(Revendedor.class);
+                    textViewNome.setText(revendedor.getNome());
+                    textViewEmail.setText(revendedor.getEmail());
+                   textViewNumero.setText(revendedor.getNumero());
+
+
+
+                    Glide.with(getActivity()).load(revendedor.getPhotoUrl()).into(imageView);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
 
     private void initViews(View rootview) {
+        textViewNome = rootview.findViewById(R.id.text_nome);
+        textViewEmail = rootview.findViewById(R.id.text_email);
+        textViewNumero = rootview.findViewById(R.id.text_numero);
+
 
 
         toolbar = rootview.findViewById(R.id.toolbar);

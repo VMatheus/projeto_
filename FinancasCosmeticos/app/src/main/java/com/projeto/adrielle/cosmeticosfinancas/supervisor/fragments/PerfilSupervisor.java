@@ -75,6 +75,7 @@ public class PerfilSupervisor extends Fragment {
                     Supervisor supervisor = dataSnapshot.getValue(Supervisor.class);
                     textViewNome.setText(supervisor.getNome());
                     textViewEmail.setText(supervisor.getEmail());
+                    textViewNumero.setText(supervisor.getNumero());
 
 
 
@@ -104,7 +105,7 @@ public class PerfilSupervisor extends Fragment {
         imageView = rootview.findViewById(R.id.image);
         textViewNome = rootview.findViewById(R.id.text_nome);
         textViewEmail = rootview.findViewById(R.id.text_email);
-
+        textViewNumero = rootview.findViewById(R.id.text_numero);
 
     }
 

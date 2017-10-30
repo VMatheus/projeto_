@@ -15,6 +15,7 @@
         android:minWidth="250dp"
         android:orientation="horizontal">
         <TextView
+            android:background="?attr/selectableItemBackground"
             style="@style/dialog_image"
             android:id="@+id/selecet_camera"
             android:text="Camera"
@@ -26,6 +27,7 @@
             android:layout_weight="1" />
 
         <TextView
+            android:background="?attr/selectableItemBackground"
             android:id="@+id/selecet_gealeria"
             style="@style/dialog_image"
             android:drawablePadding="10dp"

@@ -14,23 +14,32 @@
         card_view:cardCornerRadius="@dimen/card_album_radius">
 
         <RelativeLayout
+
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/image_perfil_revendedor"
+            <LinearLayout
+                android:id="@+id/linear"
+                android:background="@color/appBarTextcolorSecundary"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/album_cover_height"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:scaleType="fitXY" />
+                android:layout_height="160dp">
+                <ImageView
+                    android:id="@+id/image_perfil_revendedor"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/album_cover_height"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:scaleType="fitXY" />
+
+            </LinearLayout>
+
+
 
             <TextView
 
                 android:id="@+id/text_nome_revendedor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/image_perfil_revendedor"
+                android:layout_below="@id/linear"
                 android:paddingLeft="@dimen/album_title_padding"
                 android:paddingRight="@dimen/album_title_padding"
                 android:paddingTop="@dimen/album_title_padding"
@@ -52,7 +61,7 @@
                 android:layout_width="@dimen/ic_album_overflow_width"
                 android:layout_height="@dimen/ic_album_overflow_height"
                 android:layout_alignParentRight="true"
-                android:layout_below="@id/image_perfil_revendedor"
+                android:layout_below="@id/linear"
                 android:layout_marginTop="@dimen/ic_album_overflow_margin_top"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_action_menu_opcoes" />

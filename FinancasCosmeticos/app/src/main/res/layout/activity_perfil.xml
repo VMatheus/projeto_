@@ -32,8 +32,8 @@
         <LinearLayout
 
 
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_margin="20dp"
             android:background="#cccccc"
 
@@ -72,12 +72,13 @@
                     android:layout_height="wrap_content">
 
                     <EditText
+                        android:id="@+id/edit_nome"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:backgroundTint="@color/transparent"
                         android:hint="Nome"
-                        android:text="Maria"
+
                         android:textSize="15sp" />
                 </android.support.design.widget.TextInputLayout>
             </RelativeLayout>
@@ -99,12 +100,14 @@
                     android:layout_height="wrap_content">
 
                     <EditText
+                        android:inputType="number|phone"
+                        android:id="@+id/edit_numero"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:backgroundTint="@color/transparent"
                         android:hint="Numero"
-                        android:text="(22) 999979775"
+
                         android:textSize="15sp" />
                 </android.support.design.widget.TextInputLayout>
             </RelativeLayout>
@@ -126,13 +129,14 @@
                     android:layout_height="wrap_content">
 
                     <EditText
+                        android:id="@+id/edit_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:backgroundTint="@color/transparent"
                         android:enabled="false"
                         android:hint="Email"
-                        android:text="email_teste@gmail.com"
+
                         android:textColor="@color/album_title"
                         android:textSize="15sp" />
                 </android.support.design.widget.TextInputLayout>

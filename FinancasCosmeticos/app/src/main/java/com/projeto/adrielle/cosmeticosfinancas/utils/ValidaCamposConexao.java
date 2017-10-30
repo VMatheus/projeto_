@@ -40,7 +40,7 @@ public class ValidaCamposConexao {
         return e.contains("@");
     }
 
-    public boolean validaNome(String n) {
+    public static boolean validaNome(String n) {
         return n.length() >= 1;
 
     }

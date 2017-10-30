@@ -20,6 +20,7 @@ public class Supervisor {
     private String senha;
     private String photoUrl;
     private String pathImagem;
+    private String numero ;
 
     public String getPathImagem() {
         return pathImagem;
@@ -41,13 +42,14 @@ public class Supervisor {
 
 
 
-    public Supervisor(String id, String nome, String email, String senha, String photoUrl, String pathImagem) {
+    public Supervisor(String id, String nome, String email, String senha, String photoUrl, String pathImagem, String numero) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.photoUrl = photoUrl;
         this.pathImagem = pathImagem;
+        this.numero = numero;
     }
 
     public Supervisor() {
@@ -105,10 +107,32 @@ public class Supervisor {
         hashMapSupervisor.put("nome", getNome());
         hashMapSupervisor.put("email", getEmail());
         hashMapSupervisor.put("senha", getSenha());
+        hashMapSupervisor.put("pathImagem", getPathImagem());
+        hashMapSupervisor.put("numero", getNumero());
+
         return hashMapSupervisor;
 
 
     }
 
 
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public void atualizaPerfil(String idSupervisor) {
+        DatabaseReference reference = ConfiguracoesFirebase.getFirebase();
+
+        //tabela utilizada para controle de usuarios
+        reference.child(ConstantsUtils.BANCO_SUPERVISORES).child(String.valueOf(getId())).setValue(this);
+
+        //tabela para controle de fluxo de dados
+        reference.child(idSupervisor).child("perfil").setValue(this);
+
+
+    }
 }

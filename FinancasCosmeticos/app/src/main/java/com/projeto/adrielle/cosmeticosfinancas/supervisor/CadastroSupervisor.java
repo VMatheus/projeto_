@@ -213,7 +213,7 @@ public class CadastroSupervisor extends Fragment {
                 @SuppressWarnings("VisibleForTests") Uri uri = taskSnapshot.getDownloadUrl();
 
                 photoUrl = uri.toString();
-                Supervisor supervisor = new Supervisor(id, nome, email, senha, photoUrl, pathImage);
+                Supervisor supervisor = new Supervisor(id, nome, email, senha, photoUrl, pathImage, "(**)********");
 
                 supervisor.salvarSupervisor();
 

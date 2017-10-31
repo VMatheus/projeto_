@@ -12,11 +12,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.projeto.adrielle.cosmeticosfinancas.DAO.ConfiguracoesFirebase;
-import com.tecnoia.matheus.financascosmeticos.R;
 import com.projeto.adrielle.cosmeticosfinancas.model.Produto;
 import com.projeto.adrielle.cosmeticosfinancas.utils.MoneyTextWatcher;
+import com.tecnoia.matheus.financascosmeticos.R;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -125,18 +126,12 @@ public class CadastroProdutoFragment extends Fragment {
 
     private void cadastraProduto() {
         String aux = editTextPreco.getText().toString();
-        BigDecimal preco = recuperaString(aux.substring(2));
+        String valorFinal = convertStringFinal(aux);
 
-        String valoPreco = recuperaValorBigDecimal(preco);
+        Toast.makeText(getActivity()
+                , valorFinal + "", Toast.LENGTH_SHORT).show();
 
-        String valor = convertStringFinal(valoPreco);
-
-
-
-
-
-
-        Produto produto = new Produto(idProduto, nome, valor, quantidade, "0");
+        Produto produto = new Produto(idProduto, nome, valorFinal, quantidade, "0");
         produto.salvarProduto(idSupervisor);
         FragmentManager fm = getActivity().getSupportFragmentManager();
         fm.popBackStack();
@@ -144,22 +139,20 @@ public class CadastroProdutoFragment extends Fragment {
 
     }
 
-    public BigDecimal recuperaString(String str) {
-        str = str.replace(".", "");
-        str = str.replace(",", ".");
-        str = str.trim();
-        return new BigDecimal(str);
-    }
 
-    public String recuperaValorBigDecimal(BigDecimal bigDecimal) {
-        DecimalFormat decFormat = new DecimalFormat("#,###,##0.00");
-        return decFormat.format(bigDecimal);
-    }
+
+
+
     public String convertStringFinal(String str) {
         str = str.replace(".", "");
         str = str.replace(",", ".");
         str = str.trim();
         return str;
+    }
+
+    public String recuperaValorBigDecimal(BigDecimal bigDecimal) {
+        DecimalFormat decFormat = new DecimalFormat("#,###,##0.00");
+        return decFormat.format(bigDecimal);
     }
 
     private void recuperaDados() {

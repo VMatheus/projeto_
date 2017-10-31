@@ -198,6 +198,8 @@ public class NovaVendaFragment extends Fragment {
         buttonFinalizarVenda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 verificaItens();
             }
         });
@@ -389,99 +391,35 @@ public class NovaVendaFragment extends Fragment {
     }
 
 
-    public void verificaItens() {
+    public void verificaItens() {/*
+        String quantidadeVendido;
 
         if (itemVendaList.isEmpty()) {
             Toast.makeText(getActivity(), "0 Itens", Toast.LENGTH_SHORT).show();
         } else {
             boolean exitente = false;
 
-            for (ItemVenda itemVenda : itemVendaList) {
-                for (Produto produto : produtoList) {
+            for (ItemVenda itemVendaCarrinho : itemVendaList) {
+                //verificar se o  item ja foi vendido antes
+                for (Produto produto : produtoListBanco) {
+                   if(itemVendaCarrinho.getId().equals(produto.getId())){
 
-                    if (itemVenda.getId().equals(produto.getId())) {
-                        BigDecimal precoUnitario = new BigDecimal(produto.getPreco());
-                        int quantidadeVendido = 0;
-
-                        String saldoItens = "";
-
-
-
-                        // verifica se o item ja foi vendido antes
-                        for (ItemVenda vendasRealizadas : vendasRealizadasList) {
-                            try {
-                                if (vendasRealizadas.getId().equals(produto.getId())) {
-                                    exitente = true;
-                                    quantidadeVendido = Integer.parseInt(vendasRealizadas.getQuantidade());
-
-                                    saldoItens = vendasRealizadas.getSaldoItens();
-
-                                    break;
-
-
-                                }
-
-
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-                        if (exitente) {
-
-
-                            //prepara itens para atualizar
-                            String updateQuantidade = String.valueOf(quantidadeVendido + Integer.parseInt(itemVenda.getQuantidade()));
-                            BigDecimal saldoItensNovo = precoUnitario.multiply(new BigDecimal(itemVenda.getQuantidade())).add(new BigDecimal(saldoItens));
-                            String saldoItemFinal;
-                           /* Log.v("sal", saldoItensNovo + "");*/
-
-
-                            //atualiza quantidade de itens vendidos e saldo total
-                            ItemVenda novoItemVenda = new ItemVenda(itemVenda.getId(), itemVenda.getNome(), updateQuantidade, String.valueOf(saldoItensNovo));
-                            novoItemVenda.novaVenda(idSupervisor, idRevendedor);
-
-
-                            //atualiza produtos disponiveis
-                            Integer disponivelUpdate = quatidadeDisponivel - Integer.parseInt(itemVenda.getQuantidade());
-                            Integer quatidadeVendida = Integer.parseInt(produto.getStatus()) + Integer.parseInt(itemVenda.getQuantidade());
-
-                            Produto produtoUpdate = new Produto(produto.getId(), produto.getNome(), produto.getPreco(), String.valueOf(disponivelUpdate), String.valueOf(quatidadeVendida));
-                            produtoUpdate.salvaProdutoVendas(idSupervisor, idRevendedor);
-
-
-                        } else {
-                            //se este produto ainda não foi vendido efetua a primeira venda
-
-                            BigDecimal saldoItensNovo = precoUnitario.multiply(new BigDecimal(itemVenda.getQuantidade()));
-                            Log.v(saldoItensNovo + "", "saldo");
-
-
-                            ItemVenda novoItemVenda = new ItemVenda(itemVenda.getId(), itemVenda.getNome(), itemVenda.getQuantidade(), String.valueOf(saldoItensNovo));
-                            novoItemVenda.novaVenda(idSupervisor, idRevendedor);
-
-                            //atualiza produtos disponiveis
-                            Integer disponivelUpdate = quatidadeDisponivel - Integer.parseInt(itemVenda.getQuantidade());
-                            Integer quatidadeVendida = Integer.parseInt(produto.getStatus()) + Integer.parseInt(itemVenda.getQuantidade());
-
-                            Produto produtoUpdate = new Produto(produto.getId(), produto.getNome(), produto.getPreco(), String.valueOf(disponivelUpdate), String.valueOf(quatidadeVendida));
-                            produtoUpdate.salvaProdutoVendas(idSupervisor, idRevendedor);
-
-
-                        }
-
-
-                    }
+                   }
 
                 }
 
 
             }
+            if (exitente) {
+                //se o item ja foi vendido antes
 
-            itemVendaList.clear();
+
+            }
+
+            *//*itemVendaList.clear();
             FragmentManager fm = getActivity().getSupportFragmentManager();
-            fm.popBackStack();
-        }
+            fm.popBackStack();*//*
+        }*/
 
     }
 
@@ -502,7 +440,7 @@ public class NovaVendaFragment extends Fragment {
                         ItemVenda itemVenda = snapshot.getValue(ItemVenda.class);
 
 
-                        produtoList.add(produto);
+                        /*produtoList.add(produto);*/
 
                         vendasRealizadasList.add(itemVenda);
 

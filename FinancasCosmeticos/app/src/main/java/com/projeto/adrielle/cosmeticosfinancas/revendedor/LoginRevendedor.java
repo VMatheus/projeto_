@@ -20,8 +20,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.projeto.adrielle.cosmeticosfinancas.ContainerActivity;
 import com.projeto.adrielle.cosmeticosfinancas.DAO.ConfiguracoesFirebase;
-import com.tecnoia.matheus.financascosmeticos.R;
 import com.projeto.adrielle.cosmeticosfinancas.utils.ValidaCamposConexao;
+import com.tecnoia.matheus.financascosmeticos.R;
 
 public class LoginRevendedor extends Fragment {
     private EditText editTextEmail, editTextSenha;
@@ -140,15 +140,14 @@ public class LoginRevendedor extends Fragment {
 
 
     private void showProgressDialog() {
-            progressDialog = new ProgressDialog(getActivity());
+        progressDialog = new ProgressDialog(getActivity());
 
-            progressDialog.setMessage(getString(R.string.aguarde));
-            progressDialog.setIndeterminate(true);
-            progressDialog.show();
+        progressDialog.setMessage(getString(R.string.aguarde));
+        progressDialog.setIndeterminate(true);
+        progressDialog.show();
+        progressDialog.setCanceledOnTouchOutside(false);
 
-        }
-
-
+    }
 
 
 }

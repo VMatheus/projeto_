@@ -227,6 +227,6 @@ public class CadastroSupervisor extends Fragment {
 
         progressDialog.setMessage(getString(R.string.aguarde));
         progressDialog.show();
-
+        progressDialog.setCanceledOnTouchOutside(false);
     }
 }

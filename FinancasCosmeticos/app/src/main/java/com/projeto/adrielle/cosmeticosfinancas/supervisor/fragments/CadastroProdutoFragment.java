@@ -126,7 +126,7 @@ public class CadastroProdutoFragment extends Fragment {
 
     private void cadastraProduto() {
         String aux = editTextPreco.getText().toString();
-        String valorFinal = convertStringFinal(aux);
+        String valorFinal = convertStringFinal(aux.substring(2));
 
         Toast.makeText(getActivity()
                 , valorFinal + "", Toast.LENGTH_SHORT).show();

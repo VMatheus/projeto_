@@ -20,8 +20,10 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data android:name="com.projeto.adrielle.cosmeticosfinancas.utils.GlideConfiguration"
-            android:value="GlideModule"/>
+        <meta-data
+            android:name="com.projeto.adrielle.cosmeticosfinancas.utils.GlideConfiguration"
+            android:value="GlideModule" />
+
         <activity
             android:name="com.projeto.adrielle.cosmeticosfinancas.ContainerActivity"
             android:screenOrientation="portrait"
@@ -37,7 +39,10 @@
             android:name="com.projeto.adrielle.cosmeticosfinancas.EditarPerfilActivitySupervisor"
             android:label="@string/title_activity_perfil"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.projeto.adrielle.cosmeticosfinancas.EditarPerfilActivityRevendedor"></activity>
+        <activity
+            android:name="com.projeto.adrielle.cosmeticosfinancas.EditarPerfilActivityRevendedor"
+            android:label="@string/title_activity_perfil"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -3,20 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="false"
-   >
+    android:fitsSystemWindows="false">
+
     <LinearLayout
-        android:background="@color/colorAccent"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="340dp">
+        android:layout_height="340dp"
+        android:background="@color/colorAccent"
+        android:orientation="vertical">
 
         <ImageView
 
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="340dp"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop" />
 
     </LinearLayout>
 
@@ -29,15 +29,15 @@
     <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/toolbar"
-        app:title="Perfil"
-        app:titleTextColor="@color/white"
-
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
+
         android:background="@color/transparent"
         android:minHeight="?attr/actionBarSize"
-        app:theme="@style/ThemeToolbar"/>
+        app:theme="@style/ThemeToolbar"
+        app:title="Perfil"
+        app:titleTextColor="@color/white" />
 
 
     <LinearLayout
@@ -58,23 +58,25 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="25dp"
                 android:orientation="vertical">
+
                 <LinearLayout
+                    android:id="@+id/name_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
+                    android:background="@color/transparentWhiteMed"
+                    android:orientation="vertical"
                     android:paddingBottom="10dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:orientation="vertical"
-                    android:id="@+id/name_layout"
-                    android:background="@color/transparentWhiteMed">
+                    android:paddingTop="10dp">
+
                     <android.support.v7.widget.AppCompatTextView
                         android:id="@+id/text_nome"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Anna Wilson"
-                        android:textSize="16sp"
-                        android:textColor="@color/album_title"/>
+                        android:textColor="@color/album_title"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 

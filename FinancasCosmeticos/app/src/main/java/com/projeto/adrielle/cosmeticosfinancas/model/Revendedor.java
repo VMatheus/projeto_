@@ -67,7 +67,7 @@ public class Revendedor {
         this.photoUrl = photoUrl;
     }
 
-    public Revendedor(String id, String idSupervisor, String nome, String email, String senha, String photoUrl,String pathImagem, String numero, String saldoTotal) {
+    public Revendedor(String id, String idSupervisor, String nome, String email, String senha, String photoUrl, String pathImagem, String numero, String saldoTotal) {
         this.id = id;
         this.idSupervisor = idSupervisor;
         this.nome = nome;
@@ -75,7 +75,7 @@ public class Revendedor {
         this.senha = senha;
         this.photoUrl = photoUrl;
         this.pathImagem = pathImagem;
-        this.numero  =  numero;
+        this.numero = numero;
         this.saldoTotal = saldoTotal;
 
     }
@@ -140,6 +140,19 @@ public class Revendedor {
 
     public void setPathImagem(String pathImagem) {
         this.pathImagem = pathImagem;
+    }
+
+
+    public void atualizaRevendedor(String idSupervisor, String idRevendedor) {
+        DatabaseReference reference = ConfiguracoesFirebase.getFirebase();
+
+        //atualiza revendora na tabela especifica de sua supervisora, para controle e monitoria das vendas
+        reference.child(idSupervisor + "/" + ConstantsUtils.BANCO_REVENDEDORES + "/" + idRevendedor).setValue(this);
+
+        //atualiza na base raiz para edicao dos dados
+        reference.child(idRevendedor).setValue(this);
+
+
     }
 }
 

@@ -9,9 +9,16 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.mikelau.croperino.Croperino;
+import com.mikelau.croperino.CroperinoFileUtil;
 import com.projeto.adrielle.cosmeticosfinancas.DAO.ConfiguracoesFirebase;
+import com.projeto.adrielle.cosmeticosfinancas.EditarPerfilActivitySupervisor;
 import com.tecnoia.matheus.financascosmeticos.R;
 
 import java.math.BigDecimal;
@@ -140,6 +147,70 @@ public class ValidaCamposConexao {
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
         drawable.draw(canvas);
         return bitmap;
+    }
+    public static void alertDialogNewImage(final AppCompatActivity activity){
+
+        try {
+
+            final LayoutInflater inflater = activity.getLayoutInflater();
+            final View view1 = inflater.inflate(R.layout.adapter_dialog_camera, null);
+            final TextView camera = view1.findViewById(R.id.selecet_camera);
+            final TextView galeria = view1.findViewById(R.id.selecet_gealeria);
+
+            android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(activity);
+
+
+            builder.setTitle("Escolha");
+
+            builder.setView(view1);
+            builder.setCancelable(false);
+            builder.setPositiveButton("Fechar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+
+            final android.support.v7.app.AlertDialog show = builder.show();
+
+            galeria.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (CroperinoFileUtil.verifyStoragePermissions(activity)) {
+                        Croperino.prepareGallery(activity);
+
+
+                    }
+                    show.dismiss();
+                }
+
+
+            });
+
+            camera.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if (CroperinoFileUtil.verifyCameraPermissions(activity)) {
+                        Croperino.prepareCamera(activity);
+
+
+                    }
+
+                    show.dismiss();
+                }
+            });
+
+
+     /*       Croper.prepareChooser(EditarPerfilActivitySupervisor.this, dialog);*/
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
     }
 
 

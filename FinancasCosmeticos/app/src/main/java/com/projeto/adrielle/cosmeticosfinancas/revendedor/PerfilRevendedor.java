@@ -28,11 +28,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.projeto.adrielle.cosmeticosfinancas.EditarPerfilActivityRevendedor;
 import com.projeto.adrielle.cosmeticosfinancas.model.Revendedor;
-import com.projeto.adrielle.cosmeticosfinancas.model.Supervisor;
-import com.projeto.adrielle.cosmeticosfinancas.utils.ConstantsUtils;
 import com.projeto.adrielle.cosmeticosfinancas.utils.GetDataFromFirebase;
-import com.tecnoia.matheus.financascosmeticos.R;
 import com.projeto.adrielle.cosmeticosfinancas.utils.ValidaCamposConexao;
+import com.tecnoia.matheus.financascosmeticos.R;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,9 +40,9 @@ public class PerfilRevendedor extends Fragment {
     private BottomNavigationView bottomNavigationViewss;
     private FirebaseUser firebaseUser;
     private String idRevendedor;
-    private DatabaseReference referencePerfil ;
+    private DatabaseReference referencePerfil;
     private TextView textViewNome, textViewEmail, textViewNumero;
-    private ImageView imageView ;
+    private ImageView imageView;
 
     public static PerfilRevendedor newInstance() {
 
@@ -65,6 +63,7 @@ public class PerfilRevendedor extends Fragment {
 
         return rootView;
     }
+
     private void preencherPerfil() {
 
         new GetDataFromFirebase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -77,8 +76,7 @@ public class PerfilRevendedor extends Fragment {
                     Revendedor revendedor = dataSnapshot.getValue(Revendedor.class);
                     textViewNome.setText(revendedor.getNome());
                     textViewEmail.setText(revendedor.getEmail());
-                   textViewNumero.setText(revendedor.getNumero());
-
+                    textViewNumero.setText(revendedor.getNumero());
 
 
                     Glide.with(getActivity()).load(revendedor.getPhotoUrl()).into(imageView);
@@ -103,8 +101,7 @@ public class PerfilRevendedor extends Fragment {
         textViewNome = rootview.findViewById(R.id.text_nome);
         textViewEmail = rootview.findViewById(R.id.text_email);
         textViewNumero = rootview.findViewById(R.id.text_numero);
-
-
+        imageView = rootview.findViewById(R.id.image);
 
         toolbar = rootview.findViewById(R.id.toolbar);
 

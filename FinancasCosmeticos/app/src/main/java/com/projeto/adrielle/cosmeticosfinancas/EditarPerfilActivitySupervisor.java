@@ -71,7 +71,7 @@ public class EditarPerfilActivitySupervisor extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_perfil);
+        setContentView(R.layout.activity_editar_perfil);
         storageReference = FirebaseStorage.getInstance().getReference();
 
         imageView = findViewById(R.id.image);
@@ -95,7 +95,7 @@ public class EditarPerfilActivitySupervisor extends AppCompatActivity {
         preencherPerfil();
 
 
-        new CroperinoConfig("IMG_" + System.currentTimeMillis() + ".jpg", "/MikeLau/Pictures", "/sdcard/MikeLau/Pictures");
+        new CroperinoConfig("IMG_" + System.currentTimeMillis() + ".jpg", "/Financas_Cosmeticos/Pictures", "/sdcard/Financas_Cosmeticos/Pictures");
         CroperinoFileUtil.setupDirectory(EditarPerfilActivitySupervisor.this);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override

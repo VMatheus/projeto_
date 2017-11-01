@@ -44,20 +44,21 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * A simple {@link Fragment} subclass.
  */
+@SuppressWarnings({"ALL", "ConstantConditions"})
 public class NovaVendaFragment extends Fragment {
     private Toolbar toolbar;
-    private TextView textViewSelecionaProduto;
-    private SharedPreferences sharedPrefRevendedor;
+    private TextView textViewSelecionaProduto, textViewTotal;
     private String idSupervisor, idRevendedor;
     private AdapterNovaVendaDialog adapterNovaVendaDialog;
     private AlertDialog dialog;
     private Produto produto;
-    private Button buttonAdicionarProdutos, buttonFinalizarVenda;
     private EditText editTextQuantidade;
     private Integer quatidadeDisponivel, quantidadeDesejada;
     private ListView listViewProdutosEmSeparação;
 
-    private BigDecimal saldoItemAtual;
+
+
+
     private List<Produto> produtoList = new ArrayList<>();
     private List<Produto> produtoListBanco = new ArrayList<>();
 
@@ -66,12 +67,7 @@ public class NovaVendaFragment extends Fragment {
 
     private List<ItemVenda> itemVendaList = new ArrayList<>();
 
-    private DatabaseReference databaseVendasRealizadas;
     private ArrayList<ItemVenda> vendasRealizadasList = new ArrayList<>();
-    private BigDecimal updateSaldos;
-    private BigDecimal precoProduto;
-    private Query referenceProdutos;
-    private int positionUpdate;
 
 
     public static NovaVendaFragment newInstance() {
@@ -89,20 +85,16 @@ public class NovaVendaFragment extends Fragment {
         initViews(rootView);
         recuperaDados();
         vendasRealizadas();
-
-        toolbarNovaVenda();
-
-
         carregaProdutos();
         produto = new Produto();
 
-
+        toolbarNovaVenda();
         return rootView;
     }
 
     private void carregaProdutos() {
 
-        referenceProdutos = ConfiguracoesFirebase.getListaProdutosVenda(idSupervisor, idRevendedor);
+        Query referenceProdutos = ConfiguracoesFirebase.getListaProdutosVenda(idSupervisor, idRevendedor);
         referenceProdutos.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -119,12 +111,7 @@ public class NovaVendaFragment extends Fragment {
                         }
 
                     }
-                    for (int i = 0; i < produtoListBanco.size(); i++) {
-
-
-                        listProdutos.add(produtoListBanco.get(i));
-
-                    }
+                    listProdutos.addAll(produtoListBanco);
 
                     Log.v(listProdutos.size() + "", "list_produtos");
 
@@ -146,6 +133,7 @@ public class NovaVendaFragment extends Fragment {
 
     }
 
+    @SuppressWarnings("ConstantConditions")
     private void toolbarNovaVenda() {
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Nova Venda");
@@ -172,10 +160,10 @@ public class NovaVendaFragment extends Fragment {
 
     private void initViews(View rootView) {
         toolbar = rootView.findViewById(R.id.toolbar_nova_venda);
-        buttonFinalizarVenda = rootView.findViewById(R.id.buttomFinalizarVenda);
+        Button buttonFinalizarVenda = rootView.findViewById(R.id.buttomFinalizarVenda);
         listViewProdutosEmSeparação = rootView.findViewById(R.id.list_view_produtos_separacao);
         textViewSelecionaProduto = rootView.findViewById(R.id.text_seleciona_produto);
-        buttonAdicionarProdutos = rootView.findViewById(R.id.buttonAdicionarProdutos);
+        Button buttonAdicionarProdutos = rootView.findViewById(R.id.buttonAdicionarProdutos);
         editTextQuantidade = rootView.findViewById(R.id.edit_quantidade);
         buttonAdicionarProdutos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -232,7 +220,7 @@ public class NovaVendaFragment extends Fragment {
         dialog = builder.create();
 
 
-        adapterNovaVendaDialog = new AdapterNovaVendaDialog(getActivity(), listProdutos, listViewProdutosPopUp, idSupervisor, dialog, textViewSelecionaProduto, produto, positionUpdate);
+        adapterNovaVendaDialog = new AdapterNovaVendaDialog(getActivity(), listProdutos, listViewProdutosPopUp, dialog, textViewSelecionaProduto, produto);
         listViewProdutosPopUp.setAdapter(adapterNovaVendaDialog);
         adapterNovaVendaDialog.atualiza(listProdutos);
 
@@ -241,7 +229,7 @@ public class NovaVendaFragment extends Fragment {
 
 
     private void recuperaDados() {
-        sharedPrefRevendedor = getActivity().getPreferences(MODE_PRIVATE);
+        SharedPreferences sharedPrefRevendedor = getActivity().getPreferences(MODE_PRIVATE);
         idSupervisor = sharedPrefRevendedor.getString("idSupervisor", "");
         idRevendedor = sharedPrefRevendedor.getString("idRevendedor", "");
 
@@ -266,7 +254,7 @@ public class NovaVendaFragment extends Fragment {
 
             quatidadeDisponivel = Integer.parseInt(listProdutos.get(posicao).getQuantidade());
             quantidadeDesejada = Integer.parseInt(editTextQuantidade.getText().toString());
-            Toast.makeText(getActivity(), quatidadeDisponivel, Toast.LENGTH_SHORT).show();
+   /*         Toast.makeText(getActivity(), quatidadeDisponivel, Toast.LENGTH_SHORT).show();*/
 
 
         } catch (Exception e) {
@@ -305,7 +293,7 @@ public class NovaVendaFragment extends Fragment {
 
 
             Log.e(pos + "", "Posicao");
-            Toast.makeText(getActivity(), posicao + "posicao item", Toast.LENGTH_SHORT).show();
+          /*  Toast.makeText(getActivity(), posicao + "posicao item", Toast.LENGTH_SHORT).show();*/
 
 
             adicionaProdutos();
@@ -391,43 +379,106 @@ public class NovaVendaFragment extends Fragment {
     }
 
 
-    public void verificaItens() {/*
-        String quantidadeVendido;
+    public void verificaItens() {
+
 
         if (itemVendaList.isEmpty()) {
             Toast.makeText(getActivity(), "0 Itens", Toast.LENGTH_SHORT).show();
         } else {
-            boolean exitente = false;
-
-            for (ItemVenda itemVendaCarrinho : itemVendaList) {
-                //verificar se o  item ja foi vendido antes
+            for (ItemVenda itemVenda : itemVendaList) {
                 for (Produto produto : produtoListBanco) {
-                   if(itemVendaCarrinho.getId().equals(produto.getId())){
 
-                   }
+                    if (itemVenda.getId().equals(produto.getId())) {
+                        BigDecimal precoUnitario = new BigDecimal(produto.getPreco());
+                        int quantidadeVendido = 0;
+
+                        String saldoItens = "";
+
+
+                        boolean exitente = false;
+                        // verifica se o item ja foi vendido antes
+                        for (ItemVenda vendasRealizadas : vendasRealizadasList) {
+                            try {
+                                if (vendasRealizadas.getId().equals(produto.getId())) {
+                                    exitente = true;
+                                    quantidadeVendido = Integer.parseInt(vendasRealizadas.getQuantidade());
+
+                                    saldoItens = vendasRealizadas.getSaldoItens();
+
+                                    break;
+
+
+                                }
+
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                        if (exitente) {
+
+
+                            //prepara itens para atualizar
+                            String updateQuantidade = String.valueOf(quantidadeVendido + Integer.parseInt(itemVenda.getQuantidade()));
+                            BigDecimal saldoItensNovo = precoUnitario.multiply(new BigDecimal(itemVenda.getQuantidade())).add(new BigDecimal(saldoItens));
+                            String saldoItemFinal;
+                           /* Log.v("sal", saldoItensNovo + "");*/
+
+
+                            //atualiza quantidade de itens vendidos e saldo total
+                            ItemVenda novoItemVenda = new ItemVenda(itemVenda.getId(), itemVenda.getNome(), updateQuantidade, String.valueOf(saldoItensNovo));
+                            novoItemVenda.novaVenda(idSupervisor, idRevendedor);
+
+
+                            //atualiza produtos disponiveis
+                            Integer disponivelUpdate = quatidadeDisponivel - Integer.parseInt(itemVenda.getQuantidade());
+                            Integer quatidadeVendida = Integer.parseInt(produto.getStatus()) + Integer.parseInt(itemVenda.getQuantidade());
+
+                            Produto produtoUpdate = new Produto(produto.getId(), produto.getNome(), produto.getPreco(), String.valueOf(disponivelUpdate), String.valueOf(quatidadeVendida));
+                            produtoUpdate.salvaProdutoVendas(idSupervisor, idRevendedor);
+
+
+                        } else {
+                            //se este produto ainda não foi vendido efetua a primeira venda
+
+                            BigDecimal saldoItensNovo = precoUnitario.multiply(new BigDecimal(itemVenda.getQuantidade()));
+                            Log.v(saldoItensNovo + "", "saldo");
+
+
+                            ItemVenda novoItemVenda = new ItemVenda(itemVenda.getId(), itemVenda.getNome(), itemVenda.getQuantidade(), String.valueOf(saldoItensNovo));
+                            novoItemVenda.novaVenda(idSupervisor, idRevendedor);
+
+                            //atualiza produtos disponiveis
+                            Integer disponivelUpdate = quatidadeDisponivel - Integer.parseInt(itemVenda.getQuantidade());
+                            Integer quatidadeVendida = Integer.parseInt(produto.getStatus()) + Integer.parseInt(itemVenda.getQuantidade());
+
+                            Produto produtoUpdate = new Produto(produto.getId(), produto.getNome(), produto.getPreco(), String.valueOf(disponivelUpdate), String.valueOf(quatidadeVendida));
+                            produtoUpdate.salvaProdutoVendas(idSupervisor, idRevendedor);
+
+
+                        }
+
+
+                    }
 
                 }
 
 
             }
-            if (exitente) {
-                //se o item ja foi vendido antes
 
-
-            }
-
-            *//*itemVendaList.clear();
+            itemVendaList.clear();
             FragmentManager fm = getActivity().getSupportFragmentManager();
-            fm.popBackStack();*//*
-        }*/
+            fm.popBackStack();
 
+        }
     }
 
 
     public void vendasRealizadas() {
 
 
-        databaseVendasRealizadas = ConfiguracoesFirebase.getVendasRealizadas(idSupervisor, idRevendedor);
+        DatabaseReference databaseVendasRealizadas = ConfiguracoesFirebase.getVendasRealizadas(idSupervisor, idRevendedor);
         databaseVendasRealizadas.keepSynced(true);
         new GetDataFromFirebase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         databaseVendasRealizadas.addValueEventListener(new ValueEventListener() {

@@ -258,6 +258,7 @@ public class EditarPerfilActivityRevendedor extends AppCompatActivity {
                         revendedor.atualizaRevendedor(idSupervisor, idRevendedor);
                         progressDialog.dismiss();
                         finish();
+
                     }
                 });
 

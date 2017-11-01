@@ -3,7 +3,6 @@ package com.projeto.adrielle.cosmeticosfinancas;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -16,14 +15,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -149,62 +146,7 @@ public class EditarPerfilActivitySupervisor extends AppCompatActivity {
     }
 
     private void selecionarImagem() {
-        try {
-
-            final LayoutInflater inflater = this.getLayoutInflater();
-            final View view1 = inflater.inflate(R.layout.adapter_dialog_camera, null);
-            final TextView camera = view1.findViewById(R.id.selecet_camera);
-            final TextView galeria = view1.findViewById(R.id.selecet_gealeria);
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-
-            builder.setTitle("Escolha");
-
-            builder.setView(view1);
-            builder.setCancelable(false);
-            builder.setPositiveButton("Fechar", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-
-                }
-            });
-
-            final AlertDialog show = builder.show();
-
-            galeria.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (CroperinoFileUtil.verifyStoragePermissions(EditarPerfilActivitySupervisor.this)) {
-                        Croperino.prepareGallery(EditarPerfilActivitySupervisor.this);
-
-
-                    }
-                    show.dismiss();
-                }
-
-
-            });
-
-            camera.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    if (CroperinoFileUtil.verifyCameraPermissions(EditarPerfilActivitySupervisor.this)) {
-                        Croperino.prepareCamera(EditarPerfilActivitySupervisor.this);
-
-
-                    }
-
-                    show.dismiss();
-                }
-            });
-
-
-     /*       Croper.prepareChooser(EditarPerfilActivitySupervisor.this, dialog);*/
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        ValidaCamposConexao.alertDialogNewImage(this);
 
 
     }

@@ -27,23 +27,22 @@ public class AdapterNovaVendaDialog extends ArrayAdapter {
     private ListView listViewProdutos;
     private FragmentActivity activity;
     private List<Produto> produtoList;
-    private String idRevendedor;
-    private String idSupervisor;
-    private int produtoPosition;
+
+
     private Dialog dialog;
     private TextView textViewProduto;
     private Produto produtoSelecionado;
 
-    public AdapterNovaVendaDialog(FragmentActivity activity, List<Produto> produtoArrayList, ListView listViewProdutos, String idSupervisor, Dialog dialog, TextView textViewSelecionaProduto, Produto produto, int positionUpdate) {
+    public AdapterNovaVendaDialog(FragmentActivity activity, List<Produto> produtoArrayList, ListView listViewProdutos, Dialog dialog, TextView textViewSelecionaProduto, Produto produto) {
         super(activity, R.layout.adapter_dialog_vendas);
         this.activity = activity;
-        this.idSupervisor = idSupervisor;
+
         this.produtoList = produtoArrayList;
         this.listViewProdutos = listViewProdutos;
         this.dialog = dialog;
         this.produtoSelecionado = produto;
         this.textViewProduto = textViewSelecionaProduto;
-        this.produtoPosition = positionUpdate;
+
 
 
     }
@@ -90,7 +89,7 @@ public class AdapterNovaVendaDialog extends ArrayAdapter {
                 Produto produto1 = produtoList.get(i);
                 String nome = produto1.getNome();
                 textViewProduto.setText(nome);
-                produtoPosition = i ;
+
                 produtoSelecionado.setId(produto1.getId());
                 produtoSelecionado.setNome(produto1.getNome());
                 produtoSelecionado.setPreco(produto1.getPreco());

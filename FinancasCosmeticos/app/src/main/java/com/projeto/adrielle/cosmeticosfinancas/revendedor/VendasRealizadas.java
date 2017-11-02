@@ -106,8 +106,7 @@ public class VendasRealizadas extends Fragment {
                 try {
                     Revendedor revendedor = dataSnapshot.getValue(Revendedor.class);
                     saldoTotal = revendedor.getSaldoTotal();
-                    String saldoNew = saldoTotal;
-                    textViewSaldoTotal.setText(saldoNew +" R$");
+                    textViewSaldoTotal.setText(revendedor.getSaldoTotal());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

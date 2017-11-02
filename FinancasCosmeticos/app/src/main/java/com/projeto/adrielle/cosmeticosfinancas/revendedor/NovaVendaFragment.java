@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.projeto.adrielle.cosmeticosfinancas.DAO.ConfiguracoesFirebase;
@@ -31,6 +32,7 @@ import com.projeto.adrielle.cosmeticosfinancas.adapters.AdapterItensVenda;
 import com.projeto.adrielle.cosmeticosfinancas.adapters.AdapterNovaVendaDialog;
 import com.projeto.adrielle.cosmeticosfinancas.model.ItemVenda;
 import com.projeto.adrielle.cosmeticosfinancas.model.Produto;
+import com.projeto.adrielle.cosmeticosfinancas.model.Revendedor;
 import com.projeto.adrielle.cosmeticosfinancas.utils.GetDataFromFirebase;
 import com.tecnoia.matheus.financascosmeticos.R;
 
@@ -55,8 +57,7 @@ public class NovaVendaFragment extends Fragment {
     private EditText editTextQuantidade;
     private Integer quatidadeDisponivel, quantidadeDesejada;
     private ListView listViewProdutosEmSeparação;
-
-
+    private String total = "0.00";
 
 
     private List<Produto> produtoList = new ArrayList<>();
@@ -68,6 +69,8 @@ public class NovaVendaFragment extends Fragment {
     private List<ItemVenda> itemVendaList = new ArrayList<>();
 
     private ArrayList<ItemVenda> vendasRealizadasList = new ArrayList<>();
+    private DatabaseReference referencePerfil;
+    private String nome, email, numero, senha, photoUrl, pathImg, saldoTotal;
 
 
     public static NovaVendaFragment newInstance() {
@@ -84,12 +87,56 @@ public class NovaVendaFragment extends Fragment {
         setHasOptionsMenu(true);
         initViews(rootView);
         recuperaDados();
+
         vendasRealizadas();
         carregaProdutos();
+        carregarDadosRevendedora(idRevendedor, idSupervisor);
         produto = new Produto();
 
         toolbarNovaVenda();
         return rootView;
+    }
+
+    private void carregarDadosRevendedora(String idRevendedor, String idSupervisor) {
+        if (!idRevendedor.trim().isEmpty() && !idSupervisor.trim().isEmpty()) {
+
+            new GetDataFromFirebase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            referencePerfil = FirebaseDatabase.getInstance().getReference(idRevendedor);
+            referencePerfil.keepSynced(true);
+            referencePerfil.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    try {
+                        Revendedor revendedor = dataSnapshot.getValue(Revendedor.class);
+                        nome = revendedor.getNome();
+                        numero = revendedor.getNumero();
+                        email = revendedor.getEmail();
+                        senha = revendedor.getSenha();
+                        photoUrl = revendedor.getPhotoUrl();
+                        pathImg = revendedor.getPathImagem();
+                        saldoTotal = revendedor.getSaldoTotal();
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+
+        } else {
+            recuperaDados();
+            carregarDadosRevendedora(idRevendedor, idSupervisor);
+        }
+
+
     }
 
     private void carregaProdutos() {
@@ -159,6 +206,7 @@ public class NovaVendaFragment extends Fragment {
     }
 
     private void initViews(View rootView) {
+        textViewTotal = rootView.findViewById(R.id.total);
         toolbar = rootView.findViewById(R.id.toolbar_nova_venda);
         Button buttonFinalizarVenda = rootView.findViewById(R.id.buttomFinalizarVenda);
         listViewProdutosEmSeparação = rootView.findViewById(R.id.list_view_produtos_separacao);
@@ -192,6 +240,7 @@ public class NovaVendaFragment extends Fragment {
             }
         });
 
+        textViewTotal.setText(total);
 
     }
 
@@ -334,7 +383,8 @@ public class NovaVendaFragment extends Fragment {
             BigDecimal updateSaldo = new BigDecimal(saldoAtual).add(saldoItensNovo);
             int updateQuantidade = quantidadeDesejada + quantidadeItem;
             ItemVenda updateItemLista = new ItemVenda(produto.getId(), produto.getNome(), String.valueOf(updateQuantidade), updateSaldo + "");
-
+            BigDecimal updateTotal = new BigDecimal(textViewTotal.getText().toString()).add(saldoItensNovo);
+            textViewTotal.setText(String.valueOf(updateTotal));
             itemVendaList.set(position, updateItemLista);
 
 
@@ -361,6 +411,13 @@ public class NovaVendaFragment extends Fragment {
                     Produto produtoUp = new Produto(produtoUpdate.getId(), produtoUpdate.getNome(), produtoUpdate.getPreco(), String.valueOf(updateQuantidadeLis), produtoUpdate.getStatus());
                     listProdutos.set(position3, produtoUp);
                     adapterNovaVendaDialog.atualiza(listProdutos);
+                    BigDecimal updateTotal = new BigDecimal(textViewTotal.getText().toString()).add(new BigDecimal(produtoUpdate.getPreco()).multiply(new BigDecimal(quantidadeDesejada.toString())));
+                    textViewTotal.setText(String.valueOf(updateTotal));
+
+
+
+
+
                    /* Toast.makeText(getActivity(), position3 + "", Toast.LENGTH_SHORT).show();
 */
 
@@ -466,7 +523,11 @@ public class NovaVendaFragment extends Fragment {
 
 
             }
+            //atualiza saldo total de vendas no perfil da revendedora
 
+            BigDecimal updateSaldo = new BigDecimal(saldoTotal.toString()).add(new BigDecimal(textViewTotal.getText().toString()));
+            Revendedor revendedor = new Revendedor(idRevendedor, idSupervisor, nome, email, senha, photoUrl, pathImg, numero, String.valueOf(updateSaldo));
+            revendedor.atualizaRevendedor(idSupervisor, idRevendedor);
             itemVendaList.clear();
             FragmentManager fm = getActivity().getSupportFragmentManager();
             fm.popBackStack();

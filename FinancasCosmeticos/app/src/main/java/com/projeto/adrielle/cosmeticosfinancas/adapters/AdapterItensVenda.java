@@ -14,6 +14,7 @@ import com.projeto.adrielle.cosmeticosfinancas.model.ItemVenda;
 import com.projeto.adrielle.cosmeticosfinancas.model.Produto;
 import com.tecnoia.matheus.financascosmeticos.R;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -25,6 +26,7 @@ public class AdapterItensVenda extends ArrayAdapter {
     private List<ItemVenda> itemVendaList;
     private List<Produto> produtoList;
     private Integer quantidadeDesejada;
+    private TextView textViewTotal;
 
 
     public AdapterItensVenda(FragmentActivity activity, List<ItemVenda> itemVendaList, Integer quantidadeDesejada, List<Produto> listProdutos) {
@@ -33,6 +35,7 @@ public class AdapterItensVenda extends ArrayAdapter {
         this.activity = activity;
         this.quantidadeDesejada = quantidadeDesejada;
         this.produtoList = listProdutos;
+
 
     }
 
@@ -48,7 +51,7 @@ public class AdapterItensVenda extends ArrayAdapter {
     public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = activity.getLayoutInflater();
         View view = inflater.inflate(R.layout.adapter_nova_venda, null, true);
-        TextView textViewNome, textViewUnidades, textViewSaldoItens;
+        final TextView textViewNome, textViewUnidades, textViewSaldoItens;
         ImageView imageViewRemover;
 
         textViewNome = view.findViewById(R.id.text_nome_separacao);
@@ -60,6 +63,8 @@ public class AdapterItensVenda extends ArrayAdapter {
         final ItemVenda itemVenda = itemVendaList.get(position);
         textViewNome.setText(itemVenda.getNome());
         textViewSaldoItens.setText(itemVenda.getSaldoItens());
+        textViewTotal = activity.findViewById(R.id.total);
+
 
         textViewUnidades.setText(String.format("%sUn", itemVenda.getQuantidade()));
         imageViewRemover.setOnClickListener(new View.OnClickListener() {
@@ -72,14 +77,19 @@ public class AdapterItensVenda extends ArrayAdapter {
                         int quantidadeUpdate = Integer.parseInt(itemVenda.getQuantidade()) + Integer.parseInt(produto.getQuantidade());
                         Produto produto1 = new Produto(produto.getId(), produto.getNome(), produto.getPreco(), String.valueOf(quantidadeUpdate), produto.getStatus());
                         produtoList.set(pos, produto1);
+                        BigDecimal total = new BigDecimal(textViewTotal.getText().toString()).subtract(new BigDecimal(itemVenda.getSaldoItens()));
 
+
+                        textViewTotal.setText(String.valueOf(total));
 
                     }
                     pos++;
 
                 }
+
                 itemVendaList.remove(itemVenda);
                 atualiza(itemVendaList);
+
 
             }
         });
@@ -88,7 +98,9 @@ public class AdapterItensVenda extends ArrayAdapter {
     }
 
     public void atualiza(List<ItemVenda> itemVendas) {
+
         this.itemVendaList = itemVendas;
         this.notifyDataSetChanged();
+
     }
 }

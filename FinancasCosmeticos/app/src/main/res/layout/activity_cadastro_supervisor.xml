@@ -45,7 +45,7 @@
             android:layout_marginTop="8dp">
 
             <EditText
-                android:text="matheusbritodasilva@gmail.com"
+
                 android:maxLength="35"
                 android:id="@+id/edit_email_register_sup"
                 android:layout_width="match_parent"

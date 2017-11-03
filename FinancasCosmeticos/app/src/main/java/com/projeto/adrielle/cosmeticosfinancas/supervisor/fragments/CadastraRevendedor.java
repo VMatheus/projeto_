@@ -243,7 +243,7 @@ public class CadastraRevendedor extends Fragment {
 
     private void showProgressDialog() {
         progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setCanceledOnTouchOutside(true);
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setMessage(getString(R.string.aguarde));
         progressDialog.show();
 

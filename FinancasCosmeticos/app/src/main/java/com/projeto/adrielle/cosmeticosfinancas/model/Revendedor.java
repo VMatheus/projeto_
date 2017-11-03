@@ -1,7 +1,10 @@
 package com.projeto.adrielle.cosmeticosfinancas.model;
 
+import android.util.Log;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
+import com.google.firebase.database.FirebaseDatabase;
 import com.projeto.adrielle.cosmeticosfinancas.DAO.ConfiguracoesFirebase;
 import com.projeto.adrielle.cosmeticosfinancas.utils.ConstantsUtils;
 
@@ -152,6 +155,26 @@ public class Revendedor {
         //atualiza na base raiz para edicao dos dados
         reference.child(idRevendedor).setValue(this);
 
+
+    }
+    public void removerContaRevendedora(String idSupervisor, String idRevendedor) {
+        try {
+
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference(idSupervisor + "/" + ConstantsUtils.BANCO_REVENDEDORES+ "/"+ idRevendedor);
+            reference.removeValue();
+
+            DatabaseReference referenceProdutosVendas = FirebaseDatabase.getInstance().getReference(idSupervisor + "/" + ConstantsUtils.BANCO_PRODUTOS_VENDAS+ "/"+  idRevendedor);
+            referenceProdutosVendas.removeValue();
+
+            DatabaseReference referenceVendasRealizadas = FirebaseDatabase.getInstance().getReference(idSupervisor + "/" + ConstantsUtils.VENDAS_REALIZADAS+ "/"+  idRevendedor);
+            referenceVendasRealizadas.removeValue();
+
+            DatabaseReference referenceRaiz = FirebaseDatabase.getInstance().getReference(idRevendedor);
+            referenceRaiz.removeValue();
+
+        } catch (Exception e) {
+            Log.e(e + "", "Erro remover produto estoque!");
+        }
 
     }
 }

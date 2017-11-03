@@ -110,6 +110,7 @@ public class ConsultarVendasFragment extends Fragment {
                     pathImagem  = revendedor.getPathImagem();
                     numero = revendedor.getNumero();
                     textViewSaldoTotal.setText("Saldo de Vendas: R$ " +revendedor.getSaldoTotal());
+                    ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(nomeRevendedor);
 
 
 
@@ -165,7 +166,7 @@ public class ConsultarVendasFragment extends Fragment {
     private void toolbarVendas() {
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Vendas");
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(nomeRevendedor);
+
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);

@@ -12,7 +12,7 @@
     android:paddingLeft="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_vertical_margin"
     android:paddingTop="@dimen/inbetween_space"
-   >
+    >
 
     <RelativeLayout
         android:clickable="true"
@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
-            android:text="Atualizar"
+            android:text="Alterar Quandidade de Itens Vendidos"
             android:textColor="@color/bs_text_color"
             android:textSize="@dimen/bs_item_text" />
 
@@ -83,7 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
-            android:text="Remover"
+            android:text="Remover  "
             android:textColor="@color/bs_text_color"
             android:textSize="@dimen/bs_item_text" />
 

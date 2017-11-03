@@ -27,7 +27,7 @@ import com.projeto.adrielle.cosmeticosfinancas.EditarPerfilActivitySupervisor;
 import com.projeto.adrielle.cosmeticosfinancas.model.Supervisor;
 import com.projeto.adrielle.cosmeticosfinancas.utils.ConstantsUtils;
 import com.projeto.adrielle.cosmeticosfinancas.utils.GetDataFromFirebase;
-import com.projeto.adrielle.cosmeticosfinancas.utils.ValidaCamposConexao;
+import com.projeto.adrielle.cosmeticosfinancas.utils.Utilitarios;
 import com.tecnoia.matheus.financascosmeticos.R;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -120,7 +120,7 @@ public class PerfilSupervisor extends Fragment {
         switch (item.getItemId()) {
             case R.id.action_desconectar:
                 //Dialog confirmar
-                ValidaCamposConexao.alertDialogDesconectar(getActivity());
+                Utilitarios.alertDialogDesconectar(getActivity());
 
                 break;
             case R.id.action_editar:

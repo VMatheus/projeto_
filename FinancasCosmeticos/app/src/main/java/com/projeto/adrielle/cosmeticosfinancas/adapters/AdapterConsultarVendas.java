@@ -25,7 +25,7 @@ import android.widget.TextView;
 
 import com.tecnoia.matheus.financascosmeticos.R;
 import com.projeto.adrielle.cosmeticosfinancas.model.Produto;
-import com.projeto.adrielle.cosmeticosfinancas.utils.ValidaCamposConexao;
+import com.projeto.adrielle.cosmeticosfinancas.utils.Utilitarios;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -105,10 +105,10 @@ public class AdapterConsultarVendas extends ArrayAdapter {
         quantidade.setText(activity.getString(R.string.itens_a_venda) + " " + produto.getQuantidade());
         status.setText(String.format("Vendidos: %s", produto.getStatus()));
         Integer statusV = Integer.parseInt(produto.getStatus());
-        if (statusV.equals(0)) {
+        /*if (statusV.equals(0)) {
             sendNotification(view);
         }
-
+*/
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -308,7 +308,7 @@ public class AdapterConsultarVendas extends ArrayAdapter {
                     focusView = editTextFornecidos;
                     cancel = true;
 
-                } else if (!ValidaCamposConexao.validaValorEstoque(Integer.parseInt(produtoVenda.getQuantidade()), quantidadeEstoque, Integer.parseInt(valorCampo))) {
+                } else if (!Utilitarios.validaValorEstoque(Integer.parseInt(produtoVenda.getQuantidade()), quantidadeEstoque, Integer.parseInt(valorCampo))) {
                     editTextFornecidos.setError(activity.getString(R.string.estoque_insuficiente));
                     focusView = editTextFornecidos;
                     cancel = true;

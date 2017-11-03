@@ -20,7 +20,6 @@ public class MenuRevendedora extends Fragment {
     private BottomNavigationView bottomNavigationView;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
-    Fragment fragment = null;
 
 
     public static MenuRevendedora newInstance() {
@@ -78,7 +77,7 @@ public class MenuRevendedora extends Fragment {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
+                Fragment fragment = null;
 
                 switch (item.getItemId()) {
                     case R.id.item__vendas:

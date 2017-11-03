@@ -38,10 +38,12 @@
         <activity
             android:name="com.projeto.adrielle.cosmeticosfinancas.EditarPerfilActivitySupervisor"
             android:label="@string/title_activity_perfil"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.projeto.adrielle.cosmeticosfinancas.EditarPerfilActivityRevendedor"
             android:label="@string/title_activity_perfil"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

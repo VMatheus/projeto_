@@ -29,7 +29,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.projeto.adrielle.cosmeticosfinancas.model.Revendedor;
 import com.projeto.adrielle.cosmeticosfinancas.utils.FragmentUtils;
-import com.projeto.adrielle.cosmeticosfinancas.utils.ValidaCamposConexao;
+import com.projeto.adrielle.cosmeticosfinancas.utils.Utilitarios;
 import com.tecnoia.matheus.financascosmeticos.R;
 
 import java.io.ByteArrayOutputStream;
@@ -154,7 +154,7 @@ public class CadastraRevendedor extends Fragment {
             focusView = editTextEmail;
             cancel = true;
 
-        } else if (!ValidaCamposConexao.validaEmail(email)) {
+        } else if (!Utilitarios.validaEmail(email)) {
             editTextEmail.setError(getString(R.string.email_invalido));
             focusView = editTextEmail;
             cancel = true;
@@ -165,7 +165,7 @@ public class CadastraRevendedor extends Fragment {
             focusView = editTextSenha;
             cancel = true;
 
-        } else if (!ValidaCamposConexao.validaSenha(senha)) {
+        } else if (!Utilitarios.validaSenha(senha)) {
             editTextEmail.setError(getString(R.string.senha_invalida));
             focusView = editTextSenha;
             cancel = true;
@@ -198,7 +198,7 @@ public class CadastraRevendedor extends Fragment {
                 if (task.isSuccessful()) {
 
                     //uploadImagem
-                    Bitmap bitmap = ValidaCamposConexao.drawableToBitmap(getActivity().getResources().getDrawable(R.drawable.ic_person));
+                    Bitmap bitmap = Utilitarios.drawableToBitmap(getActivity().getResources().getDrawable(R.drawable.ic_person));
 
                     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);

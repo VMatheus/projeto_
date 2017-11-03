@@ -37,7 +37,7 @@ public class SelecionarProdutos extends Fragment {
     private String idSupervisor;
 
     private AdapterSelecionarProdutos adapterSelecionarProdutos;
-    private String idRevendedor;
+    private String idRevendedora;
     private Toolbar toolbar;
     private ArrayList<Produto> produtosListVendas;
     private Query databaseProdutoVenda, databaseProdutoEstoque;
@@ -63,7 +63,7 @@ public class SelecionarProdutos extends Fragment {
 
         toolbarSelecionarProdutos();
 
-        adapterSelecionarProdutos = new AdapterSelecionarProdutos(getActivity(), produtosListEstoque, produtosListVendas, buttonSalvar, listViewSelecionarProdutos, idSupervisor, idRevendedor);
+        adapterSelecionarProdutos = new AdapterSelecionarProdutos(getActivity(), produtosListEstoque, produtosListVendas, buttonSalvar, listViewSelecionarProdutos, idSupervisor, idRevendedora);
         listViewSelecionarProdutos.setAdapter(adapterSelecionarProdutos);
 
         return rootview;
@@ -110,7 +110,7 @@ public class SelecionarProdutos extends Fragment {
         idSupervisor = sharedPrefSupervisor.getString("idSupervisor", "");
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            idRevendedor = bundle.getString("idRevendedor");
+            idRevendedora = bundle.getString("idRevendedora");
 
         }
 
@@ -152,7 +152,7 @@ public class SelecionarProdutos extends Fragment {
     private void carrecarListaProdutosVenda() {
         produtosListVendas = new ArrayList<>();
 
-        databaseProdutoVenda = ConfiguracoesFirebase.getListaProdutosVenda(idSupervisor, idRevendedor);
+        databaseProdutoVenda = ConfiguracoesFirebase.getListaProdutosVenda(idSupervisor, idRevendedora);
 
         databaseProdutoVenda.keepSynced(true);
 

@@ -18,7 +18,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.mikelau.croperino.Croperino;
 import com.mikelau.croperino.CroperinoFileUtil;
 import com.projeto.adrielle.cosmeticosfinancas.DAO.ConfiguracoesFirebase;
-import com.projeto.adrielle.cosmeticosfinancas.EditarPerfilActivitySupervisor;
 import com.tecnoia.matheus.financascosmeticos.R;
 
 import java.math.BigDecimal;
@@ -30,8 +29,8 @@ import java.util.Locale;
  * Created by matheus on 18/08/17.
  */
 
-public class ValidaCamposConexao {
-
+public class Utilitarios {
+    private static boolean confirmacao = false;
     //classe para validação de campos
 
     public static boolean validaValorEstoque(Integer itensVenda, Integer estoqueAtual, Integer novoValor) {
@@ -76,8 +75,6 @@ public class ValidaCamposConexao {
     }
 
 
-
-
     public static void alertDialogDesconectar(final Context context) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
@@ -91,7 +88,6 @@ public class ValidaCamposConexao {
                                                 int id) {
                                 FirebaseAuth autenticacao = ConfiguracoesFirebase.getFirebaseAutenticacao();
                                 autenticacao.signOut();
-
 
 
                             }
@@ -127,17 +123,17 @@ public class ValidaCamposConexao {
     }
 
     //prepara imagem inicial para upload
-    public static Bitmap drawableToBitmap (Drawable drawable) {
+    public static Bitmap drawableToBitmap(Drawable drawable) {
         Bitmap bitmap = null;
 
         if (drawable instanceof BitmapDrawable) {
             BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
-            if(bitmapDrawable.getBitmap() != null) {
+            if (bitmapDrawable.getBitmap() != null) {
                 return bitmapDrawable.getBitmap();
             }
         }
 
-        if(drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
+        if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
             bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
         } else {
             bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
@@ -148,7 +144,8 @@ public class ValidaCamposConexao {
         drawable.draw(canvas);
         return bitmap;
     }
-    public static void alertDialogNewImage(final AppCompatActivity activity){
+
+    public static void alertDialogNewImage(final AppCompatActivity activity) {
 
         try {
 
@@ -208,10 +205,12 @@ public class ValidaCamposConexao {
         }
 
 
-
-
-
     }
+
+
+
+
+
 
 
 }

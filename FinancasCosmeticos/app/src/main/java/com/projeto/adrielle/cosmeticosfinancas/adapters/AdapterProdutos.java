@@ -1,11 +1,13 @@
 package com.projeto.adrielle.cosmeticosfinancas.adapters;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +17,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.tecnoia.matheus.financascosmeticos.R;
 import com.projeto.adrielle.cosmeticosfinancas.model.Produto;
 import com.projeto.adrielle.cosmeticosfinancas.supervisor.fragments.CadastroProdutoFragment;
 import com.projeto.adrielle.cosmeticosfinancas.utils.FragmentUtils;
+import com.tecnoia.matheus.financascosmeticos.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +62,7 @@ public class AdapterProdutos extends ArrayAdapter {
 
         final Produto produto = produtoList.get(position);
         nome.setText(produto.getNome());
-        preco.setText("R$ "+produto.getPreco().toString());
+        preco.setText("R$ " + produto.getPreco().toString());
         quantidade.setText(String.format(String.format("Estoque: %s", produto.getQuantidade())));
 
         try {
@@ -119,10 +121,8 @@ public class AdapterProdutos extends ArrayAdapter {
         linearLayoutRemover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                produto1.removerProdutoEstoque(idSupervisor, produto1.getId());
-
-
                 dialog.dismiss();
+                popUpRemoverProduto(produto1);
 
 
             }
@@ -130,5 +130,52 @@ public class AdapterProdutos extends ArrayAdapter {
 
     }
 
+    private void popUpRemoverProduto(final Produto produto) {
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+
+        builder.setMessage("Remover este produto?");
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+
+            }
+        });
+        builder.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+
+
+
+                /*
+*/
+
+            }
+        });
+
+
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                produto.removerProdutoEstoque(idSupervisor, produto.getId());
+                dialog.dismiss();
+
+            }
+
+
+        });
+    }
+
 
 }
+
+
+
+

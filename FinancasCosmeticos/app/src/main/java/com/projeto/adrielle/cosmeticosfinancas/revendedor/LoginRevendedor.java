@@ -20,7 +20,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.projeto.adrielle.cosmeticosfinancas.ContainerActivity;
 import com.projeto.adrielle.cosmeticosfinancas.DAO.ConfiguracoesFirebase;
-import com.projeto.adrielle.cosmeticosfinancas.utils.ValidaCamposConexao;
+import com.projeto.adrielle.cosmeticosfinancas.utils.Utilitarios;
 import com.tecnoia.matheus.financascosmeticos.R;
 
 public class LoginRevendedor extends Fragment {
@@ -79,7 +79,7 @@ public class LoginRevendedor extends Fragment {
             focusView = editTextEmail;
             cancel = true;
 
-        } else if (!ValidaCamposConexao.validaEmail(email)) {
+        } else if (!Utilitarios.validaEmail(email)) {
             editTextEmail.setError(getString(R.string.email_invalido));
             focusView = editTextEmail;
             cancel = true;
@@ -90,7 +90,7 @@ public class LoginRevendedor extends Fragment {
             focusView = editTextSenha;
             cancel = true;
 
-        } else if (!ValidaCamposConexao.validaSenha(senha)) {
+        } else if (!Utilitarios.validaSenha(senha)) {
             editTextEmail.setError(getString(R.string.senha_invalida));
             focusView = editTextSenha;
             cancel = true;

@@ -16,10 +16,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseReference;
-import com.tecnoia.matheus.financascosmeticos.R;
 import com.projeto.adrielle.cosmeticosfinancas.model.Revendedor;
 import com.projeto.adrielle.cosmeticosfinancas.supervisor.fragments.ConsultarVendasFragment;
 import com.projeto.adrielle.cosmeticosfinancas.utils.FragmentUtils;
+import com.tecnoia.matheus.financascosmeticos.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +62,8 @@ public class AdapterRevendedores extends RecyclerView.Adapter<AdapterRevendedore
             holder.imageMenu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    menuRevendedor(holder.imageMenu, revendedor.getId(), revendedor.getNome(), revendedor.getSaldoTotal());
+
+                    menuRevendedor(holder.imageMenu, revendedor);
                 }
             });
 
@@ -104,8 +105,8 @@ public class AdapterRevendedores extends RecyclerView.Adapter<AdapterRevendedore
         }
     }
 
-    private void menuRevendedor(View view, final String idRevendedor, final String nomeRevendedor, final String saldoTotal) {
-        PopupMenu popupMenu = new PopupMenu(activity, view);
+    private void menuRevendedor(ImageView imageMenu, final Revendedor revendedor) {
+        PopupMenu popupMenu = new PopupMenu(activity, imageMenu);
         final MenuInflater menuInflater = popupMenu.getMenuInflater();
         menuInflater.inflate(R.menu.menu_list_revendedoras, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -115,9 +116,15 @@ public class AdapterRevendedores extends RecyclerView.Adapter<AdapterRevendedore
                     case R.id.item_consultar_vendas:
 
                         Bundle bundle = new Bundle();
-                        bundle.putString("idRevendedor", idRevendedor);
-                        bundle.putString("nomeRevendedor", nomeRevendedor);
-                        bundle.putString("saldoTotal", String.valueOf(saldoTotal));
+
+                        bundle.putString("idRevendedora", revendedor.getId());
+                        bundle.putString("nome", revendedor.getNome());
+                        bundle.putString("email", revendedor.getEmail());
+                        bundle.putString("senha", revendedor.getSenha());
+                        bundle.putString("photoUrl", revendedor.getPhotoUrl());
+                        bundle.putString("pathImagem", revendedor.getPathImagem());
+                        bundle.putString("numero", revendedor.getNumero());
+                        bundle.putString("saldoTotal", revendedor.getSaldoTotal());
                         Fragment fragment = ConsultarVendasFragment.newInstance();
                         fragment.setArguments(bundle);
                         FragmentUtils.replaceRetorno(activity, fragment);

@@ -28,7 +28,7 @@ import com.projeto.adrielle.cosmeticosfinancas.model.Revendedor;
 import com.projeto.adrielle.cosmeticosfinancas.utils.FragmentUtils;
 import com.projeto.adrielle.cosmeticosfinancas.utils.GetDataFromFirebase;
 import com.projeto.adrielle.cosmeticosfinancas.utils.GridSpacingItemDecoration;
-import com.projeto.adrielle.cosmeticosfinancas.utils.ValidaCamposConexao;
+import com.projeto.adrielle.cosmeticosfinancas.utils.Utilitarios;
 
 import java.util.ArrayList;
 
@@ -120,7 +120,7 @@ public class ListaRevendedores extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if (!ValidaCamposConexao.verificaConexao(getActivity())) {
+                if (!Utilitarios.verificaConexao(getActivity())) {
 
 
                     Toast.makeText(getActivity(), "Verifique sua conexão!", Toast.LENGTH_SHORT).show();

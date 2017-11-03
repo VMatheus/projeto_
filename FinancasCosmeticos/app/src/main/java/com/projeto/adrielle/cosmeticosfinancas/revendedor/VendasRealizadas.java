@@ -66,7 +66,7 @@ public class VendasRealizadas extends Fragment {
         dadosRevendedor();
 
 
-        adapterVendasRealizadas = new AdapterVendasRealizadas(getActivity(), itemVendaList);
+        adapterVendasRealizadas = new AdapterVendasRealizadas(getActivity(), itemVendaList, listViewVendas);
         listViewVendas.setAdapter(adapterVendasRealizadas);
 
 
@@ -106,7 +106,7 @@ public class VendasRealizadas extends Fragment {
                 try {
                     Revendedor revendedor = dataSnapshot.getValue(Revendedor.class);
                     saldoTotal = revendedor.getSaldoTotal();
-                    textViewSaldoTotal.setText(revendedor.getSaldoTotal());
+                    textViewSaldoTotal.setText("Saldo de Vendas: R$ " +revendedor.getSaldoTotal());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

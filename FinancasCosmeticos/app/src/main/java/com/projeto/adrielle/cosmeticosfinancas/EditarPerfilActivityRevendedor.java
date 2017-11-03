@@ -41,7 +41,7 @@ import com.mikelau.croperino.CroperinoFileUtil;
 import com.projeto.adrielle.cosmeticosfinancas.model.Revendedor;
 import com.projeto.adrielle.cosmeticosfinancas.model.Supervisor;
 import com.projeto.adrielle.cosmeticosfinancas.utils.GetDataFromFirebase;
-import com.projeto.adrielle.cosmeticosfinancas.utils.ValidaCamposConexao;
+import com.projeto.adrielle.cosmeticosfinancas.utils.Utilitarios;
 import com.tecnoia.matheus.financascosmeticos.R;
 
 import java.io.ByteArrayOutputStream;
@@ -109,7 +109,7 @@ public class EditarPerfilActivityRevendedor extends AppCompatActivity {
     }
 
     private void selecionarImagem() {
-        ValidaCamposConexao.alertDialogNewImage(this);
+        Utilitarios.alertDialogNewImage(this);
 
 
     }
@@ -188,7 +188,7 @@ public class EditarPerfilActivityRevendedor extends AppCompatActivity {
             focusView = editTextNome;
             cancel = true;
 
-        } else if (!ValidaCamposConexao.validaNome(nome)) {
+        } else if (!Utilitarios.validaNome(nome)) {
             editTextNome.setError(getString(R.string.nome_invalido));
             focusView = editTextNome;
             cancel = true;
@@ -206,7 +206,7 @@ public class EditarPerfilActivityRevendedor extends AppCompatActivity {
             focusView = editTextEmail;
             cancel = true;
 
-        } else if (!ValidaCamposConexao.validaEmail(email)) {
+        } else if (!Utilitarios.validaEmail(email)) {
             editTextEmail.setError(getString(R.string.email_invalido));
             focusView = editTextEmail;
             cancel = true;

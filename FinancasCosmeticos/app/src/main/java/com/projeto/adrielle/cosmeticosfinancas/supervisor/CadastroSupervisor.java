@@ -29,7 +29,7 @@ import com.projeto.adrielle.cosmeticosfinancas.ContainerActivity;
 import com.projeto.adrielle.cosmeticosfinancas.DAO.ConfiguracoesFirebase;
 import com.tecnoia.matheus.financascosmeticos.R;
 import com.projeto.adrielle.cosmeticosfinancas.model.Supervisor;
-import com.projeto.adrielle.cosmeticosfinancas.utils.ValidaCamposConexao;
+import com.projeto.adrielle.cosmeticosfinancas.utils.Utilitarios;
 
 import java.io.ByteArrayOutputStream;
 import java.util.UUID;
@@ -42,7 +42,7 @@ public class CadastroSupervisor extends Fragment {
     private String email, senha, nome, photoUrl;
     private boolean cancel = false;
     private View focusView = null;
-    private ValidaCamposConexao camposConexao = new ValidaCamposConexao();
+    private Utilitarios camposConexao = new Utilitarios();
     private String pathImage;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private static String TAG = "Adicionado ae banco";
@@ -193,7 +193,7 @@ public class CadastroSupervisor extends Fragment {
     public void salvaImagemDefault(final String id) {
 
 
-        Bitmap bitmap = ValidaCamposConexao.drawableToBitmap(getActivity().getResources().getDrawable(R.drawable.ic_person));
+        Bitmap bitmap = Utilitarios.drawableToBitmap(getActivity().getResources().getDrawable(R.drawable.ic_person));
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);

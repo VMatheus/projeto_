@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,7 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.projeto.adrielle.cosmeticosfinancas.EditarPerfilActivityRevendedor;
 import com.projeto.adrielle.cosmeticosfinancas.model.Revendedor;
 import com.projeto.adrielle.cosmeticosfinancas.utils.GetDataFromFirebase;
-import com.projeto.adrielle.cosmeticosfinancas.utils.ValidaCamposConexao;
+import com.projeto.adrielle.cosmeticosfinancas.utils.Utilitarios;
 import com.tecnoia.matheus.financascosmeticos.R;
 
 /**
@@ -123,7 +122,7 @@ public class PerfilRevendedor extends Fragment {
         switch (item.getItemId()) {
             case R.id.action_desconectar:
                 //Dialog confirmar
-                ValidaCamposConexao.alertDialogDesconectar(getActivity());
+                Utilitarios.alertDialogDesconectar(getActivity());
 
                 break;
             case R.id.action_editar:

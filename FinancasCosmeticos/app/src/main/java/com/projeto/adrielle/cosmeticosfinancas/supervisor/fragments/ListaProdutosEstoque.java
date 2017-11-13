@@ -10,16 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.projeto.adrielle.cosmeticosfinancas.DAO.ConfiguracoesFirebase;
-import com.tecnoia.matheus.financascosmeticos.R;
 import com.projeto.adrielle.cosmeticosfinancas.adapters.AdapterProdutos;
 import com.projeto.adrielle.cosmeticosfinancas.model.Produto;
 import com.projeto.adrielle.cosmeticosfinancas.utils.FragmentUtils;
+import com.tecnoia.matheus.financascosmeticos.R;
 
 import java.util.ArrayList;
 
@@ -34,6 +35,7 @@ public class ListaProdutosEstoque extends Fragment {
     private String idSupervisor;
     private ArrayList<Produto> produtosList;
     private AdapterProdutos adapterProdutos;
+    private TextView textViewInfo;
 
     //BottomSheetDialog
 
@@ -60,7 +62,6 @@ public class ListaProdutosEstoque extends Fragment {
     }
 
 
-
     private void preencheLista() {
         produtosList = new ArrayList<>();
 
@@ -73,6 +74,9 @@ public class ListaProdutosEstoque extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
+                    if (!dataSnapshot.exists()) {
+                        textViewInfo.setVisibility(View.VISIBLE);
+                    }
                     produtosList.clear();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Produto produto = snapshot.getValue(Produto.class);
@@ -81,8 +85,6 @@ public class ListaProdutosEstoque extends Fragment {
                     }
 
                     adapterProdutos.atualiza(produtosList);
-
-
 
 
                 } catch (Exception e) {
@@ -107,7 +109,7 @@ public class ListaProdutosEstoque extends Fragment {
 
         listViewProdutos = rootview.findViewById(R.id.list_view_produtos_estoque);
         floatingActionButton = rootview.findViewById(R.id.floating_button_adicionar_produtos);
-
+        textViewInfo = rootview.findViewById(R.id.text_info);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

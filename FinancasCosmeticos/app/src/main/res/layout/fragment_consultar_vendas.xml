@@ -23,9 +23,10 @@
 
         <com.projeto.adrielle.cosmeticosfinancas.utils.RobotoUtils
             android:textSize="18sp"
+            android:layout_margin="15dp"
             android:id="@+id/text_info"
             android:gravity="center"
-            android:text="Tenha controle do fluxo de vendas "
+            android:text="Tenha informações precisas sobre vendas realizadas, torne a gestão do seu negocio mais eficiente."
             android:visibility="gone"
             android:layout_centerVertical="true"
             android:layout_width="match_parent"

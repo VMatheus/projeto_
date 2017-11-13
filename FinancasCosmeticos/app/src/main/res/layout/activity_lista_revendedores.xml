@@ -6,7 +6,16 @@
     android:layout_height="match_parent"
 
     tools:context="com.projeto.adrielle.cosmeticosfinancas.supervisor.fragments.ListaRevendedores">
-
+    <com.projeto.adrielle.cosmeticosfinancas.utils.RobotoUtils
+        android:textSize="18sp"
+        android:layout_margin="15dp"
+        android:id="@+id/text_info"
+        android:gravity="center"
+        android:text="Cadastre e gerencie suas revendedoras com mais facilidade!"
+        android:visibility="gone"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list_view_revendedores"
         android:layout_width="match_parent"

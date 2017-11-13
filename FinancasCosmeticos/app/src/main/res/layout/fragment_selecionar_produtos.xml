@@ -20,27 +20,30 @@
         android:elevation="4dp"
         />
     <!-- TODO: Update blank fragment layout -->
-    <ListView
-        android:id="@+id/list_view_selecionar_produtos"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="15dp">
+        android:layout_height="match_parent">
+        <com.projeto.adrielle.cosmeticosfinancas.utils.RobotoUtils
+            android:textSize="18sp"
+            android:layout_margin="15dp"
+            android:id="@+id/text_info"
+            android:gravity="center"
+            android:text="No momento você não possui nenhum produto cadastrado, seu estoque está Vazio."
+            android:visibility="gone"
+            android:layout_centerVertical="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <ListView
 
-    </ListView>
+            android:id="@+id/list_view_selecionar_produtos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floating_button_selecionar_produtos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="18dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:tint="@android:color/white"
-        app:fabSize="normal"
-        app:srcCompat="@drawable/ic_action_itens_selecionados"
-    />
+        </ListView>
+
+    </RelativeLayout>
+
+
+
 </LinearLayout>

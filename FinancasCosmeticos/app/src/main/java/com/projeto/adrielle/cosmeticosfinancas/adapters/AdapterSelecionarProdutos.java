@@ -34,16 +34,17 @@ public class AdapterSelecionarProdutos extends ArrayAdapter {
     private FragmentActivity activity;
     private List<Produto> produtoListEstoque;
     private List<Produto> produtoListVendas;
-    private FloatingActionButton floatingActionButton;
+
     private ListView listViewProdutos;
     private String idRevendedor, idSupervisor;
 
-    public AdapterSelecionarProdutos(FragmentActivity activity, List<Produto> produtosListEstoque, List<Produto> produtosListVendas, FloatingActionButton buttonSalvar, ListView listViewSelecionarProdutos, String idSupervisor, String idRevendedor) {
+
+    public AdapterSelecionarProdutos(FragmentActivity activity, List<Produto> produtosListEstoque, List<Produto> produtosListVendas, ListView listViewSelecionarProdutos, String idSupervisor, String idRevendedor) {
         super(activity, R.layout.adapter_produtos, produtosListEstoque);
         this.activity = activity;
         this.produtoListEstoque = produtosListEstoque;
         this.produtoListVendas = produtosListVendas;
-        this.floatingActionButton = buttonSalvar;
+
 
         this.listViewProdutos = listViewSelecionarProdutos;
         this.idRevendedor = idRevendedor;
@@ -67,12 +68,7 @@ public class AdapterSelecionarProdutos extends ArrayAdapter {
 
 
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(activity, "floatingActionButton", Toast.LENGTH_SHORT).show();
-            }
-        });
+
         final Produto produto = produtoListEstoque.get(position);
         textViewNome.setText(produto.getNome());
         textViewPreco.setText(String.format("%s R$", produto.getPreco()));

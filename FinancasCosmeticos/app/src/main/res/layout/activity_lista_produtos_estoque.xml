@@ -8,7 +8,6 @@
     tools:context="com.projeto.adrielle.cosmeticosfinancas.supervisor.fragments.ListaProdutosEstoque">
 
     <android.support.v7.widget.Toolbar
-        app:title=" Meu Estoque"
         android:id="@+id/toolbar_lista_produtos_estoque"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -17,11 +16,24 @@
         app:popupTheme="@style/AppTheme"
         app:subtitleTextColor="@android:color/white"
         app:theme="@style/ToolbarColoredBackArrow"
+        app:title=" Meu Estoque"
         app:titleTextColor="@android:color/white" />
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <com.projeto.adrielle.cosmeticosfinancas.utils.RobotoUtils
+            android:id="@+id/text_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="15dp"
+            android:gravity="center"
+            android:text="Uma boa gestão de estoque depende de um controle geral que começa no cadastro de produtos."
+            android:textSize="18sp"
+
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"

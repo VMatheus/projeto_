@@ -21,10 +21,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.projeto.adrielle.cosmeticosfinancas.utils.RobotoUtils
+            android:textSize="18sp"
+            android:id="@+id/text_info"
+            android:gravity="center"
+            android:text="Tenha controle do fluxo de vendas "
+            android:visibility="gone"
+            android:layout_centerVertical="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
 
 
             <ListView

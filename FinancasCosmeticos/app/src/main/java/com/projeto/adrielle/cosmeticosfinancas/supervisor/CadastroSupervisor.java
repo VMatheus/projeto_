@@ -163,6 +163,7 @@ public class CadastroSupervisor extends Fragment {
 
                             String id = autenticacao.getCurrentUser().getUid();
 
+
                             //salvaprimeira imagem default perfil
                             try {
 

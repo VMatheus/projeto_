@@ -38,16 +38,15 @@
             android:layout_margin="20dp"
             android:background="#cccccc"
 
-            android:clickable="true"
-            >
+            android:clickable="true">
 
             <ImageView
-                android:layout_centerInParent="true"
-                android:background="@drawable/image_selector"
                 android:id="@+id/image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitXY" >
+                android:layout_centerInParent="true"
+
+                android:scaleType="fitXY">
 
             </ImageView>
 
@@ -101,13 +100,13 @@
                     android:layout_height="wrap_content">
 
                     <EditText
-                        android:inputType="number|phone"
                         android:id="@+id/edit_numero"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:backgroundTint="@color/transparent"
                         android:hint="Numero"
+                        android:inputType="number|phone"
 
                         android:textSize="15sp" />
                 </android.support.design.widget.TextInputLayout>

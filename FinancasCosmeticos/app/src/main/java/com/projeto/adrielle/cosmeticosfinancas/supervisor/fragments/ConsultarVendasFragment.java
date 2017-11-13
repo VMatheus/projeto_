@@ -50,6 +50,7 @@ public class ConsultarVendasFragment extends Fragment {
     private Query databaseProdutoVenda, databaseProdutoEstoque;
     private SharedPreferences sharedPrefSupervisor;
     private String idSupervisor;
+    private TextView textViewInf;
     private String idRevendedora;
     private ListView listViewProdutosVenda;
     private AdapterConsultarVendas adapterConsultarVendas;
@@ -142,6 +143,7 @@ public class ConsultarVendasFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
+
                     for (DataSnapshot snapshotEstoque : dataSnapshot.getChildren()) {
                         Produto produto = snapshotEstoque.getValue(Produto.class);
                         produtosListEstoque.add(produto);
@@ -185,6 +187,10 @@ public class ConsultarVendasFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
+                    if(!dataSnapshot.exists()) {
+                        textViewInf.setVisibility(View.VISIBLE);
+
+                    }
                     produtosListVendas.clear();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Produto produto = snapshot.getValue(Produto.class);
@@ -296,6 +302,7 @@ public class ConsultarVendasFragment extends Fragment {
 
 
     private void initViews(View rootView) {
+        textViewInf = rootView.findViewById(R.id.text_info);
         toolbar = rootView.findViewById(R.id.toolbar_consultar_vendas);
         listViewProdutosVenda = rootView.findViewById(R.id.list_view_produtos_venda);
         buttonAdicionarProdutos = rootView.findViewById(R.id.floating_button_adicionar_produtos_venda);

@@ -92,7 +92,7 @@ public class EditarPerfilActivitySupervisor extends AppCompatActivity {
         preencherPerfil();
 
 
-        new CroperinoConfig("IMG_" + System.currentTimeMillis() + ".jpg", "/Financas_Cosmeticos/Pictures", "/sdcard/Financas_Cosmeticos/Pictures");
+        new CroperinoConfig("IMG_" + System.currentTimeMillis() + ".png", "/Financas_Cosmeticos/Pictures", "/sdcard/Financas_Cosmeticos/Pictures");
         CroperinoFileUtil.setupDirectory(EditarPerfilActivitySupervisor.this);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -311,7 +311,7 @@ public class EditarPerfilActivitySupervisor extends AppCompatActivity {
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
                 byte[] data = outputStream.toByteArray();
-                imgPathUpdate = UUID.randomUUID().toString();
+                imgPathUpdate = UUID.randomUUID().toString()+".png";
 
                 StorageReference storageImagem = storageReference.child("/").child(imgPathUpdate);
 
@@ -346,7 +346,7 @@ public class EditarPerfilActivitySupervisor extends AppCompatActivity {
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
                 byte[] data = outputStream.toByteArray();
-                imgPathUpdate = UUID.randomUUID().toString();
+                imgPathUpdate = UUID.randomUUID().toString()+".png";
 
                 StorageReference storageImagem = storageReference.child("/").child(imgPathUpdate);
 

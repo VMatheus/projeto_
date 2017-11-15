@@ -38,7 +38,7 @@ public class VendasRealizadas extends Fragment {
     private FloatingActionButton buttonNovaVenda;
     private List<ItemVenda> itemVendaList;
     private SharedPreferences sharedPrefRevendedor;
-    private TextView textViewSaldoTotal;
+    private TextView textViewSaldoTotal, textViewInf;
     private String idSupervisor, idRevendedor, saldoTotal;
     private DatabaseReference databaseVendasRealizadas;
     private AdapterVendasRealizadas adapterVendasRealizadas;
@@ -132,6 +132,9 @@ public class VendasRealizadas extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
+                    if(!dataSnapshot.exists()){
+                        textViewInf.setVisibility(View.VISIBLE);
+                    }
                     itemVendaList.clear();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
@@ -159,6 +162,7 @@ public class VendasRealizadas extends Fragment {
 
     private void initViews(View rootView) {
         textViewSaldoTotal = rootView.findViewById(R.id.text_saldo_total);
+        textViewInf = rootView.findViewById(R.id.text_info);
         listViewVendas = rootView.findViewById(R.id.list_view_vendas_realizadas);
         buttonNovaVenda = rootView.findViewById(R.id.floating_button_nova_venda);
         buttonNovaVenda.setOnClickListener(new View.OnClickListener() {

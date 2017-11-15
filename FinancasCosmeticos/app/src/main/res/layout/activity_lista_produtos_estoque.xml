@@ -30,7 +30,7 @@
             android:layout_centerVertical="true"
             android:layout_margin="15dp"
             android:gravity="center"
-            android:text="Uma boa gestão de estoque depende de um controle geral que começa no cadastro de produtos."
+            android:text="Visualize aqui as vendas já realizadas."
             android:textSize="18sp"
 
             android:visibility="gone" />

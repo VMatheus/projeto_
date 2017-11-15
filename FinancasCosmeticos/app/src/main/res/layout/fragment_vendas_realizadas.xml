@@ -10,6 +10,17 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <com.projeto.adrielle.cosmeticosfinancas.utils.RobotoUtils
+            android:id="@+id/text_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="15dp"
+            android:gravity="center"
+            android:text="Visualização de produtos já vendidos."
+            android:textSize="18sp"
+
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,7 +36,7 @@
 
             </ListView>
             <LinearLayout
-               
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">

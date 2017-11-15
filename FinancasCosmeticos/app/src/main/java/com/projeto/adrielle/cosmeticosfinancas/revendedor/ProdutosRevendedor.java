@@ -9,16 +9,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.projeto.adrielle.cosmeticosfinancas.DAO.ConfiguracoesFirebase;
-import com.tecnoia.matheus.financascosmeticos.R;
 import com.projeto.adrielle.cosmeticosfinancas.adapters.AdapterProdutosRevendedor;
 import com.projeto.adrielle.cosmeticosfinancas.model.Produto;
 import com.projeto.adrielle.cosmeticosfinancas.utils.GetDataFromFirebase;
+import com.tecnoia.matheus.financascosmeticos.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,7 @@ public class ProdutosRevendedor extends Fragment {
     private ListView listViewVendas;
     private Query databaseVendas;
     private List<Produto> produtoList;
+    private TextView textViewInfo;
 
     private SharedPreferences sharedPrefRevendedor;
     private String idSupervisor;
@@ -74,6 +76,9 @@ public class ProdutosRevendedor extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
+                    if(!dataSnapshot.exists()){
+                        textViewInfo.setVisibility(View.VISIBLE);
+                    }
                     produtoList.clear();
 
                     for (DataSnapshot snapshotProdutos : dataSnapshot.getChildren()) {
@@ -101,6 +106,7 @@ public class ProdutosRevendedor extends Fragment {
 
     private void initViews(View rootView) {
         listViewVendas = rootView.findViewById(R.id.list_view_vendas_revendedor);
+        textViewInfo = rootView.findViewById(R.id.text_info);
 
 
     }

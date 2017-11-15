@@ -1,14 +1,35 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.projeto.adrielle.cosmeticosfinancas.revendedor.ProdutosRevendedor">
 
     <!-- TODO: Update blank fragment layout -->
-  <ListView
-      android:layout_margin="10dp"
-        android:id="@+id/list_view_vendas_revendedor"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <com.projeto.adrielle.cosmeticosfinancas.utils.RobotoUtils
+            android:id="@+id/text_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="15dp"
+            android:gravity="center"
+            android:text="Produtos disponíveis para venda."
+            android:textSize="18sp"
+
+            android:visibility="gone" />
+
+        <ListView
+            android:id="@+id/list_view_vendas_revendedor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp" />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

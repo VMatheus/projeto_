@@ -70,6 +70,7 @@
     <string name="title_activity_editar_perfil_revendedor">EditarPerfilRevendedorActivity</string>
     <string name="numero">Numero</string>
     <string name="title_activity_perfil">Perfil</string>
+    <string name="quantidade_acancelar">Quantidade à cancelar: </string>
 
 
 </resources>

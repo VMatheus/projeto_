@@ -20,7 +20,7 @@
         android:layout_height="@dimen/bs_item_height"
         android:orientation="horizontal">
 
-        <TextView
+        <com.projeto.adrielle.cosmeticosfinancas.utils.RobotoUtils
             android:layout_centerInParent="true"
             android:layout_alignParentLeft="true"
             android:layout_width="match_parent"
@@ -28,7 +28,7 @@
 
             android:layout_marginRight="@dimen/activity_vertical_margin"
             android:text="Opções"
-            android:textColor="#0A0909"
+
             android:textSize="@dimen/bs_header_text" />
 
 
@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
-            android:text="Alterar Quandidade de Itens Vendidos"
+            android:text="Cancelar venda de Itens"
             android:textColor="@color/bs_text_color"
             android:textSize="@dimen/bs_item_text" />
 
@@ -65,6 +65,7 @@
 
 
     <LinearLayout
+        android:visibility="gone"
         android:background="?attr/selectableItemBackground"
         android:id="@+id/linear_remover"
         android:clickable="true"

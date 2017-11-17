@@ -51,14 +51,14 @@
                 android:hint="@string/senha"
                 android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
-        <TextView
+      <!--  <TextView
             android:id="@+id/text_rec_senha"
             android:background="?attr/selectableItemBackground"
             android:layout_gravity="right"
             android:text="Esqueci minha senha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
+-->
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_login_sup"
             style="@style/Base.Widget.AppCompat.Button.Colored"

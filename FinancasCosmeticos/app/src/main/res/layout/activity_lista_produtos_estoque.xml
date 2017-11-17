@@ -30,7 +30,7 @@
             android:layout_centerVertical="true"
             android:layout_margin="15dp"
             android:gravity="center"
-            android:text="Visualize aqui as vendas já realizadas."
+            android:text="É no estoque que boa parte de seu investimento está. Uma boa gestão de estoque depende de um controle geral que começa no cadastro de produtos."
             android:textSize="18sp"
 
             android:visibility="gone" />

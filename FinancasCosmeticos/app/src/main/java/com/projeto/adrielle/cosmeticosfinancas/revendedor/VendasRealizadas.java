@@ -15,14 +15,16 @@ import android.widget.TextView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.projeto.adrielle.cosmeticosfinancas.DAO.ConfiguracoesFirebase;
-import com.tecnoia.matheus.financascosmeticos.R;
 import com.projeto.adrielle.cosmeticosfinancas.adapters.AdapterVendasRealizadas;
 import com.projeto.adrielle.cosmeticosfinancas.model.ItemVenda;
+import com.projeto.adrielle.cosmeticosfinancas.model.Produto;
 import com.projeto.adrielle.cosmeticosfinancas.model.Revendedor;
 import com.projeto.adrielle.cosmeticosfinancas.utils.FragmentUtils;
 import com.projeto.adrielle.cosmeticosfinancas.utils.GetDataFromFirebase;
+import com.tecnoia.matheus.financascosmeticos.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +45,12 @@ public class VendasRealizadas extends Fragment {
     private DatabaseReference databaseVendasRealizadas;
     private AdapterVendasRealizadas adapterVendasRealizadas;
     private DatabaseReference databaseDadosRevendedor;
+    private String nome, email, numero, senha, photoUrl, pathImg, saldoTotalEd;
+
 
     private List<Revendedor> dadosRevendedorList = new ArrayList<>();
+    private ArrayList<Produto> listProdutos = new ArrayList<>();
+
 
 
     public static VendasRealizadas newInstance() {
@@ -61,16 +67,55 @@ public class VendasRealizadas extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_vendas_realizadas, container, false);
 
         initViews(rootView);
+
         recuperaDados();
+
         preencheLista();
+        carregaProdutos();
         dadosRevendedor();
 
 
-        adapterVendasRealizadas = new AdapterVendasRealizadas(getActivity(), itemVendaList, listViewVendas);
+        adapterVendasRealizadas = new AdapterVendasRealizadas(getActivity(), itemVendaList, listViewVendas, listProdutos, idRevendedor, idSupervisor, nome, email, numero, senha, photoUrl, pathImg, saldoTotal);
         listViewVendas.setAdapter(adapterVendasRealizadas);
 
 
         return rootView;
+    }
+
+    private void carregaProdutos() {
+
+        Query referenceProdutos = ConfiguracoesFirebase.getListaProdutosVenda(idSupervisor, idRevendedor);
+        referenceProdutos.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try {
+                    listProdutos.clear();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Produto produto = snapshot.getValue(Produto.class);
+
+                        listProdutos.add(produto);
+
+
+                        //
+
+                    }
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
 
     private void dadosRevendedor() {
@@ -106,7 +151,14 @@ public class VendasRealizadas extends Fragment {
                 try {
                     Revendedor revendedor = dataSnapshot.getValue(Revendedor.class);
                     saldoTotal = revendedor.getSaldoTotal();
-                    textViewSaldoTotal.setText("Saldo de Vendas: R$ " +revendedor.getSaldoTotal());
+                    textViewSaldoTotal.setText("Saldo de Vendas: R$ " + revendedor.getSaldoTotal());
+                    nome = revendedor.getNome();
+                    numero = revendedor.getNumero();
+                    email = revendedor.getEmail();
+                    senha = revendedor.getSenha();
+                    photoUrl = revendedor.getPhotoUrl();
+                    pathImg = revendedor.getPathImagem();
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -132,7 +184,7 @@ public class VendasRealizadas extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
-                    if(!dataSnapshot.exists()){
+                    if (!dataSnapshot.exists()) {
                         textViewInf.setVisibility(View.VISIBLE);
                     }
                     itemVendaList.clear();

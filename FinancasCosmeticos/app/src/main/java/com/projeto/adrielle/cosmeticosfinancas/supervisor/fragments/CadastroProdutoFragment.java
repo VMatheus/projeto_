@@ -128,8 +128,6 @@ public class CadastroProdutoFragment extends Fragment {
         String aux = editTextPreco.getText().toString();
         String valorFinal = convertStringFinal(aux.substring(2));
 
-        Toast.makeText(getActivity()
-                , valorFinal + "", Toast.LENGTH_SHORT).show();
 
         Produto produto = new Produto(idProduto, nome, valorFinal, quantidade, "0");
         produto.salvarProduto(idSupervisor);

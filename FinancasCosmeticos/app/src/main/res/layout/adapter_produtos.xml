@@ -2,62 +2,72 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/card_margin"
+
     android:orientation="horizontal"
 
     >
-
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.7"
-        android:orientation="horizontal">
-
-
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <LinearLayout
-
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:orientation="vertical">
+            android:layout_weight="0.7"
+            android:orientation="horizontal">
 
-            <com.projeto.adrielle.cosmeticosfinancas.utils.RobotoUtils
-                android:textSize="16sp"
-                android:id="@+id/text_nome_produto_estoque"
+
+            <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Base Líquida TimeWise® Acabamento Matte" />
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
+                <com.projeto.adrielle.cosmeticosfinancas.utils.RobotoUtils
+                    android:textSize="16sp"
+
+                    android:id="@+id/text_nome_produto_estoque"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Base Líquida TimeWise® Acabamento Matte" />
+
+                <com.projeto.adrielle.cosmeticosfinancas.utils.OpenSansUtils
+                    android:textSize="14sp"
+                    android:padding="2dp"
+
+                    android:id="@+id/text_quantidade_produto_estoque"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+
+                    />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:gravity="center_horizontal">
 
             <com.projeto.adrielle.cosmeticosfinancas.utils.OpenSansUtils
                 android:textSize="14sp"
-                android:id="@+id/text_quantidade_produto_estoque"
+                android:gravity="end"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/text_preco_produto_estoque"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-
-                />
+                android:text="64,00 R$" />
 
         </LinearLayout>
 
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="0.2"
-        android:gravity="center_horizontal">
-
-        <com.projeto.adrielle.cosmeticosfinancas.utils.OpenSansUtils
-            android:textSize="14sp"
-            android:gravity="end"
-            android:layout_gravity="center_vertical"
-            android:id="@+id/text_preco_produto_estoque"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="64,00 R$" />
-
-    </LinearLayout>
 
 
 </LinearLayout>

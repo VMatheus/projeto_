@@ -2,69 +2,79 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/card_margin"
+
     android:orientation="horizontal"
     android:id="@+id/linear_adapter_vendas"
 
     >
-
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.7"
-        android:orientation="horizontal">
-
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
-
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:orientation="vertical">
+            android:layout_weight="0.7"
+            android:orientation="horizontal">
 
-            <com.projeto.adrielle.cosmeticosfinancas.utils.RobotoUtils
 
-                android:id="@+id/text_nome_produto_venda"
+            <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:text="Base Líquida TimeWise® Acabamento Matte" />
+                android:layout_margin="10dp"
+                android:orientation="vertical">
 
-            <com.projeto.adrielle.cosmeticosfinancas.utils.OpenSansUtils
-              android:padding="2dp"
-                android:id="@+id/text_disponiveis_avenda"
+                <com.projeto.adrielle.cosmeticosfinancas.utils.RobotoUtils
+
+                    android:id="@+id/text_nome_produto_venda"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="Base Líquida TimeWise® Acabamento Matte" />
+
+                <com.projeto.adrielle.cosmeticosfinancas.utils.OpenSansUtils
+                    android:padding="2dp"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/text_disponiveis_avenda"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:text="" />
+
+                <com.projeto.adrielle.cosmeticosfinancas.utils.OpenSansUtils
+                    android:padding="2dp"
+                    android:id="@+id/tex_status_vendidos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:layout_marginTop="10dp"
+                    />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/text_preco_produto_venda"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="" />
-
-            <com.projeto.adrielle.cosmeticosfinancas.utils.OpenSansUtils
-                android:padding="2dp"
-                android:id="@+id/tex_status_vendidos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                 />
+                android:layout_gravity="center_vertical"
+                android:gravity="end"
+                android:text="64,00 R$"
+                android:textSize="14sp" />
 
         </LinearLayout>
 
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="0.2"
-        android:gravity="center_horizontal">
-
-        <TextView
-            android:id="@+id/text_preco_produto_venda"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="start"
-            android:text="64,00 R$"
-            android:textSize="14sp" />
 
     </LinearLayout>
 

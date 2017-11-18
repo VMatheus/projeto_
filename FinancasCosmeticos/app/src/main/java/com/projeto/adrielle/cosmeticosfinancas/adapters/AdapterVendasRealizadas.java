@@ -39,10 +39,9 @@ public class AdapterVendasRealizadas extends ArrayAdapter {
     private boolean existente = false;
     private String idRevendedor, idSupervisor;
     private Revendedor revendedor;
-    private String nome, email, numero, senha, photoUrl, pathImg, saldoTotalEd;
 
 
-    public AdapterVendasRealizadas(FragmentActivity activity, List<ItemVenda> itemVendaList, ListView listViewVendas, ArrayList<Produto> listProdutos, String idRevendedor, String idSupervisor, String nome, String email, String numero, String senha, String photoUrl, String pathImg, String saldoTotalEd) {
+    public AdapterVendasRealizadas(FragmentActivity activity, List<ItemVenda> itemVendaList, ListView listViewVendas, ArrayList<Produto> listProdutos, String idRevendedor, String idSupervisor, Revendedor revendedor1) {
         super(activity, R.layout.adapter_vendas_realizadas);
         this.activity = activity;
         this.itemVendaList = itemVendaList;
@@ -50,14 +49,8 @@ public class AdapterVendasRealizadas extends ArrayAdapter {
         this.listProdutos = listProdutos;
         this.idRevendedor = idRevendedor;
         this.idSupervisor = idSupervisor;
-        this.revendedor = revendedor;
-        this.nome = nome;
-        this.email = email;
-        this.numero = numero;
-        this.senha = senha;
-        this.photoUrl = photoUrl;
-        this.pathImg = pathImg;
-        this.saldoTotalEd = saldoTotalEd;
+        this.revendedor = revendedor1;
+
 
     }
 
@@ -106,7 +99,7 @@ public class AdapterVendasRealizadas extends ArrayAdapter {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ItemVenda itemVenda1 = itemVendaList.get(i);
-               /* dialogCancelarVenda(itemVenda1);*/
+                dialogCancelarVenda(itemVenda1);
                 return true;
             }
         });
@@ -208,7 +201,6 @@ public class AdapterVendasRealizadas extends ArrayAdapter {
 
                         }
                         if (existente) {
-/*
                             //atualiza itens vendidos
 
                             ItemVenda itemVenda = new ItemVenda(itemVenda1.getId(), itemVenda1.getNome(), String.valueOf(novoValor), String.valueOf(novoSaldo));
@@ -221,16 +213,15 @@ public class AdapterVendasRealizadas extends ArrayAdapter {
                             int updateStatus = Integer.parseInt(produto2.getStatus()) - valorCampo;
                             Produto produto3 = new Produto(produto2.getId(), produto2.getNome(), produto2.getPreco(), String.valueOf(updateQuantidade), String.valueOf(updateStatus));
                             produto3.salvaProdutoVendas(idSupervisor, idRevendedor);
-*/
 
 
                             //atualiza saldo
-                            Toast.makeText(activity, ""+ saldoTotalEd, Toast.LENGTH_SHORT).show();
-                          /*  BigDecimal updateSaldo2 = new BigDecimal(saldoTotalEd).subtract(new BigDecimal(String.valueOf(novoSaldo)));
-                            Toast.makeText(activity, ""+ String.valueOf(updateSaldo2), Toast.LENGTH_SHORT).show();
-                        /*    Revendedor revendedor = new Revendedor(idRevendedor, idSupervisor, nome, email, senha, photoUrl, pathImg, numero, String.valueOf(updateSaldo));
-                            revendedor.atualizaRevendedor(idSupervisor, idRevendedor);
-*/
+
+                            BigDecimal updateSaldo2 = new BigDecimal(revendedor.getSaldoTotal()).subtract(novoSaldo);
+
+                            Revendedor revendedor2 = new Revendedor(idRevendedor, idSupervisor, revendedor.getNome(), revendedor.getEmail(), revendedor.getSenha(), revendedor.getPhotoUrl(), revendedor.getPathImagem(), revendedor.getNumero(), String.valueOf(updateSaldo2));
+
+                            revendedor2.atualizaRevendedor(idSupervisor, idRevendedor);
 
                         }
 

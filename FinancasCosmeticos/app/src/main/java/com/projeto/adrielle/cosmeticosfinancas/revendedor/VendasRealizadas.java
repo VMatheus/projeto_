@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +51,8 @@ public class VendasRealizadas extends Fragment {
 
     private List<Revendedor> dadosRevendedorList = new ArrayList<>();
     private ArrayList<Produto> listProdutos = new ArrayList<>();
-
+    private Revendedor revendedor;
+    private Revendedor revendedor1;
 
 
     public static VendasRealizadas newInstance() {
@@ -74,9 +76,6 @@ public class VendasRealizadas extends Fragment {
         carregaProdutos();
         dadosRevendedor();
 
-
-        adapterVendasRealizadas = new AdapterVendasRealizadas(getActivity(), itemVendaList, listViewVendas, listProdutos, idRevendedor, idSupervisor, nome, email, numero, senha, photoUrl, pathImg, saldoTotal);
-        listViewVendas.setAdapter(adapterVendasRealizadas);
 
 
         return rootView;
@@ -149,16 +148,11 @@ public class VendasRealizadas extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
-                    Revendedor revendedor = dataSnapshot.getValue(Revendedor.class);
+                    revendedor = dataSnapshot.getValue(Revendedor.class);
                     saldoTotal = revendedor.getSaldoTotal();
                     textViewSaldoTotal.setText("Saldo de Vendas: R$ " + revendedor.getSaldoTotal());
-                    nome = revendedor.getNome();
-                    numero = revendedor.getNumero();
-                    email = revendedor.getEmail();
-                    senha = revendedor.getSenha();
-                    photoUrl = revendedor.getPhotoUrl();
-                    pathImg = revendedor.getPathImagem();
 
+                    dados(revendedor);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -171,6 +165,16 @@ public class VendasRealizadas extends Fragment {
 
             }
         });
+
+
+    }
+
+    private void dados(Revendedor revendedor) {
+        revendedor1 = revendedor;
+        adapterVendasRealizadas = new AdapterVendasRealizadas(getActivity(), itemVendaList, listViewVendas, listProdutos, idRevendedor, idSupervisor, revendedor1);
+        listViewVendas.setAdapter(adapterVendasRealizadas);
+        Log.v("REV", revendedor1.getNome());
+
 
 
     }

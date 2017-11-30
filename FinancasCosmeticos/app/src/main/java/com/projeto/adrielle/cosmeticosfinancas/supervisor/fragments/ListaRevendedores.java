@@ -91,6 +91,8 @@ public class ListaRevendedores extends Fragment {
                     if(!dataSnapshot.exists()){
                         textViewInfo.setVisibility(View.VISIBLE);
 
+                    }else {
+                        textViewInfo.setVisibility(View.GONE);
                     }
 
 

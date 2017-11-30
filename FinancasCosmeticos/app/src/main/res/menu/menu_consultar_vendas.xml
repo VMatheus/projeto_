@@ -5,6 +5,7 @@
     <!-- "file" submenu -->
 
     <item
+        android:visible="false"
         android:id="@+id/action_limpar_estoque_rev"
         android:title="Limpar Estoque" />
     <item

@@ -232,6 +232,8 @@ public class ConsultarVendasFragment extends Fragment {
                 break;
 
             case R.id.action_limpar_estoque_rev:
+                //fazer
+
 
                 break;
 

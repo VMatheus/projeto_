@@ -6,12 +6,18 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.support.v7.widget.Toolbar;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,7 +42,7 @@ import static android.content.Context.MODE_PRIVATE;
  * A simple {@link Fragment} subclass.
  */
 public class VendasRealizadas extends Fragment {
-
+    private Toolbar toolbar;
     private ListView listViewVendas;
     private FloatingActionButton buttonNovaVenda;
     private List<ItemVenda> itemVendaList;
@@ -69,17 +75,36 @@ public class VendasRealizadas extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_vendas_realizadas, container, false);
 
         initViews(rootView);
+        setHasOptionsMenu(true);
+
 
         recuperaDados();
 
         preencheLista();
         carregaProdutos();
         dadosRevendedor();
+        toolbarVendas();
+
 
 
 
         return rootView;
     }
+
+    private void toolbarVendas() {
+
+
+
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.vendas));
+
+    }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_vendas, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
 
     private void carregaProdutos() {
 
@@ -217,6 +242,7 @@ public class VendasRealizadas extends Fragment {
     }
 
     private void initViews(View rootView) {
+        toolbar = rootView.findViewById(R.id.toolbar_vendas);
         textViewSaldoTotal = rootView.findViewById(R.id.text_saldo_total);
         textViewInf = rootView.findViewById(R.id.text_info);
         listViewVendas = rootView.findViewById(R.id.list_view_vendas_realizadas);
@@ -234,6 +260,7 @@ public class VendasRealizadas extends Fragment {
     }
 
     private void recuperaDados() {
+
         sharedPrefRevendedor = getActivity().getPreferences(MODE_PRIVATE);
         idSupervisor = sharedPrefRevendedor.getString("idSupervisor", "");
         idRevendedor = sharedPrefRevendedor.getString("idRevendedor", "");

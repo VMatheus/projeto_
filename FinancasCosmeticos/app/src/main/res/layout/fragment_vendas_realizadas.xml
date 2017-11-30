@@ -10,6 +10,18 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <android.support.v7.widget.Toolbar
+
+            app:theme="@style/ToolbarColoredBackArrow"
+            app:popupTheme="@style/AppTheme"
+            app:subtitleTextColor="@android:color/white"
+            app:titleTextColor="@android:color/white"
+            android:id="@+id/toolbar_vendas"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            />
         <com.projeto.adrielle.cosmeticosfinancas.utils.RobotoUtils
             android:id="@+id/text_info"
             android:layout_width="match_parent"

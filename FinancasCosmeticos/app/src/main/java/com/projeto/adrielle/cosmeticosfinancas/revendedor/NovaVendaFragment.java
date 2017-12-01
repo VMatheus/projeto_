@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +50,7 @@ import static android.content.Context.MODE_PRIVATE;
  */
 @SuppressWarnings({"ALL", "ConstantConditions"})
 public class NovaVendaFragment extends Fragment {
-    private Toolbar toolbar;
+    private Toolbar toolbarNovaVenda;
     private TextView textViewSelecionaProduto, textViewTotal;
     private String idSupervisor, idRevendedor;
     private AdapterNovaVendaDialog adapterNovaVendaDialog;
@@ -82,6 +84,10 @@ public class NovaVendaFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if (container != null) {
+            container.removeAllViews();
+        }
+
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_nova_venda, container, false);
         setHasOptionsMenu(true);
@@ -138,6 +144,13 @@ public class NovaVendaFragment extends Fragment {
 
 
     }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear(); //limpa menu fragmento anterior
+
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
     private void carregaProdutos() {
 
@@ -182,7 +195,8 @@ public class NovaVendaFragment extends Fragment {
 
     @SuppressWarnings("ConstantConditions")
     private void toolbarNovaVenda() {
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        toolbarNovaVenda.hideOverflowMenu();
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbarNovaVenda);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Nova Venda");
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -190,8 +204,11 @@ public class NovaVendaFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
             case android.R.id.home:
                 FragmentManager fm = getActivity().getSupportFragmentManager();
@@ -199,15 +216,18 @@ public class NovaVendaFragment extends Fragment {
 
                 break;
 
+
         }
 
 
         return super.onOptionsItemSelected(item);
     }
 
+
     private void initViews(View rootView) {
         textViewTotal = rootView.findViewById(R.id.total);
-        toolbar = rootView.findViewById(R.id.toolbar_nova_venda);
+        toolbarNovaVenda = rootView.findViewById(R.id.toolbar_nova_venda);
+
         Button buttonFinalizarVenda = rootView.findViewById(R.id.buttomFinalizarVenda);
         listViewProdutosEmSeparação = rootView.findViewById(R.id.list_view_produtos_separacao);
         textViewSelecionaProduto = rootView.findViewById(R.id.text_seleciona_produto);

@@ -1,12 +1,15 @@
 package com.projeto.adrielle.cosmeticosfinancas.revendedor;
 
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,7 +21,10 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -59,6 +65,7 @@ public class VendasRealizadas extends Fragment {
     private ArrayList<Produto> listProdutos = new ArrayList<>();
     private Revendedor revendedor;
     private Revendedor revendedor1;
+    private ProgressDialog progressDialog;
 
 
     public static VendasRealizadas newInstance() {
@@ -103,6 +110,69 @@ public class VendasRealizadas extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_vendas, menu);
         super.onCreateOptionsMenu(menu, inflater);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            
+            case R.id.limpar_historico:
+                confirmacao();
+                break;
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void confirmacao() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        builder.setMessage("Você tem certeza que deseja  excluir todo o historico de Vendas?");
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+
+            }
+        });
+        builder.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+
+
+
+                /*
+*/
+
+            }
+        });
+
+
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                showProgressDialog();
+
+                 limparHistorico();
+            }
+
+
+        });
+
+
+    }
+
+    private void limparHistorico() {
+        revendedor.limparHistorico(revendedor.getId(), revendedor.getIdSupervisor());
+        Toast.makeText(getActivity(), "Limpo", Toast.LENGTH_SHORT).show();
+        progressDialog.dismiss();
+        
     }
 
 
@@ -242,7 +312,7 @@ public class VendasRealizadas extends Fragment {
     }
 
     private void initViews(View rootView) {
-        toolbar = rootView.findViewById(R.id.toolbar_vendas);
+        toolbar = rootView.findViewById(R.id.toolbar_vendas_realizadas);
         textViewSaldoTotal = rootView.findViewById(R.id.text_saldo_total);
         textViewInf = rootView.findViewById(R.id.text_info);
         listViewVendas = rootView.findViewById(R.id.list_view_vendas_realizadas);
@@ -267,6 +337,15 @@ public class VendasRealizadas extends Fragment {
 
 
     }
+    private void showProgressDialog() {
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setMessage(getActivity().getString(R.string.aguarde));
+        progressDialog.show();
+
+
+    }
+
 
 
 }

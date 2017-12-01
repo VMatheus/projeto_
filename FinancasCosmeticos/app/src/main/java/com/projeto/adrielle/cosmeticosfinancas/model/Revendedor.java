@@ -177,5 +177,9 @@ public class Revendedor {
         }
 
     }
+
+    public void limparHistorico(String id, String idSupervisor) {
+
+    }
 }
 
